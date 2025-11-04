@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>LinkedIn Scraper - Comprehensive Social Media Data Extraction | Shubham Apat</title>
+<meta name="keywords" content="Web Scraping, Social Media, LinkedIn, Google Search, Recaptcha Bypass">
+<meta name="description" content="Advanced LinkedIn scraper that extracts posts, profiles, and jobs without login requirements, with built-in Google reCAPTCHA bypass capability.">
+<meta name="author" content="">
+<link rel="canonical" href="https://shubhamapat7.github.io/projects/linkedin-scraper/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6e04ee46d2c7afece6b54a05f2620f6336a323618852a4391ecff8c50f09cf28.css" integrity="sha256-bgTuRtLHr&#43;zmtUoF8mIPYzajI2GIUqQ5Hs/4xQ8Jzyg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/projects/linkedin-scraper/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://shubhamapat7.github.io/projects/linkedin-scraper/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="LinkedIn Scraper - Comprehensive Social Media Data Extraction">
+  <meta property="og:description" content="Advanced LinkedIn scraper that extracts posts, profiles, and jobs without login requirements, with built-in Google reCAPTCHA bypass capability.">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="projects">
+    <meta property="article:published_time" content="2024-10-20T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-10-20T00:00:00+00:00">
+    <meta property="article:tag" content="Web Scraping">
+    <meta property="article:tag" content="Social Media">
+    <meta property="article:tag" content="LinkedIn">
+    <meta property="article:tag" content="Google Search">
+    <meta property="article:tag" content="Recaptcha Bypass">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LinkedIn Scraper - Comprehensive Social Media Data Extraction">
+<meta name="twitter:description" content="Advanced LinkedIn scraper that extracts posts, profiles, and jobs without login requirements, with built-in Google reCAPTCHA bypass capability.">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "https://shubhamapat7.github.io/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "LinkedIn Scraper - Comprehensive Social Media Data Extraction",
+      "item": "https://shubhamapat7.github.io/projects/linkedin-scraper/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LinkedIn Scraper - Comprehensive Social Media Data Extraction",
+  "name": "LinkedIn Scraper - Comprehensive Social Media Data Extraction",
+  "description": "Advanced LinkedIn scraper that extracts posts, profiles, and jobs without login requirements, with built-in Google reCAPTCHA bypass capability.",
+  "keywords": [
+    "Web Scraping", "Social Media", "LinkedIn", "Google Search", "Recaptcha Bypass"
+  ],
+  "articleBody": "Overview Built a comprehensive LinkedIn scraping tool that can extract posts, profiles, and job listings without requiring authentication, using advanced anti-detection techniques.\nFeatures Data Extraction Capabilities Topic-based Posts\nQuery any topic (e.g., “LLMs”) Configurable number of posts (e.g., 50 recent posts) Dynamic input for flexible scraping User Profiles\nComplete profile information extraction Profile descriptions and details Professional history Company Profiles\nCompany information extraction Business details and descriptions Company posts and updates Job Listings\nExtract jobs for any role Comprehensive job details Company and location information Technical Approach No Authentication Required Google Search Bypass: Opens Google first for search queries Indirect Access: Scrapes via Google search results No LinkedIn Login: Works without account credentials Anti-Detection Mechanisms reCAPTCHA Bypass: Successfully bypasses Google’s reCAPTCHA Human-like Behavior: Mimics real user interactions Stealth Mode: Advanced detection avoidance Data Extraction Text Content: Full post and description extraction Images: Downloads embedded images Metadata: Publication dates, engagement metrics Structured Output: Clean, organized data format Technical Implementation Search Strategy: Google search for initial link discovery Link Processing: Opens relevant links automatically Content Extraction: Comprehensive data parsing Multi-format Output: Supports various data formats Use Cases Market research and competitive analysis Professional network monitoring Job market analysis Content aggregation Lead generation Academic research Technologies Used Python Web Scraping Google Search API Selenium WebDriver Beautiful Soup reCAPTCHA Bypass Data Extraction Social Media Mining ",
+  "wordCount" : "221",
+  "inLanguage": "en",
+  "datePublished": "2024-10-20T00:00:00Z",
+  "dateModified": "2024-10-20T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/projects/linkedin-scraper/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      LinkedIn Scraper - Comprehensive Social Media Data Extraction
+    </h1>
+    <div class="post-description">
+      Advanced LinkedIn scraper that extracts posts, profiles, and jobs without login requirements, with built-in Google reCAPTCHA bypass capability.
+    </div>
+    <div class="post-meta"><span title='2024-10-20 00:00:00 +0000 UTC'>October 20, 2024</span>&nbsp;·&nbsp;<span>2 min</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="overview">Overview<a hidden class="anchor" aria-hidden="true" href="#overview">#</a></h2>
+<p>Built a comprehensive LinkedIn scraping tool that can extract posts, profiles, and job listings without requiring authentication, using advanced anti-detection techniques.</p>
+<h2 id="features">Features<a hidden class="anchor" aria-hidden="true" href="#features">#</a></h2>
+<h3 id="data-extraction-capabilities">Data Extraction Capabilities<a hidden class="anchor" aria-hidden="true" href="#data-extraction-capabilities">#</a></h3>
+<ol>
+<li>
+<p><strong>Topic-based Posts</strong></p>
+<ul>
+<li>Query any topic (e.g., &ldquo;LLMs&rdquo;)</li>
+<li>Configurable number of posts (e.g., 50 recent posts)</li>
+<li>Dynamic input for flexible scraping</li>
+</ul>
+</li>
+<li>
+<p><strong>User Profiles</strong></p>
+<ul>
+<li>Complete profile information extraction</li>
+<li>Profile descriptions and details</li>
+<li>Professional history</li>
+</ul>
+</li>
+<li>
+<p><strong>Company Profiles</strong></p>
+<ul>
+<li>Company information extraction</li>
+<li>Business details and descriptions</li>
+<li>Company posts and updates</li>
+</ul>
+</li>
+<li>
+<p><strong>Job Listings</strong></p>
+<ul>
+<li>Extract jobs for any role</li>
+<li>Comprehensive job details</li>
+<li>Company and location information</li>
+</ul>
+</li>
+</ol>
+<h3 id="technical-approach">Technical Approach<a hidden class="anchor" aria-hidden="true" href="#technical-approach">#</a></h3>
+<h4 id="no-authentication-required">No Authentication Required<a hidden class="anchor" aria-hidden="true" href="#no-authentication-required">#</a></h4>
+<ul>
+<li><strong>Google Search Bypass</strong>: Opens Google first for search queries</li>
+<li><strong>Indirect Access</strong>: Scrapes via Google search results</li>
+<li><strong>No LinkedIn Login</strong>: Works without account credentials</li>
+</ul>
+<h4 id="anti-detection-mechanisms">Anti-Detection Mechanisms<a hidden class="anchor" aria-hidden="true" href="#anti-detection-mechanisms">#</a></h4>
+<ul>
+<li><strong>reCAPTCHA Bypass</strong>: Successfully bypasses Google&rsquo;s reCAPTCHA</li>
+<li><strong>Human-like Behavior</strong>: Mimics real user interactions</li>
+<li><strong>Stealth Mode</strong>: Advanced detection avoidance</li>
+</ul>
+<h4 id="data-extraction">Data Extraction<a hidden class="anchor" aria-hidden="true" href="#data-extraction">#</a></h4>
+<ul>
+<li><strong>Text Content</strong>: Full post and description extraction</li>
+<li><strong>Images</strong>: Downloads embedded images</li>
+<li><strong>Metadata</strong>: Publication dates, engagement metrics</li>
+<li><strong>Structured Output</strong>: Clean, organized data format</li>
+</ul>
+<h2 id="technical-implementation">Technical Implementation<a hidden class="anchor" aria-hidden="true" href="#technical-implementation">#</a></h2>
+<ul>
+<li><strong>Search Strategy</strong>: Google search for initial link discovery</li>
+<li><strong>Link Processing</strong>: Opens relevant links automatically</li>
+<li><strong>Content Extraction</strong>: Comprehensive data parsing</li>
+<li><strong>Multi-format Output</strong>: Supports various data formats</li>
+</ul>
+<h2 id="use-cases">Use Cases<a hidden class="anchor" aria-hidden="true" href="#use-cases">#</a></h2>
+<ul>
+<li>Market research and competitive analysis</li>
+<li>Professional network monitoring</li>
+<li>Job market analysis</li>
+<li>Content aggregation</li>
+<li>Lead generation</li>
+<li>Academic research</li>
+</ul>
+<h2 id="technologies-used">Technologies Used<a hidden class="anchor" aria-hidden="true" href="#technologies-used">#</a></h2>
+<ul>
+<li>Python</li>
+<li>Web Scraping</li>
+<li>Google Search API</li>
+<li>Selenium WebDriver</li>
+<li>Beautiful Soup</li>
+<li>reCAPTCHA Bypass</li>
+<li>Data Extraction</li>
+<li>Social Media Mining</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://shubhamapat7.github.io/tags/web-scraping/">Web Scraping</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/social-media/">Social Media</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/linkedin/">LinkedIn</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/google-search/">Google Search</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/recaptcha-bypass/">Recaptcha Bypass</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://shubhamapat7.github.io/post/university-degrees-dataset/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Collecting 1,400 University Degrees: A Global Dataset</span>
+  </a>
+  <a class="next" href="https://shubhamapat7.github.io/projects/image-moderation-clip/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Image Moderation using OpenAI CLIP</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

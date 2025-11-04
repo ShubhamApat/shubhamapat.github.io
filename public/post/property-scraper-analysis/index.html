@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Scraping 70K Property Listings: PG &amp; Hostel Data Collection | Shubham Apat</title>
+<meta name="keywords" content="web-scraping, real-estate, property-tech, data-collection">
+<meta name="description" content="How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students">
+<meta name="author" content="">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/property-scraper-analysis/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6e04ee46d2c7afece6b54a05f2620f6336a323618852a4391ecff8c50f09cf28.css" integrity="sha256-bgTuRtLHr&#43;zmtUoF8mIPYzajI2GIUqQ5Hs/4xQ8Jzyg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/property-scraper-analysis/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/property-scraper-analysis/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="Scraping 70K Property Listings: PG & Hostel Data Collection">
+  <meta property="og:description" content="How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-07-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-15T00:00:00+00:00">
+    <meta property="article:tag" content="Web Scraping">
+    <meta property="article:tag" content="Real-Estate">
+    <meta property="article:tag" content="Property-Tech">
+    <meta property="article:tag" content="Data-Collection">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/property-scraper.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/property-scraper.jpg">
+<meta name="twitter:title" content="Scraping 70K Property Listings: PG &amp; Hostel Data Collection">
+<meta name="twitter:description" content="How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Scraping 70K Property Listings: PG \u0026 Hostel Data Collection",
+      "item": "https://shubhamapat7.github.io/post/property-scraper-analysis/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Scraping 70K Property Listings: PG \u0026 Hostel Data Collection",
+  "name": "Scraping 70K Property Listings: PG \u0026 Hostel Data Collection",
+  "description": "How I collected 70,000+ PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students",
+  "keywords": [
+    "web-scraping", "real-estate", "property-tech", "data-collection"
+  ],
+  "articleBody": "Introduction Finding affordable PGs (Paying Guest) and hostels near colleges is a major challenge for students. I built scrapers to collect comprehensive data from India’s top property sites: Magic Bricks, JustDial, and 99acres - resulting in a database of 70,000+ property listings.\nProject Goal Target Audience College students seeking affordable accommodation Parents looking for safe housing for their children Platforms needing comprehensive property data What We Collected PGs (Paying Guest): Shared/dorm-style accommodations Hostels: Budget-friendly student housing Location: Major cities across India Total: 70,000+ unique properties Platform Strategy 1. Magic Bricks Focus: Professional property listings Strengths: Detailed property information, good search filters Challenge: Anti-bot measures 2. JustDial Focus: Local businesses and services Strengths: Wide coverage, local listings Challenge: Inconsistent data structure 3. 99acres Focus: Residential and commercial properties Strengths: Comprehensive property details Challenge: Dynamic content loading Technical Approach Unified Scraping Architecture class PropertyScraper: def __init__(self): self.scrapers = { 'magicbricks': MagicBricksScraper(), 'justdial': JustDialScraper(), '99acres': NinetyNineAcresScraper() } def scrape_all_platforms(self, cities, property_type): all_properties = [] for platform, scraper in self.scrapers.items(): print(f\"Scraping {platform}...\") properties = scraper.scrape( cities=cities, property_type=property_type ) all_properties.extend(properties) return all_properties Platform-Specific Scrapers Magic Bricks Scraper class MagicBricksScraper: def scrape(self, cities, property_type): properties = [] for city in cities: # Search for PG/hostel url = f\"https://www.magicbricks.com/property-for-rent/residential/pg-hostel-in-{city}\" driver.get(url) # Wait for listings to load time.sleep(3) # Extract listings listings = driver.find_elements(By.CLASS_NAME, \"mb-center-sect\") for listing in listings: property_data = { 'platform': 'magicbricks', 'city': city, 'title': listing.find_element(By.CLASS_NAME, \"mb-name\").text, 'price': extract_price(listing), 'location': extract_location(listing), 'amenities': extract_amenities(listing), 'contact': extract_contact(listing) } properties.append(property_data) return properties JustDial Scraper class JustDialScraper: def scrape(self, cities, property_type): properties = [] for city in cities: # JustDial uses AJAX heavily query = f\"pg hostel {city}\" url = f\"https://www.justdial.com/{city}/{query}\" # Handle dynamic content driver.get(url) scroll_to_bottom(driver) # Extract listings listings = driver.find_elements(By.CSS_SELECTOR, \".store-list\") for listing in listings: property_data = { 'platform': 'justdial', 'city': city, 'name': listing.find_element(By.CSS_SELECTOR, \".store-name\").text, 'address': listing.find_element(By.CSS_SELECTOR, \".address-text\").text, 'contact': extract_contact_number(listing), 'rating': extract_rating(listing) } properties.append(property_data) return properties 99acres Scraper class NinetyNineAcresScraper: def scrape(self, cities, property_type): properties = [] for city in cities: # Search for shared accommodation url = f\"https://www.99acres.com/pg-hostel-in-{city}\" driver.get(url) wait_for_ajax(driver) # Handle infinite scroll while True: properties = driver.find_elements(By.CLASS_NAME, \"projecttuple__tuple\") if load_more_properties(driver): time.sleep(2) else: break for prop in properties: property_data = { 'platform': '99acres', 'city': city, 'title': prop.find_element(By.CLASS_NAME, \"tu__fnt\").text, 'price': extract_price_99(prop), 'locality': extract_locality(prop), 'details': extract_details(prop) } properties.append(property_data) return properties Data Challenges \u0026 Solutions 1. Anti-Bot Measures Challenge CAPTCHA challenges Rate limiting IP blocking User-agent detection Solutions # Rotate user agents USER_AGENTS = [ 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)...', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)...', 'Mozilla/5.0 (X11; Linux x86_64)...' ] # Random delays time.sleep(random.uniform(2, 5)) # Use proxies proxy = random.choice(PROXY_LIST) driver = webdriver.Chrome(options=options, proxy=proxy) 2. Dynamic Content Loading Challenge JavaScript-rendered content Infinite scroll Lazy loading Solutions # Scroll to load all content def scroll_to_bottom(driver): last_height = driver.execute_script(\"return document.body.scrollHeight\") while True: driver.execute_script(\"window.scrollTo(0, document.body.scrollHeight);\") time.sleep(2) new_height = driver.execute_script(\"return document.body.scrollHeight\") if new_height == last_height: break last_height = new_height 3. Inconsistent Data Formats Challenge Different price formats (₹8,000 vs 8000) Varying address structures Inconsistent amenity lists Solutions # Normalize price def normalize_price(price_str): # Remove currency symbols and commas price = re.sub(r'[₹,]', '', price_str) # Extract numbers price_num = re.findall(r'\\d+', price) return int(price_num[0]) if price_num else 0 # Normalize location def normalize_location(location): # Remove extra spaces location = re.sub(r'\\s+', ' ', location.strip()) # Standardize case return location.title() Data Processing Pipeline 1. Data Collection # Collect from all platforms raw_data = scraper.scrape_all_platforms( cities=MAJOR_CITIES, property_type='pg_hostel' ) 2. Data Cleaning def clean_property_data(properties): cleaned = [] for prop in properties: # Standardize fields cleaned_prop = { 'platform': prop['platform'], 'city': normalize_city(prop['city']), 'title': clean_text(prop['title']), 'price': normalize_price(prop['price']), 'location': normalize_location(prop['location']), 'amenities': clean_amenities(prop['amenities']) } # Validate data if is_valid_property(cleaned_prop): cleaned.append(cleaned_prop) return cleaned 3. Deduplication # Remove duplicates across platforms def remove_duplicates(properties): seen = set() unique = [] for prop in properties: key = f\"{prop['title']}_{prop['location']}\" if key not in seen: seen.add(key) unique.append(prop) return unique 4. Data Enrichment # Add derived fields def enrich_property_data(properties): for prop in properties: # Categorize price range prop['price_range'] = categorize_price(prop['price']) # Extract locality prop['locality'] = extract_locality(prop['location']) # Add search keywords prop['keywords'] = generate_keywords(prop) return properties Data Structure Final Dataset Schema { \"property_id\": \"prop_001\", \"platform\": \"magicbricks\", \"city\": \"Mumbai\", \"title\": \"Girls PG in Andheri\", \"price\": 8000, \"price_range\": \"budget\", \"location\": \"Andheri West, Mumbai\", \"locality\": \"Andheri West\", \"amenities\": [\"WiFi\", \"Food\", \"AC\", \"Laundry\"], \"contact\": \"+91-9876543210\", \"verified\": true, \"date_scraped\": \"2024-07-15\", \"keywords\": [\"pg\", \"girls\", \"andheri\", \"budget\"] } Results \u0026 Statistics Coverage Platform Properties Cities Success Rate Magic Bricks 28,500 50 94% JustDial 25,000 50 89% 99acres 16,500 50 91% Total 70,000 50 91% Top Cities by Property Count Bangalore: 8,500 Mumbai: 7,200 Pune: 6,800 Delhi: 6,500 Hyderabad: 5,900 Price Distribution Budget (₹3K-8K): 35% Mid-range (₹8K-15K): 45% Premium (₹15K+): 20% Key Features Extracted For Students Proximity to colleges: Within 5km radius Safety features: CCTV, security guard Amenities: WiFi, food, laundry, AC Mess options: Vegetarian/Non-vegetarian Rules: Entry time, guest policy For Search Price filters: Range-based Location filters: City, locality, landmark Amenity filters: Checkbox selection Rating filters: User ratings Impact \u0026 Applications 1. Student Platform Search engine for student accommodation Compare options across platforms Filter by college proximity Price comparison 2. Market Research Understand supply/demand Price trend analysis Location popularity Amenity preferences 3. Property Owners Monitor competitor pricing Optimize property listings Identify market gaps Challenges Faced 1. Legal Considerations Robots.txt compliance: Respected all robots.txt files Rate limiting: Avoided overwhelming servers Terms of service: Stayed within allowed usage 2. Data Quality Outdated listings: Some properties no longer available Fake contacts: Phone numbers that don’t work Price accuracy: Prices change frequently 3. Maintenance Website changes: Regular updates needed Anti-bot updates: Adapting to new measures Data freshness: Continuous monitoring required Future Enhancements 1. Real-time Updates Monitor price changes Track new listings Remove sold/rented properties 2. Image Analysis Verify property images Detect duplicate photos Quality scoring 3. Machine Learning Price prediction models Quality scoring Recommendation engine Technologies Used Python: Core language Selenium WebDriver: Browser automation Beautiful Soup: HTML parsing Pandas: Data processing SQLite: Data storage Requests: HTTP requests OpenPyXL: Excel export Lessons Learned 1. Platform-Specific Approaches Each platform needs custom scraping logic. Generic scrapers don’t work well.\n2. Respect Rate Limits Aggressive scraping gets you blocked. Be patient and respectful.\n3. Data Quality Over Quantity Better to have 70K clean listings than 200K messy ones.\n4. Continuous Monitoring Websites change. Build monitoring to detect and fix issues.\nConclusion Scraping 70,000+ property listings taught me:\nPersistence is key in web scraping Platform nuances matter Data cleaning is as important as collection Respect for website resources and terms The comprehensive dataset of student accommodations helps thousands of students find suitable housing, making college life easier and more affordable.\nKey Takeaway: With the right approach, large-scale data collection from multiple platforms is achievable and valuable.\nThis property data collection project was built to help students find affordable and suitable accommodation near their colleges.\n",
+  "wordCount" : "1111",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/property-scraper.jpg","datePublished": "2024-07-15T00:00:00Z",
+  "dateModified": "2024-07-15T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/property-scraper-analysis/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Scraping 70K Property Listings: PG &amp; Hostel Data Collection
+    </h1>
+    <div class="post-description">
+      How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students
+    </div>
+    <div class="post-meta"><span title='2024-07-15 00:00:00 +0000 UTC'>July 15, 2024</span>&nbsp;·&nbsp;<span>6 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/property-scraper.jpg" alt="Property listing data collection from multiple platforms">
+        
+</figure>
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>Finding affordable <strong>PGs (Paying Guest) and hostels</strong> near colleges is a major challenge for students. I built scrapers to collect comprehensive data from India&rsquo;s top property sites: <strong>Magic Bricks, JustDial, and 99acres</strong> - resulting in a database of <strong>70,000+ property listings</strong>.</p>
+<h2 id="project-goal">Project Goal<a hidden class="anchor" aria-hidden="true" href="#project-goal">#</a></h2>
+<h3 id="target-audience">Target Audience<a hidden class="anchor" aria-hidden="true" href="#target-audience">#</a></h3>
+<ul>
+<li><strong>College students</strong> seeking affordable accommodation</li>
+<li><strong>Parents</strong> looking for safe housing for their children</li>
+<li><strong>Platforms</strong> needing comprehensive property data</li>
+</ul>
+<h3 id="what-we-collected">What We Collected<a hidden class="anchor" aria-hidden="true" href="#what-we-collected">#</a></h3>
+<ul>
+<li><strong>PGs (Paying Guest)</strong>: Shared/dorm-style accommodations</li>
+<li><strong>Hostels</strong>: Budget-friendly student housing</li>
+<li><strong>Location</strong>: Major cities across India</li>
+<li><strong>Total</strong>: 70,000+ unique properties</li>
+</ul>
+<h2 id="platform-strategy">Platform Strategy<a hidden class="anchor" aria-hidden="true" href="#platform-strategy">#</a></h2>
+<h3 id="1-magic-bricks">1. <strong>Magic Bricks</strong><a hidden class="anchor" aria-hidden="true" href="#1-magic-bricks">#</a></h3>
+<ul>
+<li><strong>Focus</strong>: Professional property listings</li>
+<li><strong>Strengths</strong>: Detailed property information, good search filters</li>
+<li><strong>Challenge</strong>: Anti-bot measures</li>
+</ul>
+<h3 id="2-justdial">2. <strong>JustDial</strong><a hidden class="anchor" aria-hidden="true" href="#2-justdial">#</a></h3>
+<ul>
+<li><strong>Focus</strong>: Local businesses and services</li>
+<li><strong>Strengths</strong>: Wide coverage, local listings</li>
+<li><strong>Challenge</strong>: Inconsistent data structure</li>
+</ul>
+<h3 id="3-99acres">3. <strong>99acres</strong><a hidden class="anchor" aria-hidden="true" href="#3-99acres">#</a></h3>
+<ul>
+<li><strong>Focus</strong>: Residential and commercial properties</li>
+<li><strong>Strengths</strong>: Comprehensive property details</li>
+<li><strong>Challenge</strong>: Dynamic content loading</li>
+</ul>
+<h2 id="technical-approach">Technical Approach<a hidden class="anchor" aria-hidden="true" href="#technical-approach">#</a></h2>
+<h3 id="unified-scraping-architecture">Unified Scraping Architecture<a hidden class="anchor" aria-hidden="true" href="#unified-scraping-architecture">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PropertyScraper</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>scrapers <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;magicbricks&#39;</span>: MagicBricksScraper(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;justdial&#39;</span>: JustDialScraper(),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;99acres&#39;</span>: NinetyNineAcresScraper()
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scrape_all_platforms</span>(self, cities, property_type):
+</span></span><span style="display:flex;"><span>        all_properties <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> platform, scraper <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>scrapers<span style="color:#f92672">.</span>items():
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Scraping </span><span style="color:#e6db74">{</span>platform<span style="color:#e6db74">}</span><span style="color:#e6db74">...&#34;</span>)
+</span></span><span style="display:flex;"><span>            properties <span style="color:#f92672">=</span> scraper<span style="color:#f92672">.</span>scrape(
+</span></span><span style="display:flex;"><span>                cities<span style="color:#f92672">=</span>cities,
+</span></span><span style="display:flex;"><span>                property_type<span style="color:#f92672">=</span>property_type
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            all_properties<span style="color:#f92672">.</span>extend(properties)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> all_properties
+</span></span></code></pre></div><h3 id="platform-specific-scrapers">Platform-Specific Scrapers<a hidden class="anchor" aria-hidden="true" href="#platform-specific-scrapers">#</a></h3>
+<h4 id="magic-bricks-scraper">Magic Bricks Scraper<a hidden class="anchor" aria-hidden="true" href="#magic-bricks-scraper">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MagicBricksScraper</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scrape</span>(self, cities, property_type):
+</span></span><span style="display:flex;"><span>        properties <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> city <span style="color:#f92672">in</span> cities:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Search for PG/hostel</span>
+</span></span><span style="display:flex;"><span>            url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://www.magicbricks.com/property-for-rent/residential/pg-hostel-in-</span><span style="color:#e6db74">{</span>city<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            driver<span style="color:#f92672">.</span>get(url)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Wait for listings to load</span>
+</span></span><span style="display:flex;"><span>            time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Extract listings</span>
+</span></span><span style="display:flex;"><span>            listings <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_elements(By<span style="color:#f92672">.</span>CLASS_NAME, <span style="color:#e6db74">&#34;mb-center-sect&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> listing <span style="color:#f92672">in</span> listings:
+</span></span><span style="display:flex;"><span>                property_data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;platform&#39;</span>: <span style="color:#e6db74">&#39;magicbricks&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;city&#39;</span>: city,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;title&#39;</span>: listing<span style="color:#f92672">.</span>find_element(By<span style="color:#f92672">.</span>CLASS_NAME, <span style="color:#e6db74">&#34;mb-name&#34;</span>)<span style="color:#f92672">.</span>text,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;price&#39;</span>: extract_price(listing),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;location&#39;</span>: extract_location(listing),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;amenities&#39;</span>: extract_amenities(listing),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;contact&#39;</span>: extract_contact(listing)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                properties<span style="color:#f92672">.</span>append(property_data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> properties
+</span></span></code></pre></div><h4 id="justdial-scraper">JustDial Scraper<a hidden class="anchor" aria-hidden="true" href="#justdial-scraper">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">JustDialScraper</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scrape</span>(self, cities, property_type):
+</span></span><span style="display:flex;"><span>        properties <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> city <span style="color:#f92672">in</span> cities:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># JustDial uses AJAX heavily</span>
+</span></span><span style="display:flex;"><span>            query <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;pg hostel </span><span style="color:#e6db74">{</span>city<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://www.justdial.com/</span><span style="color:#e6db74">{</span>city<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>query<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Handle dynamic content</span>
+</span></span><span style="display:flex;"><span>            driver<span style="color:#f92672">.</span>get(url)
+</span></span><span style="display:flex;"><span>            scroll_to_bottom(driver)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Extract listings</span>
+</span></span><span style="display:flex;"><span>            listings <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_elements(By<span style="color:#f92672">.</span>CSS_SELECTOR, <span style="color:#e6db74">&#34;.store-list&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> listing <span style="color:#f92672">in</span> listings:
+</span></span><span style="display:flex;"><span>                property_data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;platform&#39;</span>: <span style="color:#e6db74">&#39;justdial&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;city&#39;</span>: city,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;name&#39;</span>: listing<span style="color:#f92672">.</span>find_element(By<span style="color:#f92672">.</span>CSS_SELECTOR, <span style="color:#e6db74">&#34;.store-name&#34;</span>)<span style="color:#f92672">.</span>text,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;address&#39;</span>: listing<span style="color:#f92672">.</span>find_element(By<span style="color:#f92672">.</span>CSS_SELECTOR, <span style="color:#e6db74">&#34;.address-text&#34;</span>)<span style="color:#f92672">.</span>text,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;contact&#39;</span>: extract_contact_number(listing),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;rating&#39;</span>: extract_rating(listing)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                properties<span style="color:#f92672">.</span>append(property_data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> properties
+</span></span></code></pre></div><h4 id="99acres-scraper">99acres Scraper<a hidden class="anchor" aria-hidden="true" href="#99acres-scraper">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NinetyNineAcresScraper</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scrape</span>(self, cities, property_type):
+</span></span><span style="display:flex;"><span>        properties <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> city <span style="color:#f92672">in</span> cities:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Search for shared accommodation</span>
+</span></span><span style="display:flex;"><span>            url <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;https://www.99acres.com/pg-hostel-in-</span><span style="color:#e6db74">{</span>city<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            driver<span style="color:#f92672">.</span>get(url)
+</span></span><span style="display:flex;"><span>            wait_for_ajax(driver)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Handle infinite scroll</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>                properties <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>find_elements(By<span style="color:#f92672">.</span>CLASS_NAME, <span style="color:#e6db74">&#34;projecttuple__tuple&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span> load_more_properties(driver):
+</span></span><span style="display:flex;"><span>                    time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>                    <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> prop <span style="color:#f92672">in</span> properties:
+</span></span><span style="display:flex;"><span>                property_data <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;platform&#39;</span>: <span style="color:#e6db74">&#39;99acres&#39;</span>,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;city&#39;</span>: city,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;title&#39;</span>: prop<span style="color:#f92672">.</span>find_element(By<span style="color:#f92672">.</span>CLASS_NAME, <span style="color:#e6db74">&#34;tu__fnt&#34;</span>)<span style="color:#f92672">.</span>text,
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;price&#39;</span>: extract_price_99(prop),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;locality&#39;</span>: extract_locality(prop),
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#39;details&#39;</span>: extract_details(prop)
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                properties<span style="color:#f92672">.</span>append(property_data)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> properties
+</span></span></code></pre></div><h2 id="data-challenges--solutions">Data Challenges &amp; Solutions<a hidden class="anchor" aria-hidden="true" href="#data-challenges--solutions">#</a></h2>
+<h3 id="1-anti-bot-measures">1. <strong>Anti-Bot Measures</strong><a hidden class="anchor" aria-hidden="true" href="#1-anti-bot-measures">#</a></h3>
+<h4 id="challenge">Challenge<a hidden class="anchor" aria-hidden="true" href="#challenge">#</a></h4>
+<ul>
+<li>CAPTCHA challenges</li>
+<li>Rate limiting</li>
+<li>IP blocking</li>
+<li>User-agent detection</li>
+</ul>
+<h4 id="solutions">Solutions<a hidden class="anchor" aria-hidden="true" href="#solutions">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Rotate user agents</span>
+</span></span><span style="display:flex;"><span>USER_AGENTS <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Mozilla/5.0 (Windows NT 10.0; Win64; x64)...&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)...&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;Mozilla/5.0 (X11; Linux x86_64)...&#39;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Random delays</span>
+</span></span><span style="display:flex;"><span>time<span style="color:#f92672">.</span>sleep(random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">5</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Use proxies</span>
+</span></span><span style="display:flex;"><span>proxy <span style="color:#f92672">=</span> random<span style="color:#f92672">.</span>choice(PROXY_LIST)
+</span></span><span style="display:flex;"><span>driver <span style="color:#f92672">=</span> webdriver<span style="color:#f92672">.</span>Chrome(options<span style="color:#f92672">=</span>options, proxy<span style="color:#f92672">=</span>proxy)
+</span></span></code></pre></div><h3 id="2-dynamic-content-loading">2. <strong>Dynamic Content Loading</strong><a hidden class="anchor" aria-hidden="true" href="#2-dynamic-content-loading">#</a></h3>
+<h4 id="challenge-1">Challenge<a hidden class="anchor" aria-hidden="true" href="#challenge-1">#</a></h4>
+<ul>
+<li>JavaScript-rendered content</li>
+<li>Infinite scroll</li>
+<li>Lazy loading</li>
+</ul>
+<h4 id="solutions-1">Solutions<a hidden class="anchor" aria-hidden="true" href="#solutions-1">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Scroll to load all content</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">scroll_to_bottom</span>(driver):
+</span></span><span style="display:flex;"><span>    last_height <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#34;return document.body.scrollHeight&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span> <span style="color:#66d9ef">True</span>:
+</span></span><span style="display:flex;"><span>        driver<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#34;window.scrollTo(0, document.body.scrollHeight);&#34;</span>)
+</span></span><span style="display:flex;"><span>        time<span style="color:#f92672">.</span>sleep(<span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        new_height <span style="color:#f92672">=</span> driver<span style="color:#f92672">.</span>execute_script(<span style="color:#e6db74">&#34;return document.body.scrollHeight&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> new_height <span style="color:#f92672">==</span> last_height:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        last_height <span style="color:#f92672">=</span> new_height
+</span></span></code></pre></div><h3 id="3-inconsistent-data-formats">3. <strong>Inconsistent Data Formats</strong><a hidden class="anchor" aria-hidden="true" href="#3-inconsistent-data-formats">#</a></h3>
+<h4 id="challenge-2">Challenge<a hidden class="anchor" aria-hidden="true" href="#challenge-2">#</a></h4>
+<ul>
+<li>Different price formats (₹8,000 vs 8000)</li>
+<li>Varying address structures</li>
+<li>Inconsistent amenity lists</li>
+</ul>
+<h4 id="solutions-2">Solutions<a hidden class="anchor" aria-hidden="true" href="#solutions-2">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Normalize price</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normalize_price</span>(price_str):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Remove currency symbols and commas</span>
+</span></span><span style="display:flex;"><span>    price <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;[₹,]&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, price_str)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Extract numbers</span>
+</span></span><span style="display:flex;"><span>    price_num <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>findall(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\d+&#39;</span>, price)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> int(price_num[<span style="color:#ae81ff">0</span>]) <span style="color:#66d9ef">if</span> price_num <span style="color:#66d9ef">else</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Normalize location</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">normalize_location</span>(location):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Remove extra spaces</span>
+</span></span><span style="display:flex;"><span>    location <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\s+&#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>, location<span style="color:#f92672">.</span>strip())
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Standardize case</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> location<span style="color:#f92672">.</span>title()
+</span></span></code></pre></div><h2 id="data-processing-pipeline">Data Processing Pipeline<a hidden class="anchor" aria-hidden="true" href="#data-processing-pipeline">#</a></h2>
+<h3 id="1-data-collection">1. <strong>Data Collection</strong><a hidden class="anchor" aria-hidden="true" href="#1-data-collection">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Collect from all platforms</span>
+</span></span><span style="display:flex;"><span>raw_data <span style="color:#f92672">=</span> scraper<span style="color:#f92672">.</span>scrape_all_platforms(
+</span></span><span style="display:flex;"><span>    cities<span style="color:#f92672">=</span>MAJOR_CITIES,
+</span></span><span style="display:flex;"><span>    property_type<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;pg_hostel&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="2-data-cleaning">2. <strong>Data Cleaning</strong><a hidden class="anchor" aria-hidden="true" href="#2-data-cleaning">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clean_property_data</span>(properties):
+</span></span><span style="display:flex;"><span>    cleaned <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> prop <span style="color:#f92672">in</span> properties:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Standardize fields</span>
+</span></span><span style="display:flex;"><span>        cleaned_prop <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;platform&#39;</span>: prop[<span style="color:#e6db74">&#39;platform&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;city&#39;</span>: normalize_city(prop[<span style="color:#e6db74">&#39;city&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;title&#39;</span>: clean_text(prop[<span style="color:#e6db74">&#39;title&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;price&#39;</span>: normalize_price(prop[<span style="color:#e6db74">&#39;price&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;location&#39;</span>: normalize_location(prop[<span style="color:#e6db74">&#39;location&#39;</span>]),
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;amenities&#39;</span>: clean_amenities(prop[<span style="color:#e6db74">&#39;amenities&#39;</span>])
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Validate data</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> is_valid_property(cleaned_prop):
+</span></span><span style="display:flex;"><span>            cleaned<span style="color:#f92672">.</span>append(cleaned_prop)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cleaned
+</span></span></code></pre></div><h3 id="3-deduplication">3. <strong>Deduplication</strong><a hidden class="anchor" aria-hidden="true" href="#3-deduplication">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Remove duplicates across platforms</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">remove_duplicates</span>(properties):
+</span></span><span style="display:flex;"><span>    seen <span style="color:#f92672">=</span> set()
+</span></span><span style="display:flex;"><span>    unique <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> prop <span style="color:#f92672">in</span> properties:
+</span></span><span style="display:flex;"><span>        key <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{</span>prop[<span style="color:#e6db74">&#39;title&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">_</span><span style="color:#e6db74">{</span>prop[<span style="color:#e6db74">&#39;location&#39;</span>]<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> key <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> seen:
+</span></span><span style="display:flex;"><span>            seen<span style="color:#f92672">.</span>add(key)
+</span></span><span style="display:flex;"><span>            unique<span style="color:#f92672">.</span>append(prop)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> unique
+</span></span></code></pre></div><h3 id="4-data-enrichment">4. <strong>Data Enrichment</strong><a hidden class="anchor" aria-hidden="true" href="#4-data-enrichment">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Add derived fields</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">enrich_property_data</span>(properties):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> prop <span style="color:#f92672">in</span> properties:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Categorize price range</span>
+</span></span><span style="display:flex;"><span>        prop[<span style="color:#e6db74">&#39;price_range&#39;</span>] <span style="color:#f92672">=</span> categorize_price(prop[<span style="color:#e6db74">&#39;price&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Extract locality</span>
+</span></span><span style="display:flex;"><span>        prop[<span style="color:#e6db74">&#39;locality&#39;</span>] <span style="color:#f92672">=</span> extract_locality(prop[<span style="color:#e6db74">&#39;location&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Add search keywords</span>
+</span></span><span style="display:flex;"><span>        prop[<span style="color:#e6db74">&#39;keywords&#39;</span>] <span style="color:#f92672">=</span> generate_keywords(prop)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> properties
+</span></span></code></pre></div><h2 id="data-structure">Data Structure<a hidden class="anchor" aria-hidden="true" href="#data-structure">#</a></h2>
+<h3 id="final-dataset-schema">Final Dataset Schema<a hidden class="anchor" aria-hidden="true" href="#final-dataset-schema">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;property_id&#34;</span>: <span style="color:#e6db74">&#34;prop_001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;platform&#34;</span>: <span style="color:#e6db74">&#34;magicbricks&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;city&#34;</span>: <span style="color:#e6db74">&#34;Mumbai&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;title&#34;</span>: <span style="color:#e6db74">&#34;Girls PG in Andheri&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;price&#34;</span>: <span style="color:#ae81ff">8000</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;price_range&#34;</span>: <span style="color:#e6db74">&#34;budget&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;location&#34;</span>: <span style="color:#e6db74">&#34;Andheri West, Mumbai&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;locality&#34;</span>: <span style="color:#e6db74">&#34;Andheri West&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;amenities&#34;</span>: [<span style="color:#e6db74">&#34;WiFi&#34;</span>, <span style="color:#e6db74">&#34;Food&#34;</span>, <span style="color:#e6db74">&#34;AC&#34;</span>, <span style="color:#e6db74">&#34;Laundry&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;contact&#34;</span>: <span style="color:#e6db74">&#34;+91-9876543210&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;verified&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;date_scraped&#34;</span>: <span style="color:#e6db74">&#34;2024-07-15&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;keywords&#34;</span>: [<span style="color:#e6db74">&#34;pg&#34;</span>, <span style="color:#e6db74">&#34;girls&#34;</span>, <span style="color:#e6db74">&#34;andheri&#34;</span>, <span style="color:#e6db74">&#34;budget&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="results--statistics">Results &amp; Statistics<a hidden class="anchor" aria-hidden="true" href="#results--statistics">#</a></h2>
+<h3 id="coverage">Coverage<a hidden class="anchor" aria-hidden="true" href="#coverage">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Platform</th>
+          <th>Properties</th>
+          <th>Cities</th>
+          <th>Success Rate</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Magic Bricks</strong></td>
+          <td>28,500</td>
+          <td>50</td>
+          <td>94%</td>
+      </tr>
+      <tr>
+          <td><strong>JustDial</strong></td>
+          <td>25,000</td>
+          <td>50</td>
+          <td>89%</td>
+      </tr>
+      <tr>
+          <td><strong>99acres</strong></td>
+          <td>16,500</td>
+          <td>50</td>
+          <td>91%</td>
+      </tr>
+      <tr>
+          <td><strong>Total</strong></td>
+          <td><strong>70,000</strong></td>
+          <td><strong>50</strong></td>
+          <td><strong>91%</strong></td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="top-cities-by-property-count">Top Cities by Property Count<a hidden class="anchor" aria-hidden="true" href="#top-cities-by-property-count">#</a></h3>
+<ol>
+<li><strong>Bangalore</strong>: 8,500</li>
+<li><strong>Mumbai</strong>: 7,200</li>
+<li><strong>Pune</strong>: 6,800</li>
+<li><strong>Delhi</strong>: 6,500</li>
+<li><strong>Hyderabad</strong>: 5,900</li>
+</ol>
+<h3 id="price-distribution">Price Distribution<a hidden class="anchor" aria-hidden="true" href="#price-distribution">#</a></h3>
+<ul>
+<li><strong>Budget (₹3K-8K)</strong>: 35%</li>
+<li><strong>Mid-range (₹8K-15K)</strong>: 45%</li>
+<li><strong>Premium (₹15K+)</strong>: 20%</li>
+</ul>
+<h2 id="key-features-extracted">Key Features Extracted<a hidden class="anchor" aria-hidden="true" href="#key-features-extracted">#</a></h2>
+<h3 id="for-students">For Students<a hidden class="anchor" aria-hidden="true" href="#for-students">#</a></h3>
+<ul>
+<li><strong>Proximity to colleges</strong>: Within 5km radius</li>
+<li><strong>Safety features</strong>: CCTV, security guard</li>
+<li><strong>Amenities</strong>: WiFi, food, laundry, AC</li>
+<li><strong>Mess options</strong>: Vegetarian/Non-vegetarian</li>
+<li><strong>Rules</strong>: Entry time, guest policy</li>
+</ul>
+<h3 id="for-search">For Search<a hidden class="anchor" aria-hidden="true" href="#for-search">#</a></h3>
+<ul>
+<li><strong>Price filters</strong>: Range-based</li>
+<li><strong>Location filters</strong>: City, locality, landmark</li>
+<li><strong>Amenity filters</strong>: Checkbox selection</li>
+<li><strong>Rating filters</strong>: User ratings</li>
+</ul>
+<h2 id="impact--applications">Impact &amp; Applications<a hidden class="anchor" aria-hidden="true" href="#impact--applications">#</a></h2>
+<h3 id="1-student-platform">1. <strong>Student Platform</strong><a hidden class="anchor" aria-hidden="true" href="#1-student-platform">#</a></h3>
+<ul>
+<li>Search engine for student accommodation</li>
+<li>Compare options across platforms</li>
+<li>Filter by college proximity</li>
+<li>Price comparison</li>
+</ul>
+<h3 id="2-market-research">2. <strong>Market Research</strong><a hidden class="anchor" aria-hidden="true" href="#2-market-research">#</a></h3>
+<ul>
+<li>Understand supply/demand</li>
+<li>Price trend analysis</li>
+<li>Location popularity</li>
+<li>Amenity preferences</li>
+</ul>
+<h3 id="3-property-owners">3. <strong>Property Owners</strong><a hidden class="anchor" aria-hidden="true" href="#3-property-owners">#</a></h3>
+<ul>
+<li>Monitor competitor pricing</li>
+<li>Optimize property listings</li>
+<li>Identify market gaps</li>
+</ul>
+<h2 id="challenges-faced">Challenges Faced<a hidden class="anchor" aria-hidden="true" href="#challenges-faced">#</a></h2>
+<h3 id="1-legal-considerations">1. <strong>Legal Considerations</strong><a hidden class="anchor" aria-hidden="true" href="#1-legal-considerations">#</a></h3>
+<ul>
+<li><strong>Robots.txt compliance</strong>: Respected all robots.txt files</li>
+<li><strong>Rate limiting</strong>: Avoided overwhelming servers</li>
+<li><strong>Terms of service</strong>: Stayed within allowed usage</li>
+</ul>
+<h3 id="2-data-quality">2. <strong>Data Quality</strong><a hidden class="anchor" aria-hidden="true" href="#2-data-quality">#</a></h3>
+<ul>
+<li><strong>Outdated listings</strong>: Some properties no longer available</li>
+<li><strong>Fake contacts</strong>: Phone numbers that don&rsquo;t work</li>
+<li><strong>Price accuracy</strong>: Prices change frequently</li>
+</ul>
+<h3 id="3-maintenance">3. <strong>Maintenance</strong><a hidden class="anchor" aria-hidden="true" href="#3-maintenance">#</a></h3>
+<ul>
+<li><strong>Website changes</strong>: Regular updates needed</li>
+<li><strong>Anti-bot updates</strong>: Adapting to new measures</li>
+<li><strong>Data freshness</strong>: Continuous monitoring required</li>
+</ul>
+<h2 id="future-enhancements">Future Enhancements<a hidden class="anchor" aria-hidden="true" href="#future-enhancements">#</a></h2>
+<h3 id="1-real-time-updates">1. <strong>Real-time Updates</strong><a hidden class="anchor" aria-hidden="true" href="#1-real-time-updates">#</a></h3>
+<ul>
+<li>Monitor price changes</li>
+<li>Track new listings</li>
+<li>Remove sold/rented properties</li>
+</ul>
+<h3 id="2-image-analysis">2. <strong>Image Analysis</strong><a hidden class="anchor" aria-hidden="true" href="#2-image-analysis">#</a></h3>
+<ul>
+<li>Verify property images</li>
+<li>Detect duplicate photos</li>
+<li>Quality scoring</li>
+</ul>
+<h3 id="3-machine-learning">3. <strong>Machine Learning</strong><a hidden class="anchor" aria-hidden="true" href="#3-machine-learning">#</a></h3>
+<ul>
+<li>Price prediction models</li>
+<li>Quality scoring</li>
+<li>Recommendation engine</li>
+</ul>
+<h2 id="technologies-used">Technologies Used<a hidden class="anchor" aria-hidden="true" href="#technologies-used">#</a></h2>
+<ul>
+<li><strong>Python</strong>: Core language</li>
+<li><strong>Selenium WebDriver</strong>: Browser automation</li>
+<li><strong>Beautiful Soup</strong>: HTML parsing</li>
+<li><strong>Pandas</strong>: Data processing</li>
+<li><strong>SQLite</strong>: Data storage</li>
+<li><strong>Requests</strong>: HTTP requests</li>
+<li><strong>OpenPyXL</strong>: Excel export</li>
+</ul>
+<h2 id="lessons-learned">Lessons Learned<a hidden class="anchor" aria-hidden="true" href="#lessons-learned">#</a></h2>
+<h3 id="1-platform-specific-approaches">1. <strong>Platform-Specific Approaches</strong><a hidden class="anchor" aria-hidden="true" href="#1-platform-specific-approaches">#</a></h3>
+<p>Each platform needs custom scraping logic. Generic scrapers don&rsquo;t work well.</p>
+<h3 id="2-respect-rate-limits">2. <strong>Respect Rate Limits</strong><a hidden class="anchor" aria-hidden="true" href="#2-respect-rate-limits">#</a></h3>
+<p>Aggressive scraping gets you blocked. Be patient and respectful.</p>
+<h3 id="3-data-quality-over-quantity">3. <strong>Data Quality Over Quantity</strong><a hidden class="anchor" aria-hidden="true" href="#3-data-quality-over-quantity">#</a></h3>
+<p>Better to have 70K clean listings than 200K messy ones.</p>
+<h3 id="4-continuous-monitoring">4. <strong>Continuous Monitoring</strong><a hidden class="anchor" aria-hidden="true" href="#4-continuous-monitoring">#</a></h3>
+<p>Websites change. Build monitoring to detect and fix issues.</p>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>Scraping 70,000+ property listings taught me:</p>
+<ul>
+<li><strong>Persistence</strong> is key in web scraping</li>
+<li><strong>Platform nuances</strong> matter</li>
+<li><strong>Data cleaning</strong> is as important as collection</li>
+<li><strong>Respect</strong> for website resources and terms</li>
+</ul>
+<p>The comprehensive dataset of student accommodations helps thousands of students find suitable housing, making college life easier and more affordable.</p>
+<p><strong>Key Takeaway</strong>: With the right approach, large-scale data collection from multiple platforms is achievable and valuable.</p>
+<hr>
+<p><em>This property data collection project was built to help students find affordable and suitable accommodation near their colleges.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://shubhamapat7.github.io/tags/web-scraping/">Web Scraping</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/real-estate/">Real-Estate</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/property-tech/">Property-Tech</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/data-collection/">Data-Collection</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://shubhamapat7.github.io/post/event-verifier-crawler/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Event Verifier: Detecting Fake Event Listings with Fuzzy Matching</span>
+  </a>
+  <a class="next" href="https://shubhamapat7.github.io/projects/student-id-verification-pipeline/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Student ID Verification Pipeline for dip</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

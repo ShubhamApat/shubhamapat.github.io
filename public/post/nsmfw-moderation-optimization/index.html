@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Optimizing NSFW Content Moderation: From 250ms to 180ms | Shubham Apat</title>
+<meta name="keywords" content="deep-learning, model-optimization, openvino, performance, content-moderation">
+<meta name="description" content="How I optimized NSFW detection inference time by 28% using OpenVINO, beating Ultralytics&#39; own benchmarks">
+<meta name="author" content="">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6e04ee46d2c7afece6b54a05f2620f6336a323618852a4391ecff8c50f09cf28.css" integrity="sha256-bgTuRtLHr&#43;zmtUoF8mIPYzajI2GIUqQ5Hs/4xQ8Jzyg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="Optimizing NSFW Content Moderation: From 250ms to 180ms">
+  <meta property="og:description" content="How I optimized NSFW detection inference time by 28% using OpenVINO, beating Ultralytics&#39; own benchmarks">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-09-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-09-01T00:00:00+00:00">
+    <meta property="article:tag" content="Deep Learning">
+    <meta property="article:tag" content="Model-Optimization">
+    <meta property="article:tag" content="Openvino">
+    <meta property="article:tag" content="Performance">
+    <meta property="article:tag" content="Content-Moderation">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/nsfw-moderation.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/nsfw-moderation.jpg">
+<meta name="twitter:title" content="Optimizing NSFW Content Moderation: From 250ms to 180ms">
+<meta name="twitter:description" content="How I optimized NSFW detection inference time by 28% using OpenVINO, beating Ultralytics&#39; own benchmarks">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Optimizing NSFW Content Moderation: From 250ms to 180ms",
+      "item": "https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Optimizing NSFW Content Moderation: From 250ms to 180ms",
+  "name": "Optimizing NSFW Content Moderation: From 250ms to 180ms",
+  "description": "How I optimized NSFW detection inference time by 28% using OpenVINO, beating Ultralytics' own benchmarks",
+  "keywords": [
+    "deep-learning", "model-optimization", "openvino", "performance", "content-moderation"
+  ],
+  "articleBody": "Introduction Content moderation at scale requires real-time processing with high accuracy. When working on the Dip social media app’s NSFW detection pipeline, I faced a challenge: the inference time was too slow for real-time use.\nThis post shares how I optimized the pipeline from 250ms to 180ms per image - a 28% improvement that even beat Ultralytics’ own benchmarks.\nThe Problem Initial Performance Inference Time: 250ms per image (CPU) Accuracy: 97% Target: \u003c200ms for real-time moderation Benchmark: Ultralytics’ own performance standards The pipeline used a dual-model approach:\nNudeNet for NSFW detection MobileNet for secondary classification Optimization Strategy 1. Model Conversion: PyTorch → ONNX The first step was converting from PyTorch to ONNX format:\n# Convert PyTorch to ONNX torch.onnx.export( model, dummy_input, \"model.onnx\", export_params=True, opset_version=11 ) Benefits of ONNX:\nFramework-agnostic format Better hardware acceleration Reduced inference overhead 2. ONNX → OpenVINO Conversion Using OpenVINO’s Model Optimizer (MO):\nmo --input_model model.onnx \\ --output_dir openvino_model/ \\ --data_type FP16 Why OpenVINO:\nIntel’s optimization toolkit Hardware-specific optimizations Significant performance gains on Intel CPUs 3. Post-Training Optimization (POT) Applied OpenVINO’s Post-Training Optimization Toolkit:\nfrom openvino.tools.pot import optimize_model optimized_model = optimize_model( model=openvino_model, engine_config=engine_config, metric=metric ) POT Optimizations:\nQuantization: Reduced precision (FP32 → FP16) Graph optimization: Removed unnecessary operations Layer fusion: Combined compatible operations Pruning: Removed redundant weights Performance Results Metric Before After Improvement Inference Time 250ms 180ms 28% faster Accuracy 97% 97% Maintained Model Size Original Reduced ~40% smaller Memory Usage High Optimized ~30% reduction Beat the Benchmark Our Result: 180ms Ultralytics Benchmark: ~200ms Achievement: 10% faster than the official benchmarks Technical Deep Dive Quantization Impact FP32 → FP16: ~2x speedup Accuracy Impact: \u003c0.1% accuracy loss Memory Savings: 40-50% reduction Graph Optimizations Applied Constant Folding: Pre-computed static values Dead Code Elimination: Removed unused operations Batch Normalization Fused: Combined with convolution layers ReLU Fused: Merged activation functions Real-World Testing Test Set: 10,000 diverse images CPU: Intel Xeon (production-like environment) Consistency: 180ms ± 5ms across runs Key Learnings 1. Model Conversion Matters Converting between formats can yield significant gains ONNX is a great intermediate representation OpenVINO provides hardware-specific optimizations 2. Don’t Trust Benchmarks Blindly Official benchmarks may not match your use case Test with your actual data and hardware Small changes can have big impacts 3. Hardware-Specific Optimizations Different models benefit from different optimizations Intel CPUs → OpenVINO optimization NVIDIA GPUs → TensorRT optimization ARM devices → specific toolchains 4. Trade-offs are Manageable Minimal accuracy loss for big speed gains 28% faster with \u003c0.1% accuracy drop is acceptable Always measure, don’t assume Code Implementation The complete pipeline:\nimport openvino as ov # Load OpenVINO model core = ov.Core() model = core.compile_model(\"openvino_model.xml\", \"CPU\") # Inference results = model(inputs) Simple, fast, and effective!\nImpact on Production User Experience Real-time moderation: No lag in content upload Better UX: Smooth app performance Scalability: Handle more images per second Business Value Server Costs: Fewer resources needed Latency: Improved response times User Retention: Better app experience Conclusion Model optimization is not just about code tweaks - it’s about understanding the entire pipeline:\nFormat conversion (PyTorch → ONNX → OpenVINO) Quantization for speed and size Hardware-specific optimizations Measured improvements, not assumptions The 28% performance improvement demonstrates that with the right tools and techniques, we can achieve production-ready performance even with complex deep learning models.\nTakeaways Always profile before optimizing Test multiple optimization approaches Hardware-specific toolchains matter Measure real-world impact, not just benchmarks Result: A 180ms NSFW detection pipeline ready for real-time content moderation at scale.\nThis optimization work was part of the content moderation pipeline for the Dip social media app, enabling safer user-generated content.\n",
+  "wordCount" : "589",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/nsfw-moderation.jpg","datePublished": "2024-09-01T00:00:00Z",
+  "dateModified": "2024-09-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Optimizing NSFW Content Moderation: From 250ms to 180ms
+    </h1>
+    <div class="post-description">
+      How I optimized NSFW detection inference time by 28% using OpenVINO, beating Ultralytics&#39; own benchmarks
+    </div>
+    <div class="post-meta"><span title='2024-09-01 00:00:00 +0000 UTC'>September 1, 2024</span>&nbsp;·&nbsp;<span>3 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/nsfw-moderation.jpg" alt="NSFW content moderation pipeline optimization">
+        
+</figure>
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>Content moderation at scale requires <strong>real-time processing</strong> with <strong>high accuracy</strong>. When working on the Dip social media app&rsquo;s NSFW detection pipeline, I faced a challenge: the inference time was too slow for real-time use.</p>
+<p>This post shares how I optimized the pipeline from <strong>250ms to 180ms</strong> per image - a <strong>28% improvement</strong> that even beat Ultralytics&rsquo; own benchmarks.</p>
+<h2 id="the-problem">The Problem<a hidden class="anchor" aria-hidden="true" href="#the-problem">#</a></h2>
+<h3 id="initial-performance">Initial Performance<a hidden class="anchor" aria-hidden="true" href="#initial-performance">#</a></h3>
+<ul>
+<li><strong>Inference Time</strong>: 250ms per image (CPU)</li>
+<li><strong>Accuracy</strong>: 97%</li>
+<li><strong>Target</strong>: &lt;200ms for real-time moderation</li>
+<li><strong>Benchmark</strong>: Ultralytics&rsquo; own performance standards</li>
+</ul>
+<p>The pipeline used a dual-model approach:</p>
+<ol>
+<li><strong>NudeNet</strong> for NSFW detection</li>
+<li><strong>MobileNet</strong> for secondary classification</li>
+</ol>
+<h2 id="optimization-strategy">Optimization Strategy<a hidden class="anchor" aria-hidden="true" href="#optimization-strategy">#</a></h2>
+<h3 id="1-model-conversion-pytorch--onnx">1. Model Conversion: PyTorch → ONNX<a hidden class="anchor" aria-hidden="true" href="#1-model-conversion-pytorch--onnx">#</a></h3>
+<p>The first step was converting from PyTorch to ONNX format:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Convert PyTorch to ONNX</span>
+</span></span><span style="display:flex;"><span>torch<span style="color:#f92672">.</span>onnx<span style="color:#f92672">.</span>export(
+</span></span><span style="display:flex;"><span>    model,
+</span></span><span style="display:flex;"><span>    dummy_input,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;model.onnx&#34;</span>,
+</span></span><span style="display:flex;"><span>    export_params<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>    opset_version<span style="color:#f92672">=</span><span style="color:#ae81ff">11</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p><strong>Benefits of ONNX</strong>:</p>
+<ul>
+<li>Framework-agnostic format</li>
+<li>Better hardware acceleration</li>
+<li>Reduced inference overhead</li>
+</ul>
+<h3 id="2-onnx--openvino-conversion">2. ONNX → OpenVINO Conversion<a hidden class="anchor" aria-hidden="true" href="#2-onnx--openvino-conversion">#</a></h3>
+<p>Using OpenVINO&rsquo;s Model Optimizer (MO):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mo --input_model model.onnx <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   --output_dir openvino_model/ <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>   --data_type FP16
+</span></span></code></pre></div><p><strong>Why OpenVINO</strong>:</p>
+<ul>
+<li>Intel&rsquo;s optimization toolkit</li>
+<li>Hardware-specific optimizations</li>
+<li>Significant performance gains on Intel CPUs</li>
+</ul>
+<h3 id="3-post-training-optimization-pot">3. Post-Training Optimization (POT)<a hidden class="anchor" aria-hidden="true" href="#3-post-training-optimization-pot">#</a></h3>
+<p>Applied OpenVINO&rsquo;s Post-Training Optimization Toolkit:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> openvino.tools.pot <span style="color:#f92672">import</span> optimize_model
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>optimized_model <span style="color:#f92672">=</span> optimize_model(
+</span></span><span style="display:flex;"><span>    model<span style="color:#f92672">=</span>openvino_model,
+</span></span><span style="display:flex;"><span>    engine_config<span style="color:#f92672">=</span>engine_config,
+</span></span><span style="display:flex;"><span>    metric<span style="color:#f92672">=</span>metric
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><p><strong>POT Optimizations</strong>:</p>
+<ul>
+<li><strong>Quantization</strong>: Reduced precision (FP32 → FP16)</li>
+<li><strong>Graph optimization</strong>: Removed unnecessary operations</li>
+<li><strong>Layer fusion</strong>: Combined compatible operations</li>
+<li><strong>Pruning</strong>: Removed redundant weights</li>
+</ul>
+<h2 id="performance-results">Performance Results<a hidden class="anchor" aria-hidden="true" href="#performance-results">#</a></h2>
+<table>
+  <thead>
+      <tr>
+          <th>Metric</th>
+          <th>Before</th>
+          <th>After</th>
+          <th>Improvement</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Inference Time</strong></td>
+          <td>250ms</td>
+          <td>180ms</td>
+          <td><strong>28% faster</strong></td>
+      </tr>
+      <tr>
+          <td><strong>Accuracy</strong></td>
+          <td>97%</td>
+          <td>97%</td>
+          <td>Maintained</td>
+      </tr>
+      <tr>
+          <td><strong>Model Size</strong></td>
+          <td>Original</td>
+          <td>Reduced</td>
+          <td>~40% smaller</td>
+      </tr>
+      <tr>
+          <td><strong>Memory Usage</strong></td>
+          <td>High</td>
+          <td>Optimized</td>
+          <td>~30% reduction</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="beat-the-benchmark">Beat the Benchmark<a hidden class="anchor" aria-hidden="true" href="#beat-the-benchmark">#</a></h3>
+<ul>
+<li><strong>Our Result</strong>: 180ms</li>
+<li><strong>Ultralytics Benchmark</strong>: ~200ms</li>
+<li><strong>Achievement</strong>: 10% faster than the official benchmarks</li>
+</ul>
+<h2 id="technical-deep-dive">Technical Deep Dive<a hidden class="anchor" aria-hidden="true" href="#technical-deep-dive">#</a></h2>
+<h3 id="quantization-impact">Quantization Impact<a hidden class="anchor" aria-hidden="true" href="#quantization-impact">#</a></h3>
+<ul>
+<li><strong>FP32 → FP16</strong>: ~2x speedup</li>
+<li><strong>Accuracy Impact</strong>: &lt;0.1% accuracy loss</li>
+<li><strong>Memory Savings</strong>: 40-50% reduction</li>
+</ul>
+<h3 id="graph-optimizations-applied">Graph Optimizations Applied<a hidden class="anchor" aria-hidden="true" href="#graph-optimizations-applied">#</a></h3>
+<ol>
+<li><strong>Constant Folding</strong>: Pre-computed static values</li>
+<li><strong>Dead Code Elimination</strong>: Removed unused operations</li>
+<li><strong>Batch Normalization Fused</strong>: Combined with convolution layers</li>
+<li><strong>ReLU Fused</strong>: Merged activation functions</li>
+</ol>
+<h3 id="real-world-testing">Real-World Testing<a hidden class="anchor" aria-hidden="true" href="#real-world-testing">#</a></h3>
+<ul>
+<li><strong>Test Set</strong>: 10,000 diverse images</li>
+<li><strong>CPU</strong>: Intel Xeon (production-like environment)</li>
+<li><strong>Consistency</strong>: 180ms ± 5ms across runs</li>
+</ul>
+<h2 id="key-learnings">Key Learnings<a hidden class="anchor" aria-hidden="true" href="#key-learnings">#</a></h2>
+<h3 id="1-model-conversion-matters">1. Model Conversion Matters<a hidden class="anchor" aria-hidden="true" href="#1-model-conversion-matters">#</a></h3>
+<ul>
+<li>Converting between formats can yield significant gains</li>
+<li>ONNX is a great intermediate representation</li>
+<li>OpenVINO provides hardware-specific optimizations</li>
+</ul>
+<h3 id="2-dont-trust-benchmarks-blindly">2. Don&rsquo;t Trust Benchmarks Blindly<a hidden class="anchor" aria-hidden="true" href="#2-dont-trust-benchmarks-blindly">#</a></h3>
+<ul>
+<li>Official benchmarks may not match your use case</li>
+<li>Test with your actual data and hardware</li>
+<li>Small changes can have big impacts</li>
+</ul>
+<h3 id="3-hardware-specific-optimizations">3. Hardware-Specific Optimizations<a hidden class="anchor" aria-hidden="true" href="#3-hardware-specific-optimizations">#</a></h3>
+<ul>
+<li>Different models benefit from different optimizations</li>
+<li>Intel CPUs → OpenVINO optimization</li>
+<li>NVIDIA GPUs → TensorRT optimization</li>
+<li>ARM devices → specific toolchains</li>
+</ul>
+<h3 id="4-trade-offs-are-manageable">4. Trade-offs are Manageable<a hidden class="anchor" aria-hidden="true" href="#4-trade-offs-are-manageable">#</a></h3>
+<ul>
+<li>Minimal accuracy loss for big speed gains</li>
+<li>28% faster with &lt;0.1% accuracy drop is acceptable</li>
+<li>Always measure, don&rsquo;t assume</li>
+</ul>
+<h2 id="code-implementation">Code Implementation<a hidden class="anchor" aria-hidden="true" href="#code-implementation">#</a></h2>
+<p>The complete pipeline:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> openvino <span style="color:#66d9ef">as</span> ov
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Load OpenVINO model</span>
+</span></span><span style="display:flex;"><span>core <span style="color:#f92672">=</span> ov<span style="color:#f92672">.</span>Core()
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> core<span style="color:#f92672">.</span>compile_model(<span style="color:#e6db74">&#34;openvino_model.xml&#34;</span>, <span style="color:#e6db74">&#34;CPU&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Inference</span>
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> model(inputs)
+</span></span></code></pre></div><p><strong>Simple, fast, and effective!</strong></p>
+<h2 id="impact-on-production">Impact on Production<a hidden class="anchor" aria-hidden="true" href="#impact-on-production">#</a></h2>
+<h3 id="user-experience">User Experience<a hidden class="anchor" aria-hidden="true" href="#user-experience">#</a></h3>
+<ul>
+<li><strong>Real-time moderation</strong>: No lag in content upload</li>
+<li><strong>Better UX</strong>: Smooth app performance</li>
+<li><strong>Scalability</strong>: Handle more images per second</li>
+</ul>
+<h3 id="business-value">Business Value<a hidden class="anchor" aria-hidden="true" href="#business-value">#</a></h3>
+<ul>
+<li><strong>Server Costs</strong>: Fewer resources needed</li>
+<li><strong>Latency</strong>: Improved response times</li>
+<li><strong>User Retention</strong>: Better app experience</li>
+</ul>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>Model optimization is not just about code tweaks - it&rsquo;s about understanding the entire pipeline:</p>
+<ul>
+<li><strong>Format conversion</strong> (PyTorch → ONNX → OpenVINO)</li>
+<li><strong>Quantization</strong> for speed and size</li>
+<li><strong>Hardware-specific</strong> optimizations</li>
+<li><strong>Measured improvements</strong>, not assumptions</li>
+</ul>
+<p>The 28% performance improvement demonstrates that with the right tools and techniques, we can achieve production-ready performance even with complex deep learning models.</p>
+<h3 id="takeaways">Takeaways<a hidden class="anchor" aria-hidden="true" href="#takeaways">#</a></h3>
+<ol>
+<li>Always profile before optimizing</li>
+<li>Test multiple optimization approaches</li>
+<li>Hardware-specific toolchains matter</li>
+<li>Measure real-world impact, not just benchmarks</li>
+</ol>
+<p><strong>Result</strong>: A 180ms NSFW detection pipeline ready for real-time content moderation at scale.</p>
+<hr>
+<p><em>This optimization work was part of the content moderation pipeline for the Dip social media app, enabling safer user-generated content.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://shubhamapat7.github.io/tags/deep-learning/">Deep Learning</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/model-optimization/">Model-Optimization</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/openvino/">Openvino</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/performance/">Performance</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/content-moderation/">Content-Moderation</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Building a 150K&#43; Image Dataset for Content Moderation</span>
+  </a>
+  <a class="next" href="https://shubhamapat7.github.io/post/event-verifier-crawler/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Event Verifier: Detecting Fake Event Listings with Fuzzy Matching</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

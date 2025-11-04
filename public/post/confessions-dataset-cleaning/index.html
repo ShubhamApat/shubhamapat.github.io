@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Cleaning 20,000&#43; Confessions: Building a Content Moderation Dataset | Shubham Apat</title>
+<meta name="keywords" content="data-cleaning, nlp, content-moderation, text-processing">
+<meta name="description" content="My first task at ByteCitadel - cleaning and labeling 20K&#43; text confessions for dip: life beyond colleges app">
+<meta name="author" content="">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/confessions-dataset-cleaning/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6e04ee46d2c7afece6b54a05f2620f6336a323618852a4391ecff8c50f09cf28.css" integrity="sha256-bgTuRtLHr&#43;zmtUoF8mIPYzajI2GIUqQ5Hs/4xQ8Jzyg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/confessions-dataset-cleaning/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/confessions-dataset-cleaning/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="Cleaning 20,000&#43; Confessions: Building a Content Moderation Dataset">
+  <meta property="og:description" content="My first task at ByteCitadel - cleaning and labeling 20K&#43; text confessions for dip: life beyond colleges app">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-03-10T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-03-10T00:00:00+00:00">
+    <meta property="article:tag" content="Data-Cleaning">
+    <meta property="article:tag" content="Nlp">
+    <meta property="article:tag" content="Content-Moderation">
+    <meta property="article:tag" content="Text-Processing">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/confessions-cleaning.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/confessions-cleaning.jpg">
+<meta name="twitter:title" content="Cleaning 20,000&#43; Confessions: Building a Content Moderation Dataset">
+<meta name="twitter:description" content="My first task at ByteCitadel - cleaning and labeling 20K&#43; text confessions for dip: life beyond colleges app">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Cleaning 20,000+ Confessions: Building a Content Moderation Dataset",
+      "item": "https://shubhamapat7.github.io/post/confessions-dataset-cleaning/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Cleaning 20,000+ Confessions: Building a Content Moderation Dataset",
+  "name": "Cleaning 20,000\u002b Confessions: Building a Content Moderation Dataset",
+  "description": "My first task at ByteCitadel - cleaning and labeling 20K+ text confessions for dip: life beyond colleges app",
+  "keywords": [
+    "data-cleaning", "nlp", "content-moderation", "text-processing"
+  ],
+  "articleBody": "Introduction My journey at ByteCitadel started with a foundational task: cleaning and labeling 20,000+ text confessions for the dip: life beyond colleges app. This was my first project in the world of content moderation and data processing.\nProject Overview The App: dip: life beyond colleges A social media platform for college students where users can share anonymous confessions, thoughts, and experiences.\nThe Problem Raw confessions: Unstructured, messy text data Volume: 20,000+ entries Purpose: Train content moderation models Challenge: Data was unusable in its original state Data Cleaning Process 1. Text Normalization Issues Found: Special characters and emojis scattered throughout Inconsistent capitalization Extra whitespaces and line breaks HTML tags from web scraping Emoji representations (like :), :D, etc.) Solution: # Text cleaning pipeline def clean_confession(text): # Remove HTML tags text = re.sub(r'\u003c[^\u003e]+\u003e', '', text) # Normalize whitespace text = re.sub(r'\\s+', ' ', text).strip() # Handle common emoji representations text = text.replace(' :)', ' 😊').replace(' :D', ' 😃') # Normalize capitalization text = text.lower() return text 2. Duplicate Detection Challenge: Multiple users might post similar confessions Solution:\nUsed text similarity (fuzzy matching) Identified 3.2% duplicates Removed or merged similar entries from fuzzywuzzy import fuzz # Check for similar confessions similar_threshold = 85 for confession in confessions: if similarity_with_existing(confession) \u003e similar_threshold: # Handle duplicate pass 3. Quality Filtering Criteria:\nMinimum length: 20 characters Maximum length: 5,000 characters Remove spam/repetitive content Filter out test data Results:\n5.8% entries removed (too short) 1.2% entries removed (spam/test data) 93% retention rate Data Labeling Strategy Categories We needed to label each confession for content moderation:\nSafe: General sharing, advice, experiences Needs Review: Ambiguous content requiring human review Inappropriate: Violates community guidelines Personal Info: Contains contact details, addresses Promotional: Spam or promotional content Labeling Process Approach: Rule-Based + Manual Automated rules for clear cases Manual review for ambiguous cases Consistency checks across annotators # Rule-based initial labeling def auto_label(confession): if contains_personal_info(confession): return \"personal_info\" elif is_promotional(confession): return \"promotional\" elif is_spam(confession): return \"inappropriate\" else: return \"needs_review\" # Manual review Quality Assurance Double Annotation 20% of data labeled by two annotators Measured inter-annotator agreement Target: \u003e90% agreement Error Analysis Reviewed mislabeled examples Refined rules iteratively Improved accuracy over time Data Structure Final Dataset Format { \"confession_id\": \"conf_001\", \"text\": \"cleaned confession text\", \"label\": \"safe/needs_review/inappropriate/...\", \"confidence\": 0.95, \"annotator\": \"annotator_1\", \"timestamp\": \"2024-03-10T12:00:00Z\" } Stats Total Confessions: 20,000+ Safe: 68% Needs Review: 18% Inappropriate: 8% Personal Info: 4% Promotional: 2% Challenges Faced 1. Ambiguous Content Some confessions weren’t clearly safe or unsafe Solution: Created “Needs Review” category for human evaluation 2. Sarcasm \u0026 Context Text sarcasm doesn’t translate well to rules Solution: Flagged for manual review 3. Regional Language Mix of English, Hindi, regional languages Solution: Identified but left for specialized models 4. Scale Processing 20K+ entries manually is impossible Solution: Hybrid automated + manual approach Impact \u0026 Results For dip App ✅ Clean dataset ready for ML training ✅ Reduced moderation workload by 70% ✅ Faster content review process ✅ Better user experience For Model Training Baseline accuracy: 87% with this dataset Reduced false positives: Clear labeling Improved generalization: Diverse content types Technical Stack Python: Core processing Pandas: Data manipulation NLTK: Text processing FuzzyWuzzy: String matching Regex: Pattern matching Jupyter: Analysis and exploration Lessons Learned 1. Data Cleaning is 80% of the Work Raw data is rarely usable Quality input = Quality output Don’t skip this step! 2. Hybrid Approach Works Best Automation for efficiency Human judgment for quality Balance is key 3. Document Everything Track preprocessing steps Note assumptions Make it reproducible 4. Start Simple, Iterate Begin with basic rules Add complexity as needed Measure improvements Code Snippet # Complete cleaning pipeline def process_confessions(raw_data): cleaned_data = [] for confession in raw_data: # Clean text text = clean_confession(confession['text']) # Check quality if not meets_quality_criteria(text): continue # Auto-label label = auto_label(text) # Store cleaned_data.append({ 'id': confession['id'], 'text': text, 'label': label }) return cleaned_data Conclusion This project taught me the importance of data quality in machine learning. Clean, labeled data is the foundation of any successful AI system.\nKey Takeaways Invest time in data cleaning Hybrid automation + manual review Document your process Measure everything This 20K confession dataset became the foundation for dip’s content moderation system, processing thousands of user posts daily and keeping the community safe.\nThis was my first project at ByteCitadel, marking the beginning of my journey in content moderation and NLP.\n",
+  "wordCount" : "720",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/confessions-cleaning.jpg","datePublished": "2024-03-10T00:00:00Z",
+  "dateModified": "2024-03-10T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/confessions-dataset-cleaning/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Cleaning 20,000&#43; Confessions: Building a Content Moderation Dataset
+    </h1>
+    <div class="post-description">
+      My first task at ByteCitadel - cleaning and labeling 20K&#43; text confessions for dip: life beyond colleges app
+    </div>
+    <div class="post-meta"><span title='2024-03-10 00:00:00 +0000 UTC'>March 10, 2024</span>&nbsp;·&nbsp;<span>4 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/confessions-cleaning.jpg" alt="Text data cleaning and labeling process">
+        
+</figure>
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>My journey at <strong>ByteCitadel</strong> started with a foundational task: cleaning and labeling 20,000+ text confessions for the dip: life beyond colleges app. This was my first project in the world of content moderation and data processing.</p>
+<h2 id="project-overview">Project Overview<a hidden class="anchor" aria-hidden="true" href="#project-overview">#</a></h2>
+<h3 id="the-app-dip-life-beyond-colleges">The App: dip: life beyond colleges<a hidden class="anchor" aria-hidden="true" href="#the-app-dip-life-beyond-colleges">#</a></h3>
+<p>A social media platform for college students where users can share anonymous confessions, thoughts, and experiences.</p>
+<h3 id="the-problem">The Problem<a hidden class="anchor" aria-hidden="true" href="#the-problem">#</a></h3>
+<ul>
+<li><strong>Raw confessions</strong>: Unstructured, messy text data</li>
+<li><strong>Volume</strong>: 20,000+ entries</li>
+<li><strong>Purpose</strong>: Train content moderation models</li>
+<li><strong>Challenge</strong>: Data was unusable in its original state</li>
+</ul>
+<h2 id="data-cleaning-process">Data Cleaning Process<a hidden class="anchor" aria-hidden="true" href="#data-cleaning-process">#</a></h2>
+<h3 id="1-text-normalization">1. <strong>Text Normalization</strong><a hidden class="anchor" aria-hidden="true" href="#1-text-normalization">#</a></h3>
+<h4 id="issues-found">Issues Found:<a hidden class="anchor" aria-hidden="true" href="#issues-found">#</a></h4>
+<ul>
+<li>Special characters and emojis scattered throughout</li>
+<li>Inconsistent capitalization</li>
+<li>Extra whitespaces and line breaks</li>
+<li>HTML tags from web scraping</li>
+<li>Emoji representations (like :), :D, etc.)</li>
+</ul>
+<h4 id="solution">Solution:<a hidden class="anchor" aria-hidden="true" href="#solution">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Text cleaning pipeline</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">clean_confession</span>(text):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Remove HTML tags</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;&lt;[^&gt;]+&gt;&#39;</span>, <span style="color:#e6db74">&#39;&#39;</span>, text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Normalize whitespace</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>sub(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;\s+&#39;</span>, <span style="color:#e6db74">&#39; &#39;</span>, text)<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Handle common emoji representations</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; :)&#39;</span>, <span style="color:#e6db74">&#39; 😊&#39;</span>)<span style="color:#f92672">.</span>replace(<span style="color:#e6db74">&#39; :D&#39;</span>, <span style="color:#e6db74">&#39; 😃&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Normalize capitalization</span>
+</span></span><span style="display:flex;"><span>    text <span style="color:#f92672">=</span> text<span style="color:#f92672">.</span>lower()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> text
+</span></span></code></pre></div><h3 id="2-duplicate-detection">2. <strong>Duplicate Detection</strong><a hidden class="anchor" aria-hidden="true" href="#2-duplicate-detection">#</a></h3>
+<p><strong>Challenge</strong>: Multiple users might post similar confessions
+<strong>Solution</strong>:</p>
+<ul>
+<li>Used text similarity (fuzzy matching)</li>
+<li>Identified 3.2% duplicates</li>
+<li>Removed or merged similar entries</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> fuzzywuzzy <span style="color:#f92672">import</span> fuzz
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Check for similar confessions</span>
+</span></span><span style="display:flex;"><span>similar_threshold <span style="color:#f92672">=</span> <span style="color:#ae81ff">85</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> confession <span style="color:#f92672">in</span> confessions:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> similarity_with_existing(confession) <span style="color:#f92672">&gt;</span> similar_threshold:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Handle duplicate</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><h3 id="3-quality-filtering">3. <strong>Quality Filtering</strong><a hidden class="anchor" aria-hidden="true" href="#3-quality-filtering">#</a></h3>
+<p><strong>Criteria</strong>:</p>
+<ul>
+<li>Minimum length: 20 characters</li>
+<li>Maximum length: 5,000 characters</li>
+<li>Remove spam/repetitive content</li>
+<li>Filter out test data</li>
+</ul>
+<p><strong>Results</strong>:</p>
+<ul>
+<li>5.8% entries removed (too short)</li>
+<li>1.2% entries removed (spam/test data)</li>
+<li>93% retention rate</li>
+</ul>
+<h2 id="data-labeling-strategy">Data Labeling Strategy<a hidden class="anchor" aria-hidden="true" href="#data-labeling-strategy">#</a></h2>
+<h3 id="categories">Categories<a hidden class="anchor" aria-hidden="true" href="#categories">#</a></h3>
+<p>We needed to label each confession for content moderation:</p>
+<ol>
+<li><strong>Safe</strong>: General sharing, advice, experiences</li>
+<li><strong>Needs Review</strong>: Ambiguous content requiring human review</li>
+<li><strong>Inappropriate</strong>: Violates community guidelines</li>
+<li><strong>Personal Info</strong>: Contains contact details, addresses</li>
+<li><strong>Promotional</strong>: Spam or promotional content</li>
+</ol>
+<h3 id="labeling-process">Labeling Process<a hidden class="anchor" aria-hidden="true" href="#labeling-process">#</a></h3>
+<h4 id="approach-rule-based--manual">Approach: Rule-Based + Manual<a hidden class="anchor" aria-hidden="true" href="#approach-rule-based--manual">#</a></h4>
+<ol>
+<li><strong>Automated rules</strong> for clear cases</li>
+<li><strong>Manual review</strong> for ambiguous cases</li>
+<li><strong>Consistency checks</strong> across annotators</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Rule-based initial labeling</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">auto_label</span>(confession):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> contains_personal_info(confession):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;personal_info&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> is_promotional(confession):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;promotional&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">elif</span> is_spam(confession):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;inappropriate&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#e6db74">&#34;needs_review&#34;</span>  <span style="color:#75715e"># Manual review</span>
+</span></span></code></pre></div><h3 id="quality-assurance">Quality Assurance<a hidden class="anchor" aria-hidden="true" href="#quality-assurance">#</a></h3>
+<h4 id="double-annotation">Double Annotation<a hidden class="anchor" aria-hidden="true" href="#double-annotation">#</a></h4>
+<ul>
+<li>20% of data labeled by two annotators</li>
+<li>Measured inter-annotator agreement</li>
+<li>Target: &gt;90% agreement</li>
+</ul>
+<h4 id="error-analysis">Error Analysis<a hidden class="anchor" aria-hidden="true" href="#error-analysis">#</a></h4>
+<ul>
+<li>Reviewed mislabeled examples</li>
+<li>Refined rules iteratively</li>
+<li>Improved accuracy over time</li>
+</ul>
+<h2 id="data-structure">Data Structure<a hidden class="anchor" aria-hidden="true" href="#data-structure">#</a></h2>
+<h3 id="final-dataset-format">Final Dataset Format<a hidden class="anchor" aria-hidden="true" href="#final-dataset-format">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;confession_id&#34;</span>: <span style="color:#e6db74">&#34;conf_001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;text&#34;</span>: <span style="color:#e6db74">&#34;cleaned confession text&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;label&#34;</span>: <span style="color:#e6db74">&#34;safe/needs_review/inappropriate/...&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;confidence&#34;</span>: <span style="color:#ae81ff">0.95</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;annotator&#34;</span>: <span style="color:#e6db74">&#34;annotator_1&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;timestamp&#34;</span>: <span style="color:#e6db74">&#34;2024-03-10T12:00:00Z&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="stats">Stats<a hidden class="anchor" aria-hidden="true" href="#stats">#</a></h3>
+<ul>
+<li><strong>Total Confessions</strong>: 20,000+</li>
+<li><strong>Safe</strong>: 68%</li>
+<li><strong>Needs Review</strong>: 18%</li>
+<li><strong>Inappropriate</strong>: 8%</li>
+<li><strong>Personal Info</strong>: 4%</li>
+<li><strong>Promotional</strong>: 2%</li>
+</ul>
+<h2 id="challenges-faced">Challenges Faced<a hidden class="anchor" aria-hidden="true" href="#challenges-faced">#</a></h2>
+<h3 id="1-ambiguous-content">1. <strong>Ambiguous Content</strong><a hidden class="anchor" aria-hidden="true" href="#1-ambiguous-content">#</a></h3>
+<ul>
+<li>Some confessions weren&rsquo;t clearly safe or unsafe</li>
+<li><strong>Solution</strong>: Created &ldquo;Needs Review&rdquo; category for human evaluation</li>
+</ul>
+<h3 id="2-sarcasm--context">2. <strong>Sarcasm &amp; Context</strong><a hidden class="anchor" aria-hidden="true" href="#2-sarcasm--context">#</a></h3>
+<ul>
+<li>Text sarcasm doesn&rsquo;t translate well to rules</li>
+<li><strong>Solution</strong>: Flagged for manual review</li>
+</ul>
+<h3 id="3-regional-language">3. <strong>Regional Language</strong><a hidden class="anchor" aria-hidden="true" href="#3-regional-language">#</a></h3>
+<ul>
+<li>Mix of English, Hindi, regional languages</li>
+<li><strong>Solution</strong>: Identified but left for specialized models</li>
+</ul>
+<h3 id="4-scale">4. <strong>Scale</strong><a hidden class="anchor" aria-hidden="true" href="#4-scale">#</a></h3>
+<ul>
+<li>Processing 20K+ entries manually is impossible</li>
+<li><strong>Solution</strong>: Hybrid automated + manual approach</li>
+</ul>
+<h2 id="impact--results">Impact &amp; Results<a hidden class="anchor" aria-hidden="true" href="#impact--results">#</a></h2>
+<h3 id="for-dip-app">For dip App<a hidden class="anchor" aria-hidden="true" href="#for-dip-app">#</a></h3>
+<ul>
+<li>✅ Clean dataset ready for ML training</li>
+<li>✅ Reduced moderation workload by 70%</li>
+<li>✅ Faster content review process</li>
+<li>✅ Better user experience</li>
+</ul>
+<h3 id="for-model-training">For Model Training<a hidden class="anchor" aria-hidden="true" href="#for-model-training">#</a></h3>
+<ul>
+<li><strong>Baseline accuracy</strong>: 87% with this dataset</li>
+<li><strong>Reduced false positives</strong>: Clear labeling</li>
+<li><strong>Improved generalization</strong>: Diverse content types</li>
+</ul>
+<h2 id="technical-stack">Technical Stack<a hidden class="anchor" aria-hidden="true" href="#technical-stack">#</a></h2>
+<ul>
+<li><strong>Python</strong>: Core processing</li>
+<li><strong>Pandas</strong>: Data manipulation</li>
+<li><strong>NLTK</strong>: Text processing</li>
+<li><strong>FuzzyWuzzy</strong>: String matching</li>
+<li><strong>Regex</strong>: Pattern matching</li>
+<li><strong>Jupyter</strong>: Analysis and exploration</li>
+</ul>
+<h2 id="lessons-learned">Lessons Learned<a hidden class="anchor" aria-hidden="true" href="#lessons-learned">#</a></h2>
+<h3 id="1-data-cleaning-is-80-of-the-work">1. <strong>Data Cleaning is 80% of the Work</strong><a hidden class="anchor" aria-hidden="true" href="#1-data-cleaning-is-80-of-the-work">#</a></h3>
+<ul>
+<li>Raw data is rarely usable</li>
+<li>Quality input = Quality output</li>
+<li>Don&rsquo;t skip this step!</li>
+</ul>
+<h3 id="2-hybrid-approach-works-best">2. <strong>Hybrid Approach Works Best</strong><a hidden class="anchor" aria-hidden="true" href="#2-hybrid-approach-works-best">#</a></h3>
+<ul>
+<li>Automation for efficiency</li>
+<li>Human judgment for quality</li>
+<li>Balance is key</li>
+</ul>
+<h3 id="3-document-everything">3. <strong>Document Everything</strong><a hidden class="anchor" aria-hidden="true" href="#3-document-everything">#</a></h3>
+<ul>
+<li>Track preprocessing steps</li>
+<li>Note assumptions</li>
+<li>Make it reproducible</li>
+</ul>
+<h3 id="4-start-simple-iterate">4. <strong>Start Simple, Iterate</strong><a hidden class="anchor" aria-hidden="true" href="#4-start-simple-iterate">#</a></h3>
+<ul>
+<li>Begin with basic rules</li>
+<li>Add complexity as needed</li>
+<li>Measure improvements</li>
+</ul>
+<h2 id="code-snippet">Code Snippet<a hidden class="anchor" aria-hidden="true" href="#code-snippet">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Complete cleaning pipeline</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">process_confessions</span>(raw_data):
+</span></span><span style="display:flex;"><span>    cleaned_data <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> confession <span style="color:#f92672">in</span> raw_data:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Clean text</span>
+</span></span><span style="display:flex;"><span>        text <span style="color:#f92672">=</span> clean_confession(confession[<span style="color:#e6db74">&#39;text&#39;</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Check quality</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> meets_quality_criteria(text):
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Auto-label</span>
+</span></span><span style="display:flex;"><span>        label <span style="color:#f92672">=</span> auto_label(text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Store</span>
+</span></span><span style="display:flex;"><span>        cleaned_data<span style="color:#f92672">.</span>append({
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;id&#39;</span>: confession[<span style="color:#e6db74">&#39;id&#39;</span>],
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;text&#39;</span>: text,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;label&#39;</span>: label
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> cleaned_data
+</span></span></code></pre></div><h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>This project taught me the importance of <strong>data quality</strong> in machine learning. Clean, labeled data is the foundation of any successful AI system.</p>
+<h3 id="key-takeaways">Key Takeaways<a hidden class="anchor" aria-hidden="true" href="#key-takeaways">#</a></h3>
+<ul>
+<li>Invest time in data cleaning</li>
+<li>Hybrid automation + manual review</li>
+<li>Document your process</li>
+<li>Measure everything</li>
+</ul>
+<p>This 20K confession dataset became the foundation for dip&rsquo;s content moderation system, processing thousands of user posts daily and keeping the community safe.</p>
+<hr>
+<p><em>This was my first project at ByteCitadel, marking the beginning of my journey in content moderation and NLP.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://shubhamapat7.github.io/tags/data-cleaning/">Data-Cleaning</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/nlp/">Nlp</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/content-moderation/">Content-Moderation</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/text-processing/">Text-Processing</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://shubhamapat7.github.io/projects/bookmyshow-scraper/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>BookMyShow Scraper - High-Performance Web Scraping</span>
+  </a>
+  <a class="next" href="https://shubhamapat7.github.io/projects/remote-sensing-mangrove-classification/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Remote Sensing-Based Mangrove Classification</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

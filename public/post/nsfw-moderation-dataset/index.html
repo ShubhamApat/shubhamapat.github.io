@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Building a 150K&#43; Image Dataset for Content Moderation | Shubham Apat</title>
+<meta name="keywords" content="dataset, data-collection, content-moderation, machine-learning">
+<meta name="description" content="How I collected and curated 150,000&#43; images across 6 classes for training robust content moderation models">
+<meta name="author" content="">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6e04ee46d2c7afece6b54a05f2620f6336a323618852a4391ecff8c50f09cf28.css" integrity="sha256-bgTuRtLHr&#43;zmtUoF8mIPYzajI2GIUqQ5Hs/4xQ8Jzyg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="Building a 150K&#43; Image Dataset for Content Moderation">
+  <meta property="og:description" content="How I collected and curated 150,000&#43; images across 6 classes for training robust content moderation models">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-09-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-09-15T00:00:00+00:00">
+    <meta property="article:tag" content="Dataset">
+    <meta property="article:tag" content="Data-Collection">
+    <meta property="article:tag" content="Content-Moderation">
+    <meta property="article:tag" content="Machine Learning">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/image-dataset.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/image-dataset.jpg">
+<meta name="twitter:title" content="Building a 150K&#43; Image Dataset for Content Moderation">
+<meta name="twitter:description" content="How I collected and curated 150,000&#43; images across 6 classes for training robust content moderation models">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Building a 150K+ Image Dataset for Content Moderation",
+      "item": "https://shubhamapat7.github.io/post/nsfw-moderation-dataset/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Building a 150K+ Image Dataset for Content Moderation",
+  "name": "Building a 150K\u002b Image Dataset for Content Moderation",
+  "description": "How I collected and curated 150,000+ images across 6 classes for training robust content moderation models",
+  "keywords": [
+    "dataset", "data-collection", "content-moderation", "machine-learning"
+  ],
+  "articleBody": "Introduction Building an effective content moderation system requires a diverse, high-quality dataset. For the Dip social media app, I collected and curated a massive dataset of 150,000+ images across 6 content categories to train robust moderation models.\nThis post details the comprehensive data collection and curation process.\nDataset Specifications Scale \u0026 Classes Total Images: 150,000+ Per Class: ~30,000 images Classes: Violence Drugs NSFW Neutral Hateful Memes Weapons Data Sources Strategy Multi-Source Approach Collecting from diverse sources ensures dataset diversity and prevents bias:\n1. Kaggle Datasets Public machine learning datasets Curated collections Community-vetted data 2. Research Papers Academic datasets from published research Peer-reviewed sources Scientific validation 3. Roboflow Computer vision dataset platform High-quality labeled images Pre-processed datasets 4. Custom Collection Manually curated examples Edge cases and corner scenarios Platform-specific content Curation Process 1. Source Aggregation # Pseudocode for data collection sources = [ \"kaggle_datasets\", \"research_papers\", \"roboflow_datasets\", \"custom_collection\" ] for source in sources: collect_dataset(source) validate_quality(source) 2. Quality Control Image Validation: Remove corrupted files Resolution Checks: Ensure minimum quality standards Format Standardization: Convert to consistent formats Duplicate Detection: Remove near-duplicates 3. Class Balancing Equal Distribution: ~30K images per class Balance Verification: Statistical analysis Class Representation: Diverse examples per category 4. Annotation \u0026 Labeling Multi-label Support: For complex images Quality Labels: Confidence scores Edge Cases: Marked for special handling Challenges \u0026 Solutions Challenge 1: Data Quality Problem: Inconsistent image quality across sources Solution:\nImplemented quality filters Manual inspection of samples Automated validation scripts Challenge 2: Class Imbalance Problem: Some classes had fewer examples Solution:\nTargeted collection for underrepresented classes Data augmentation techniques Synthetic data generation Challenge 3: Legal \u0026 Ethical Considerations Problem: Using diverse internet content Solution:\nOnly public datasets with proper licenses No personal/private information Compliance with data protection regulations Challenge 4: Annotation Accuracy Problem: Ensuring correct labels Solution:\nMulti-annotator validation Confidence scoring Iterative refinement Data Pipeline Architecture # Data collection pipeline collect_images() → validate_format() → filter_quality() → balance_classes() → annotate() → export_dataset() Dataset Applications 1. Training Content Moderation Models Multi-class classification Real-time detection Confidence scoring 2. Model Validation Test set for evaluation Bias detection Performance benchmarking 3. Edge Case Testing Corner scenarios Ambiguous content Cultural sensitivity Quality Metrics Dataset Statistics Total Size: Several GB Resolution: 224x224 to 1024x1024 Format: JPEG, PNG Color Space: RGB Aspect Ratios: Diverse (square, wide, tall) Validation Results Duplicate Rate: \u003c2% Corrupted Files: \u003c0.1% Class Balance: ±5% variance Label Accuracy: \u003e95% Lessons Learned 1. Source Diversity is Key Using multiple sources prevented:\nModel bias Overfitting to specific patterns Geographic/cultural limitations 2. Quality Over Quantity Better to have:\n30K high-quality images per class Than 100K mediocre images Reduces training time and improves accuracy 3. Automation Helps, But Manual Review is Critical Automated checks for efficiency Human validation for accuracy Iterative improvement process 4. Documentation Matters Track data sources Document preprocessing steps Maintain metadata Impact on Model Performance With 150K+ Dataset Accuracy: 92-97% across classes Generalization: Works on unseen data False Positive Rate: \u003c3% Training Time: 40% faster convergence Future Improvements Expand to Video: Add video moderation data Multi-language: Text + image combined moderation Real-time Feedback: User-reported false positives Continuous Learning: Active learning pipeline Code \u0026 Tools Used Python: Data processing Pandas: Data manipulation OpenCV: Image processing NumPy: Array operations Scikit-learn: Data validation Conclusion Building a large-scale dataset requires:\nSystematic approach to data collection Quality control at every step Diverse sources for unbiased data Proper documentation for reproducibility The 150K+ image dataset became the foundation for Dip’s content moderation system, enabling accurate and scalable content filtering.\nKey Takeaway: Invest time in dataset creation - it’s the foundation of any successful ML system.\nThis dataset collection was part of building the content moderation pipeline for the Dip social media app.\n",
+  "wordCount" : "609",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/image-dataset.jpg","datePublished": "2024-09-15T00:00:00Z",
+  "dateModified": "2024-09-15T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/nsfw-moderation-dataset/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Building a 150K&#43; Image Dataset for Content Moderation
+    </h1>
+    <div class="post-description">
+      How I collected and curated 150,000&#43; images across 6 classes for training robust content moderation models
+    </div>
+    <div class="post-meta"><span title='2024-09-15 00:00:00 +0000 UTC'>September 15, 2024</span>&nbsp;·&nbsp;<span>3 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/image-dataset.jpg" alt="Large-scale image dataset collection for content moderation">
+        
+</figure>
+  <div class="post-content"><h2 id="introduction">Introduction<a hidden class="anchor" aria-hidden="true" href="#introduction">#</a></h2>
+<p>Building an effective content moderation system requires a <strong>diverse, high-quality dataset</strong>. For the Dip social media app, I collected and curated a massive dataset of <strong>150,000+ images</strong> across 6 content categories to train robust moderation models.</p>
+<p>This post details the comprehensive data collection and curation process.</p>
+<h2 id="dataset-specifications">Dataset Specifications<a hidden class="anchor" aria-hidden="true" href="#dataset-specifications">#</a></h2>
+<h3 id="scale--classes">Scale &amp; Classes<a hidden class="anchor" aria-hidden="true" href="#scale--classes">#</a></h3>
+<ul>
+<li><strong>Total Images</strong>: 150,000+</li>
+<li><strong>Per Class</strong>: ~30,000 images</li>
+<li><strong>Classes</strong>:
+<ol>
+<li>Violence</li>
+<li>Drugs</li>
+<li>NSFW</li>
+<li>Neutral</li>
+<li>Hateful Memes</li>
+<li>Weapons</li>
+</ol>
+</li>
+</ul>
+<h2 id="data-sources-strategy">Data Sources Strategy<a hidden class="anchor" aria-hidden="true" href="#data-sources-strategy">#</a></h2>
+<h3 id="multi-source-approach">Multi-Source Approach<a hidden class="anchor" aria-hidden="true" href="#multi-source-approach">#</a></h3>
+<p>Collecting from diverse sources ensures dataset diversity and prevents bias:</p>
+<h4 id="1-kaggle-datasets">1. <strong>Kaggle Datasets</strong><a hidden class="anchor" aria-hidden="true" href="#1-kaggle-datasets">#</a></h4>
+<ul>
+<li>Public machine learning datasets</li>
+<li>Curated collections</li>
+<li>Community-vetted data</li>
+</ul>
+<h4 id="2-research-papers">2. <strong>Research Papers</strong><a hidden class="anchor" aria-hidden="true" href="#2-research-papers">#</a></h4>
+<ul>
+<li>Academic datasets from published research</li>
+<li>Peer-reviewed sources</li>
+<li>Scientific validation</li>
+</ul>
+<h4 id="3-roboflow">3. <strong>Roboflow</strong><a hidden class="anchor" aria-hidden="true" href="#3-roboflow">#</a></h4>
+<ul>
+<li>Computer vision dataset platform</li>
+<li>High-quality labeled images</li>
+<li>Pre-processed datasets</li>
+</ul>
+<h4 id="4-custom-collection">4. <strong>Custom Collection</strong><a hidden class="anchor" aria-hidden="true" href="#4-custom-collection">#</a></h4>
+<ul>
+<li>Manually curated examples</li>
+<li>Edge cases and corner scenarios</li>
+<li>Platform-specific content</li>
+</ul>
+<h2 id="curation-process">Curation Process<a hidden class="anchor" aria-hidden="true" href="#curation-process">#</a></h2>
+<h3 id="1-source-aggregation">1. Source Aggregation<a hidden class="anchor" aria-hidden="true" href="#1-source-aggregation">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Pseudocode for data collection</span>
+</span></span><span style="display:flex;"><span>sources <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;kaggle_datasets&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;research_papers&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;roboflow_datasets&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;custom_collection&#34;</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> source <span style="color:#f92672">in</span> sources:
+</span></span><span style="display:flex;"><span>    collect_dataset(source)
+</span></span><span style="display:flex;"><span>    validate_quality(source)
+</span></span></code></pre></div><h3 id="2-quality-control">2. Quality Control<a hidden class="anchor" aria-hidden="true" href="#2-quality-control">#</a></h3>
+<ul>
+<li><strong>Image Validation</strong>: Remove corrupted files</li>
+<li><strong>Resolution Checks</strong>: Ensure minimum quality standards</li>
+<li><strong>Format Standardization</strong>: Convert to consistent formats</li>
+<li><strong>Duplicate Detection</strong>: Remove near-duplicates</li>
+</ul>
+<h3 id="3-class-balancing">3. Class Balancing<a hidden class="anchor" aria-hidden="true" href="#3-class-balancing">#</a></h3>
+<ul>
+<li><strong>Equal Distribution</strong>: ~30K images per class</li>
+<li><strong>Balance Verification</strong>: Statistical analysis</li>
+<li><strong>Class Representation</strong>: Diverse examples per category</li>
+</ul>
+<h3 id="4-annotation--labeling">4. Annotation &amp; Labeling<a hidden class="anchor" aria-hidden="true" href="#4-annotation--labeling">#</a></h3>
+<ul>
+<li><strong>Multi-label Support</strong>: For complex images</li>
+<li><strong>Quality Labels</strong>: Confidence scores</li>
+<li><strong>Edge Cases</strong>: Marked for special handling</li>
+</ul>
+<h2 id="challenges--solutions">Challenges &amp; Solutions<a hidden class="anchor" aria-hidden="true" href="#challenges--solutions">#</a></h2>
+<h3 id="challenge-1-data-quality">Challenge 1: Data Quality<a hidden class="anchor" aria-hidden="true" href="#challenge-1-data-quality">#</a></h3>
+<p><strong>Problem</strong>: Inconsistent image quality across sources
+<strong>Solution</strong>:</p>
+<ul>
+<li>Implemented quality filters</li>
+<li>Manual inspection of samples</li>
+<li>Automated validation scripts</li>
+</ul>
+<h3 id="challenge-2-class-imbalance">Challenge 2: Class Imbalance<a hidden class="anchor" aria-hidden="true" href="#challenge-2-class-imbalance">#</a></h3>
+<p><strong>Problem</strong>: Some classes had fewer examples
+<strong>Solution</strong>:</p>
+<ul>
+<li>Targeted collection for underrepresented classes</li>
+<li>Data augmentation techniques</li>
+<li>Synthetic data generation</li>
+</ul>
+<h3 id="challenge-3-legal--ethical-considerations">Challenge 3: Legal &amp; Ethical Considerations<a hidden class="anchor" aria-hidden="true" href="#challenge-3-legal--ethical-considerations">#</a></h3>
+<p><strong>Problem</strong>: Using diverse internet content
+<strong>Solution</strong>:</p>
+<ul>
+<li>Only public datasets with proper licenses</li>
+<li>No personal/private information</li>
+<li>Compliance with data protection regulations</li>
+</ul>
+<h3 id="challenge-4-annotation-accuracy">Challenge 4: Annotation Accuracy<a hidden class="anchor" aria-hidden="true" href="#challenge-4-annotation-accuracy">#</a></h3>
+<p><strong>Problem</strong>: Ensuring correct labels
+<strong>Solution</strong>:</p>
+<ul>
+<li>Multi-annotator validation</li>
+<li>Confidence scoring</li>
+<li>Iterative refinement</li>
+</ul>
+<h2 id="data-pipeline-architecture">Data Pipeline Architecture<a hidden class="anchor" aria-hidden="true" href="#data-pipeline-architecture">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Data collection pipeline</span>
+</span></span><span style="display:flex;"><span>collect_images() <span style="color:#960050;background-color:#1e0010">→</span> validate_format() <span style="color:#960050;background-color:#1e0010">→</span>
+</span></span><span style="display:flex;"><span>filter_quality() <span style="color:#960050;background-color:#1e0010">→</span> balance_classes() <span style="color:#960050;background-color:#1e0010">→</span>
+</span></span><span style="display:flex;"><span>annotate() <span style="color:#960050;background-color:#1e0010">→</span> export_dataset()
+</span></span></code></pre></div><h2 id="dataset-applications">Dataset Applications<a hidden class="anchor" aria-hidden="true" href="#dataset-applications">#</a></h2>
+<h3 id="1-training-content-moderation-models">1. Training Content Moderation Models<a hidden class="anchor" aria-hidden="true" href="#1-training-content-moderation-models">#</a></h3>
+<ul>
+<li>Multi-class classification</li>
+<li>Real-time detection</li>
+<li>Confidence scoring</li>
+</ul>
+<h3 id="2-model-validation">2. Model Validation<a hidden class="anchor" aria-hidden="true" href="#2-model-validation">#</a></h3>
+<ul>
+<li>Test set for evaluation</li>
+<li>Bias detection</li>
+<li>Performance benchmarking</li>
+</ul>
+<h3 id="3-edge-case-testing">3. Edge Case Testing<a hidden class="anchor" aria-hidden="true" href="#3-edge-case-testing">#</a></h3>
+<ul>
+<li>Corner scenarios</li>
+<li>Ambiguous content</li>
+<li>Cultural sensitivity</li>
+</ul>
+<h2 id="quality-metrics">Quality Metrics<a hidden class="anchor" aria-hidden="true" href="#quality-metrics">#</a></h2>
+<h3 id="dataset-statistics">Dataset Statistics<a hidden class="anchor" aria-hidden="true" href="#dataset-statistics">#</a></h3>
+<ul>
+<li><strong>Total Size</strong>: Several GB</li>
+<li><strong>Resolution</strong>: 224x224 to 1024x1024</li>
+<li><strong>Format</strong>: JPEG, PNG</li>
+<li><strong>Color Space</strong>: RGB</li>
+<li><strong>Aspect Ratios</strong>: Diverse (square, wide, tall)</li>
+</ul>
+<h3 id="validation-results">Validation Results<a hidden class="anchor" aria-hidden="true" href="#validation-results">#</a></h3>
+<ul>
+<li><strong>Duplicate Rate</strong>: &lt;2%</li>
+<li><strong>Corrupted Files</strong>: &lt;0.1%</li>
+<li><strong>Class Balance</strong>: ±5% variance</li>
+<li><strong>Label Accuracy</strong>: &gt;95%</li>
+</ul>
+<h2 id="lessons-learned">Lessons Learned<a hidden class="anchor" aria-hidden="true" href="#lessons-learned">#</a></h2>
+<h3 id="1-source-diversity-is-key">1. Source Diversity is Key<a hidden class="anchor" aria-hidden="true" href="#1-source-diversity-is-key">#</a></h3>
+<p>Using multiple sources prevented:</p>
+<ul>
+<li>Model bias</li>
+<li>Overfitting to specific patterns</li>
+<li>Geographic/cultural limitations</li>
+</ul>
+<h3 id="2-quality-over-quantity">2. Quality Over Quantity<a hidden class="anchor" aria-hidden="true" href="#2-quality-over-quantity">#</a></h3>
+<p>Better to have:</p>
+<ul>
+<li>30K high-quality images per class</li>
+<li>Than 100K mediocre images</li>
+<li>Reduces training time and improves accuracy</li>
+</ul>
+<h3 id="3-automation-helps-but-manual-review-is-critical">3. Automation Helps, But Manual Review is Critical<a hidden class="anchor" aria-hidden="true" href="#3-automation-helps-but-manual-review-is-critical">#</a></h3>
+<ul>
+<li>Automated checks for efficiency</li>
+<li>Human validation for accuracy</li>
+<li>Iterative improvement process</li>
+</ul>
+<h3 id="4-documentation-matters">4. Documentation Matters<a hidden class="anchor" aria-hidden="true" href="#4-documentation-matters">#</a></h3>
+<ul>
+<li>Track data sources</li>
+<li>Document preprocessing steps</li>
+<li>Maintain metadata</li>
+</ul>
+<h2 id="impact-on-model-performance">Impact on Model Performance<a hidden class="anchor" aria-hidden="true" href="#impact-on-model-performance">#</a></h2>
+<h3 id="with-150k-dataset">With 150K+ Dataset<a hidden class="anchor" aria-hidden="true" href="#with-150k-dataset">#</a></h3>
+<ul>
+<li><strong>Accuracy</strong>: 92-97% across classes</li>
+<li><strong>Generalization</strong>: Works on unseen data</li>
+<li><strong>False Positive Rate</strong>: &lt;3%</li>
+<li><strong>Training Time</strong>: 40% faster convergence</li>
+</ul>
+<h2 id="future-improvements">Future Improvements<a hidden class="anchor" aria-hidden="true" href="#future-improvements">#</a></h2>
+<ol>
+<li><strong>Expand to Video</strong>: Add video moderation data</li>
+<li><strong>Multi-language</strong>: Text + image combined moderation</li>
+<li><strong>Real-time Feedback</strong>: User-reported false positives</li>
+<li><strong>Continuous Learning</strong>: Active learning pipeline</li>
+</ol>
+<h2 id="code--tools-used">Code &amp; Tools Used<a hidden class="anchor" aria-hidden="true" href="#code--tools-used">#</a></h2>
+<ul>
+<li><strong>Python</strong>: Data processing</li>
+<li><strong>Pandas</strong>: Data manipulation</li>
+<li><strong>OpenCV</strong>: Image processing</li>
+<li><strong>NumPy</strong>: Array operations</li>
+<li><strong>Scikit-learn</strong>: Data validation</li>
+</ul>
+<h2 id="conclusion">Conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
+<p>Building a large-scale dataset requires:</p>
+<ul>
+<li><strong>Systematic approach</strong> to data collection</li>
+<li><strong>Quality control</strong> at every step</li>
+<li><strong>Diverse sources</strong> for unbiased data</li>
+<li><strong>Proper documentation</strong> for reproducibility</li>
+</ul>
+<p>The 150K+ image dataset became the foundation for Dip&rsquo;s content moderation system, enabling accurate and scalable content filtering.</p>
+<p><strong>Key Takeaway</strong>: Invest time in dataset creation - it&rsquo;s the foundation of any successful ML system.</p>
+<hr>
+<p><em>This dataset collection was part of building the content moderation pipeline for the Dip social media app.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://shubhamapat7.github.io/tags/dataset/">Dataset</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/data-collection/">Data-Collection</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/content-moderation/">Content-Moderation</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/machine-learning/">Machine Learning</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://shubhamapat7.github.io/projects/image-moderation-clip/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>Image Moderation using OpenAI CLIP</span>
+  </a>
+  <a class="next" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Optimizing NSFW Content Moderation: From 250ms to 180ms</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

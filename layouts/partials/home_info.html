@@ -1,0 +1,25 @@
+{{- with site.Params.homeInfoParams }}
+<article class="first-entry home-info">
+    <div class="home-info-left">
+        <img loading="lazy" draggable="false" src="{{ "images/profile2.jpg" | absURL }}" alt="profile image" title="" height="300" width="300">
+    </div>
+    <div class="home-info-right">
+        <div class="entry-content">
+            <ul>
+                <li><strong>Shubham Apat</strong> is a Data Scientist/Analyst specializing in machine learning and data analytics. Currently pursuing studies in data science and working on various ML projects.</li>
+                <li>In his spare time, Shubham builds <a href="{{ "projects/" | absURL }}">data science projects</a>, contributes to <a href="https://github.com/shubhamapat7">open source on GitHub</a>, and writes about <a href="{{ "post/" | absURL }}">analytics and machine learning</a>.</li>
+                <li><em>All projects and content are documented here for learning and reference. Feel free to reach out for collaborations!</em></li>
+            </ul>
+        </div>
+        <footer class="entry-footer">
+            <div class="social-icons">
+            {{- range site.Params.socialIcons }}
+                <a href="{{ .url }}" target="_blank" rel="noopener noreferrer me" title="{{ .name | title }}">
+                    {{- partial "svg.html" . }}
+                </a>
+            {{- end }}
+            </div>
+        </footer>
+    </div>
+</article>
+{{- end }}

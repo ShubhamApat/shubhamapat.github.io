@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Computer Vision | Shubham Apat</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="canonical" href="https://shubhamapat7.github.io/tags/computer-vision/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.6e04ee46d2c7afece6b54a05f2620f6336a323618852a4391ecff8c50f09cf28.css" integrity="sha256-bgTuRtLHr&#43;zmtUoF8mIPYzajI2GIUqQ5Hs/4xQ8Jzyg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://shubhamapat7.github.io/tags/computer-vision/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/tags/computer-vision/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script><meta property="og:url" content="https://shubhamapat7.github.io/tags/computer-vision/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="Computer Vision">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Computer Vision">
+<meta name="twitter:description" content="">
+
+</head>
+<body class="list" id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Computer Vision
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Image Moderation using OpenAI CLIP
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Overview Leveraged OpenAI’s CLIP (Contrastive Language-Image Pre-training) model for building an advanced image moderation pipeline with high accuracy and flexibility.
+Classification System Classes NSFW SEXY NEUTRAL VIOLENCE DRUGS Methodology CLIP uses both vision and text encoders to understand images through natural language descriptions.
+Approach Prompt Engineering Prompts per Class: 60&#43; text prompts per category Strategy: Diverse descriptive prompts for each class Text Encoder: CLIP’s language model generates embeddings Classification: Based on similarity scores between image and text embeddings Scoring Mechanism Similarity Calculation: Vision encoder processes input image Text Matching: Compare against all class prompts Normalization: Sigmoid function on similarity scores Classification: Highest score determines class Model Performance Optimization Techniques Grid Search CV: Systematic hyperparameter exploration Hyperparameter Tuning: Fine-tuned model parameters False Positive Analysis: Analyzed misclassifications per class Results Overall Accuracy: 92% Robust Classification: Effective across all 5 classes Generalization: Strong performance on diverse image types Advantages of CLIP Approach Flexibility: Easy to add new classes with prompts Zero-shot Learning: Can classify without class-specific training Multi-modal Understanding: Leverages both visual and textual understanding Scalable: Simple to expand classification categories Technologies Used OpenAI CLIP Computer Vision Multi-modal AI Prompt Engineering Hyperparameter Tuning Python Image Classification Natural Language Processing </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-10-01 00:00:00 +0000 UTC'>October 1, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
+  <a class="entry-link" aria-label="post link to Image Moderation using OpenAI CLIP" href="https://shubhamapat7.github.io/projects/image-moderation-clip/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Student ID Verification Pipeline for dip
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Overview Built a multi-stage pipeline for verifying student ID cards using advanced deep learning models to detect various types of forgery and tampering.
+Pipeline Architecture Test Dataset 97 manually collected and cleaned ID card images Diverse ID card formats and designs Model Components 1. Face Detection (YOLOv8) High-accuracy face detection in ID cards Fast inference for real-time processing 2. Gender Validation DeepFace-based gender classification Accuracy: 80% (with potential for improvement via dedicated training) 3. Splicing Detection Model: Image Splicing Detector (image_splicer_quant.tflite) Architecture: DenseNet121 with ELA preprocessing Training Data: CASIA dataset Preprocessing: Error Level Analysis (ELA) Performance: Train accuracy: 97.35% Validation accuracy: 82.31% Output: Splicing score (threshold: 0.90) Average test score: 0.95 4. Copy-Move Detection Model: New UNet (new_unet.tflite) Training: COMOFOD dataset Training: 30 epochs Accuracy: 98.7% Output: Copy-move score (threshold: 0.22) Average test score: 0.19 OCR &amp; Text Validation File: speed_uppp2.py Features: OCR text extraction Text consistency check Keyword matching (case/special character validation) Keyword match percentage calculation ELA analysis Pipeline Flow Face Detection (FaceDetection_YOLO.py) Gender Validation (gender_validation.py) Splicing Detection (splicing_detector.py) Copy-Move Detection (copymove_detector.py) OCR &amp; Text Analysis (speed_uppp2.py) Validation Results Successfully processes diverse ID card formats Robust detection of multiple forgery types Multi-layer validation ensures high accuracy Real-time processing capability Technologies Used YOLOv8 TensorFlow Lite UNet DenseNet121 DeepFace OCR (Optical Character Recognition) Error Level Analysis (ELA) Python Computer Vision </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-06-10 00:00:00 +0000 UTC'>June 10, 2024</span>&nbsp;·&nbsp;<span>2 min</span></footer>
+  <a class="entry-link" aria-label="post link to Student ID Verification Pipeline for dip" href="https://shubhamapat7.github.io/projects/student-id-verification-pipeline/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover">
+        <img loading="lazy" src="https://shubhamapat7.github.io/images/crocodile-research.jpg" alt="Mugger crocodile identification using UAV imagery">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Individual Identification of Mugger Crocodiles using YOLOv8
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Introduction Wildlife conservation requires precise monitoring of individual animals to understand behavior patterns, population dynamics, and migration routes. Manual identification is time-consuming and often inaccurate. This project tackles the challenge of individual identification of mugger crocodiles using YOLOv8 and UAV (drone) imagery.
+The Challenge Mugger crocodiles have unique back scute patterns, similar to human fingerprints. However:
+Manual identification is error-prone Large geographical areas need monitoring Traditional methods are time-intensive Data volume is massive (500GB of images) Dataset Details Size: 500GB of high-resolution imagery Subjects: 160 individual mugger crocodiles Images per subject: 1,000 images Source: UAV imagery from Gujarat’s western and southern regions Hardware: Param Shavak Supercomputer (Linux-based, no GUI) Technical Approach Model Architecture Base Model: YOLOv8-XL (extra large for high accuracy) Task: Detection and classification of individual crocodiles Optimization: Custom CLI scripts for data processing Hyperparameter Tuning Extensive grid search across multiple runs Multi-day training sessions on NVIDIA P5000 GPUs Threshold optimization at 0.82 for best True Positive/Negative rates Results Performance Metrics mAP (Mean Average Precision): 98.50% Threshold: 0.82 (optimized for wildlife monitoring) Processing Time: Real-time capable on HPC infrastructure Impact Non-invasive monitoring: No need to capture or tag crocodiles Behavioral studies: Enables long-term tracking Conservation efforts: Better population management Research contribution: Advancement in wildlife biometrics Technical Challenges &amp; Solutions Challenge 1: Massive Dataset (500GB) Solution: Developed custom CLI scripts for efficient processing on the Param Shavak supercomputer
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>2 min</span></footer>
+  <a class="entry-link" aria-label="post link to Individual Identification of Mugger Crocodiles using YOLOv8" href="https://shubhamapat7.github.io/post/crocodile-identification-yolov8/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Individual Identification of Mugger Crocodiles using YOLOv8
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Built a YOLOv8-based model to identify 160&#43; individual free-ranging crocodiles from UAV imagery with 98.5% accuracy.
+Optimized training on Param Shavak supercomputer using custom CLI scripts for data processing.
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
+  <a class="entry-link" aria-label="post link to Individual Identification of Mugger Crocodiles using YOLOv8" href="https://shubhamapat7.github.io/projects/individual-identification-of-mugger-crocodile/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Real-Time Self-Driving Car with Lane Detection
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Overview Developed an autonomous self-driving car using Raspberry Pi with advanced computer vision capabilities for lane detection and obstacle avoidance.
+Technical Implementation Image Processing Pipeline Real-time image processing with OpenCV Perspective transformation for bird’s eye view Thresholding for lane detection Histogram-based lane tracking Hardware Integration Integrated multiple sensors: IR sensors for obstacle detection Ultrasonic sensors for distance measurement Photoresistors for ambient light detection Real-time control logic for: Steering adjustments Acceleration control Automatic braking Key Features Real-time lane detection and tracking Obstacle avoidance system Autonomous navigation Sensor fusion for decision making Technologies Used Raspberry Pi OpenCV Python Computer Vision IoT Sensors </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-15 00:00:00 +0000 UTC'>January 15, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
+  <a class="entry-link" aria-label="post link to Real-Time Self-Driving Car with Lane Detection" href="https://shubhamapat7.github.io/projects/real-time-self-driving-car/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

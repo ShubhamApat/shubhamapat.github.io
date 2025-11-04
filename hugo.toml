@@ -1,0 +1,61 @@
+baseURL = "https://shubhamapat7.github.io/"
+languageCode = "en-us"
+title = "Shubham Apat"
+theme = "PaperMod"
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = false
+  ShowCodeCopyButtons = true
+  ShowShareButtons = false
+  ShowToc = false
+   # Define main content sections for archives and lists
+  mainSections = ["post", "projects"]
+  
+  # Use homeInfoParams instead of profileMode
+  [params.homeInfoParams]
+    Title = "Shubham Apat"
+    Content = ""  # We'll handle content in the custom template
+
+  # Social icons
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/shubhamapat7"
+    
+  [[params.socialIcons]]
+    name = "linkedin"
+    url = "https://linkedin.com/in/shubham-apat"
+
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:shubhamapat24k@gmail.com"
+
+[menu]
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/post/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "projects"
+    name = "Projects"
+    url = "/projects/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "search"
+    name = "Search"
+    url = "/search/"
+    weight = 30
+
+  [[menu.main]]
+    identifier = "github"
+    name = "GitHub"
+    url = "https://github.com/shubhamapat7"
+    weight = 40
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]

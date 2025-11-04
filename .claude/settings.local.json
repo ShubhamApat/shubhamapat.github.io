@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat .gitmodules)",
+      "Bash(curl -s http://localhost:1313/projects/)",
+      "Bash(curl -s http://localhost:1313/)",
+      "Bash(curl -s http://localhost:1313/projects/bookmyshow-scraper/)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
