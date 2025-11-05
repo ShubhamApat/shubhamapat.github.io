@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>I Built a Bot to Catch Fake Event Listings with Fuzzy Matching | Shubham Apat</title>
 <meta name="keywords" content="web-scraping, fuzzy-matching, nlp, data-validation, fraud-detection">
 <meta name="description" content="Building a crawler to verify event credibility across platforms using fuzzy keyword matching">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/post/event-verifier-crawler/">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/event-verifier-crawler/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/post/event-verifier-crawler/">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/event-verifier-crawler/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,13 +70,82 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/event-verifier-crawler/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="I Built a Bot to Catch Fake Event Listings with Fuzzy Matching">
+  <meta property="og:description" content="Building a crawler to verify event credibility across platforms using fuzzy keyword matching">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-08-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-08-01T00:00:00+00:00">
+    <meta property="article:tag" content="Web Scraping">
+    <meta property="article:tag" content="Fuzzy-Matching">
+    <meta property="article:tag" content="Nlp">
+    <meta property="article:tag" content="Data-Validation">
+    <meta property="article:tag" content="Fraud-Detection">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/event-verifier.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/event-verifier.jpg">
+<meta name="twitter:title" content="I Built a Bot to Catch Fake Event Listings with Fuzzy Matching">
+<meta name="twitter:description" content="Building a crawler to verify event credibility across platforms using fuzzy keyword matching">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "I Built a Bot to Catch Fake Event Listings with Fuzzy Matching",
+      "item": "https://shubhamapat7.github.io/post/event-verifier-crawler/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Built a Bot to Catch Fake Event Listings with Fuzzy Matching",
+  "name": "I Built a Bot to Catch Fake Event Listings with Fuzzy Matching",
+  "description": "Building a crawler to verify event credibility across platforms using fuzzy keyword matching",
+  "keywords": [
+    "web-scraping", "fuzzy-matching", "nlp", "data-validation", "fraud-detection"
+  ],
+  "articleBody": "The Problem Event platforms like BookMyShow are full of fake listings. Users waste money on non-existent events. Platforms need automated verification.\nThe solution: compare claimed event details with actual page content using fuzzy string matching.\nThe Approach from fuzzywuzzy import fuzz def verify_event_credibility(claimed_info, actual_content): scores = {} # Compare titles title_score = fuzz.partial_ratio( claimed_info['title'].lower(), actual_content['title'].lower() ) # Compare descriptions desc_score = fuzz.token_sort_ratio( claimed_info['description'], actual_content['description'] ) # Overall credibility score overall_score = (title_score * 0.3 + desc_score * 0.4 + date_score * 0.2 + location_score * 0.1) return { 'overall_score': overall_score, 'credible': overall_score \u003e 75 } Results 5,000 events tested 92% accuracy 70% reduction in fake event complaints Key Takeaway Simple fuzzy matching can solve complex fraud detection problems.\nThis system was developed to combat event fraud across multiple event listing platforms.\n",
+  "wordCount" : "131",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/event-verifier.jpg","datePublished": "2024-08-01T00:00:00Z",
+  "dateModified": "2024-08-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/event-verifier-crawler/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -102,17 +171,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/post/" title="Posts">
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/projects/" title="Projects">
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -146,7 +215,7 @@
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="eager" src="http://localhost:1313/images/event-verifier.jpg" alt="Event verification system using fuzzy string matching">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/event-verifier.jpg" alt="Event verification system using fuzzy string matching">
         
 </figure>
   <div class="post-content"><h2 id="the-problem">The Problem<a hidden class="anchor" aria-hidden="true" href="#the-problem">#</a></h2>
@@ -194,19 +263,19 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/web-scraping/">Web Scraping</a></li>
-      <li><a href="http://localhost:1313/tags/fuzzy-matching/">Fuzzy-Matching</a></li>
-      <li><a href="http://localhost:1313/tags/nlp/">Nlp</a></li>
-      <li><a href="http://localhost:1313/tags/data-validation/">Data-Validation</a></li>
-      <li><a href="http://localhost:1313/tags/fraud-detection/">Fraud-Detection</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/web-scraping/">Web Scraping</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/fuzzy-matching/">Fuzzy-Matching</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/nlp/">Nlp</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/data-validation/">Data-Validation</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/fraud-detection/">Fraud-Detection</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/post/nsmfw-moderation-optimization/">
+  <a class="prev" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
     <span class="title">« Prev</span>
     <br>
     <span>I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark</span>
   </a>
-  <a class="next" href="http://localhost:1313/post/property-scraper-analysis/">
+  <a class="next" href="https://shubhamapat7.github.io/post/property-scraper-analysis/">
     <span class="title">Next »</span>
     <br>
     <span>I Scraped 70K Property Listings to Help Students Find Housing</span>
@@ -218,7 +287,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
 
     <span>
         Powered by

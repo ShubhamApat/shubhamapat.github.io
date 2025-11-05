@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark | Shubham Apat</title>
 <meta name="keywords" content="deep-learning, model-optimization, openvino, performance, content-moderation">
 <meta name="description" content="How I optimized NSFW detection from 250ms to 180ms using OpenVINO, even beating Ultralytics&#39; own benchmarks">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/post/nsmfw-moderation-optimization/">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/post/nsmfw-moderation-optimization/">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,13 +70,82 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark">
+  <meta property="og:description" content="How I optimized NSFW detection from 250ms to 180ms using OpenVINO, even beating Ultralytics&#39; own benchmarks">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-09-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-09-01T00:00:00+00:00">
+    <meta property="article:tag" content="Deep Learning">
+    <meta property="article:tag" content="Model-Optimization">
+    <meta property="article:tag" content="Openvino">
+    <meta property="article:tag" content="Performance">
+    <meta property="article:tag" content="Content-Moderation">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/nsfw-moderation.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/nsfw-moderation.jpg">
+<meta name="twitter:title" content="I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark">
+<meta name="twitter:description" content="How I optimized NSFW detection from 250ms to 180ms using OpenVINO, even beating Ultralytics&#39; own benchmarks">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "I Made NSFW Detection 28% Faster and Beat Ultralytics' Own Benchmark",
+      "item": "https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Made NSFW Detection 28% Faster and Beat Ultralytics' Own Benchmark",
+  "name": "I Made NSFW Detection 28% Faster and Beat Ultralytics\u0027 Own Benchmark",
+  "description": "How I optimized NSFW detection from 250ms to 180ms using OpenVINO, even beating Ultralytics' own benchmarks",
+  "keywords": [
+    "deep-learning", "model-optimization", "openvino", "performance", "content-moderation"
+  ],
+  "articleBody": "The Problem Content moderation at scale is hard. You need to process thousands of images per second, maintain high accuracy, and do it all in \u003c200ms per image. That’s the sweet spot for “real-time” content filtering.\nWhen I was working on the Dip social media app’s NSFW detection pipeline, we hit a bottleneck: the model was taking 250ms per image on CPU. That’s too slow for real-time use, especially when users are uploading photos rapidly.\nThe standard approach didn’t work for us. We tried everything—batch processing, async queues, caching. But eventually, we realized we needed to optimize the model itself.\nThe Dual-Model Approach Our pipeline used two models working together:\nNudeNet for initial NSFW detection MobileNet for secondary classification Both models achieved 97% accuracy, which is great. But they were too slow. And since this was for a consumer app, we needed CPU inference—we couldn’t rely on users having GPUs.\nThe Optimization Strategy I tried three approaches:\n1. PyTorch → ONNX Conversion First step was converting from PyTorch to ONNX format. ONNX is great because it’s framework-agnostic and supports hardware acceleration.\n# Convert PyTorch to ONNX torch.onnx.export( model, dummy_input, \"model.onnx\", export_params=True, opset_version=11 ) Result: ~10% speedup. Nice, but not enough.\n2. ONNX → OpenVINO with Model Optimizer Intel’s OpenVINO (Open Visual Inference and Neural network Optimization) is specifically designed for CPU optimization. The Model Optimizer (MO) tool converts ONNX models to OpenVINO’s intermediate representation.\nmo --input_model model.onnx \\ --output_dir openvino_model/ \\ --data_type FP16 Result: Another ~15% speedup. We’re getting somewhere!\n3. Post-Training Optimization Toolkit (POT) This is where the magic happened. OpenVINO’s POT applies advanced optimizations:\nQuantization: Converting FP32 to FP16 (and sometimes INT8) Graph optimization: Removing unnecessary operations Layer fusion: Combining compatible layers from openvino.tools.pot import optimize_model optimized_model = optimize_model( model=openvino_model, engine_config=engine_config, metric=metric ) Result: Another ~15% speedup!\nThe Numbers Metric Before After Improvement Inference Time 250ms 180ms 28% faster Accuracy 97% 97% Maintained Model Size 100% 60% 40% smaller The Sweet Victory Here’s the kicker: we beat Ultralytics’ own benchmark. Their official docs claimed ~200ms for NudeNet inference. We got it down to 180ms.\n“180ms vs Ultralytics’ 200ms = 10% faster”\nI was genuinely surprised. When you optimize properly, you can often beat official benchmarks. The key is testing with your actual workload, not just running synthetic benchmarks.\nThe Technical Details Why Quantization Works Quantization reduces precision from 32-bit floats to 16-bit (or 8-bit) floats. This reduces memory bandwidth and computation time.\n# FP32: 4 bytes per parameter # FP16: 2 bytes per parameter # INT8: 1 byte per parameter The accuracy impact was \u003c0.1%, which is negligible for content moderation use cases.\nGraph Optimizations Applied Constant Folding: Pre-computed values at compile time Dead Code Elimination: Removed unused operations Batch Norm Fusion: Combined batch normalization with convolution layers ReLU Fusion: Merged activation functions with parent layers Real-World Testing We tested on a 10,000 image dataset:\nIntel Xeon CPU (production-like environment) 180ms ± 5ms across all runs 97.3% accuracy maintained Lessons Learned 1. Hardware-Specific Optimization Matters Different hardware requires different optimization strategies:\nIntel CPUs → OpenVINO NVIDIA GPUs → TensorRT Apple Silicon → Core ML ARM devices → TFLite 2. Don’t Trust Benchmarks Blindly Official benchmarks are great starting points, but your mileage will vary. Test with your:\nActual data distribution Real hardware constraints Production environment variables 3. The 80/20 Rule Most of the optimization gains came from two things:\nModel conversion (PyTorch → ONNX → OpenVINO) Quantization (FP32 → FP16) These two steps gave us 85% of our performance improvement.\n4. Trade-offs are Manageable 28% faster with \u003c0.1% accuracy loss is a no-brainer in production. The 40% smaller model size is a bonus for memory-constrained environments.\nCode Implementation The final pipeline was beautifully simple:\nimport openvino as ov # Load OpenVINO model core = ov.Core() model = core.compile_model(\"openvino_model.xml\", \"CPU\") # Run inference results = model(input_image) # Post-process results nsfw_score = results[0][1] # Confidence for NSFW class if nsfw_score \u003e 0.8: return {\"nsfw\": True, \"confidence\": nsfw_score} That’s it. Three lines of code to load and run the optimized model.\nBusiness Impact For Dip App Real-time moderation: No lag in content upload Better UX: Users don’t wait for processing Scalability: Handle 10x more images per server For User Experience Faster uploads: Content appears instantly Better performance: App feels snappier Lower battery drain: More efficient CPU usage The Bigger Picture This optimization work taught me that model performance isn’t just about model architecture. It’s about the entire inference pipeline:\nModel format (PyTorch → ONNX → OpenVINO) Optimization level (FP32 → FP16 → INT8) Hardware acceleration (CPU-specific optimizations) Graph optimization (removing unnecessary operations) By optimizing each layer, we achieved production-ready performance without sacrificing accuracy.\nKey Takeaways Always profile first - Don’t optimize blindly Test on target hardware - Desktop benchmarks ≠ production reality Hardware-specific toolchains matter immensely Simple optimizations often yield the biggest gains Measure real-world impact - Not just synthetic benchmarks The 180ms NSFW detection pipeline now powers real-time content moderation for thousands of users daily. It’s a reminder that with the right tools and techniques, you can achieve production-ready performance even with complex deep learning models.\nThis optimization was part of building Dip’s content moderation pipeline. If you found this useful, you can reach out for consulting work on model optimization and performance tuning.\n",
+  "wordCount" : "874",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/nsfw-moderation.jpg","datePublished": "2024-09-01T00:00:00Z",
+  "dateModified": "2024-09-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -102,17 +171,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/post/" title="Posts">
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/projects/" title="Projects">
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -146,7 +215,7 @@
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="eager" src="http://localhost:1313/images/nsfw-moderation.jpg" alt="NSFW content moderation pipeline optimization">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/nsfw-moderation.jpg" alt="NSFW content moderation pipeline optimization">
         
 </figure>
   <div class="post-content"><h2 id="the-problem">The Problem<a hidden class="anchor" aria-hidden="true" href="#the-problem">#</a></h2>
@@ -332,19 +401,19 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/deep-learning/">Deep Learning</a></li>
-      <li><a href="http://localhost:1313/tags/model-optimization/">Model-Optimization</a></li>
-      <li><a href="http://localhost:1313/tags/openvino/">Openvino</a></li>
-      <li><a href="http://localhost:1313/tags/performance/">Performance</a></li>
-      <li><a href="http://localhost:1313/tags/content-moderation/">Content-Moderation</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/deep-learning/">Deep Learning</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/model-optimization/">Model-Optimization</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/openvino/">Openvino</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/performance/">Performance</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/content-moderation/">Content-Moderation</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/post/nsfw-moderation-dataset/">
+  <a class="prev" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
     <span class="title">« Prev</span>
     <br>
     <span>I Collected 150,000&#43; Images to Train a Content Moderation Model</span>
   </a>
-  <a class="next" href="http://localhost:1313/post/event-verifier-crawler/">
+  <a class="next" href="https://shubhamapat7.github.io/post/event-verifier-crawler/">
     <span class="title">Next »</span>
     <br>
     <span>I Built a Bot to Catch Fake Event Listings with Fuzzy Matching</span>
@@ -356,7 +425,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
 
     <span>
         Powered by

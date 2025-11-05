@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>I Used OpenAI CLIP for Image Moderation - No Training Required | Shubham Apat</title>
 <meta name="keywords" content="OpenAI CLIP, Computer Vision, Multi-modal AI, Image Classification">
 <meta name="description" content="How I built an image moderation system using CLIP&#39;s zero-shot learning, achieving 92% accuracy with just prompt engineering">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/projects/image-moderation-clip/">
+<link rel="canonical" href="https://shubhamapat7.github.io/projects/image-moderation-clip/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/projects/image-moderation-clip/">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/projects/image-moderation-clip/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,13 +70,79 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://shubhamapat7.github.io/projects/image-moderation-clip/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="I Used OpenAI CLIP for Image Moderation - No Training Required">
+  <meta property="og:description" content="How I built an image moderation system using CLIP&#39;s zero-shot learning, achieving 92% accuracy with just prompt engineering">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="projects">
+    <meta property="article:published_time" content="2024-10-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-10-01T00:00:00+00:00">
+    <meta property="article:tag" content="OpenAI CLIP">
+    <meta property="article:tag" content="Computer Vision">
+    <meta property="article:tag" content="Multi-Modal AI">
+    <meta property="article:tag" content="Image Classification">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="I Used OpenAI CLIP for Image Moderation - No Training Required">
+<meta name="twitter:description" content="How I built an image moderation system using CLIP&#39;s zero-shot learning, achieving 92% accuracy with just prompt engineering">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Projects",
+      "item": "https://shubhamapat7.github.io/projects/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "I Used OpenAI CLIP for Image Moderation - No Training Required",
+      "item": "https://shubhamapat7.github.io/projects/image-moderation-clip/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Used OpenAI CLIP for Image Moderation - No Training Required",
+  "name": "I Used OpenAI CLIP for Image Moderation - No Training Required",
+  "description": "How I built an image moderation system using CLIP's zero-shot learning, achieving 92% accuracy with just prompt engineering",
+  "keywords": [
+    "OpenAI CLIP", "Computer Vision", "Multi-modal AI", "Image Classification"
+  ],
+  "articleBody": "The Approach Traditional image classification requires:\nThousands of labeled images Weeks of training GPU resources CLIP is different: it already “understands” images through natural language.\nThe Method 1. Define Prompts Instead of training, I wrote text prompts for each class:\n# NSFW class prompts nsfw_prompts = [ \"a nude person\", \"explicit sexual content\", \"inappropriate intimate image\", \"adult content not suitable for work\", # ... 60 total prompts ] # NEUTRAL class prompts neutral_prompts = [ \"a normal everyday photo\", \"safe for work content\", \"appropriate business image\", \"general photography\", # ... 60 total prompts ] 2. Compute Similarity import clip import torch # Load CLIP model model, preprocess = clip.load(\"ViT-B/32\") device = \"cuda\" if torch.cuda.is_available() else \"cpu\" model.to(device) def classify_image(image_path): # Load and preprocess image image = preprocess(Image.open(image_path)).unsqueeze(0).to(device) # Get image features with torch.no_grad(): image_features = model.encode_image(image) # Compare with all class prompts best_class = None best_score = -1 for class_name, prompts in classes.items(): class_scores = [] for prompt in prompts: # Tokenize text text = clip.tokenize(prompt).to(device) # Get text features with torch.no_grad(): text_features = model.encode_text(text) # Compute similarity (cosine similarity) similarity = torch.cosine_similarity(image_features, text_features) class_scores.append(similarity.item()) # Average score for this class avg_score = np.mean(class_scores) if avg_score \u003e best_score: best_score = avg_score best_class = class_name return best_class, best_score 3. Grid Search for Best Thresholds from sklearn.model_selection import GridSearchCV # Optimize decision threshold thresholds = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7] best_threshold = 0.5 best_f1 = 0 for threshold in thresholds: predictions = [1 if score \u003e threshold else 0 for score in similarity_scores] f1 = f1_score(true_labels, predictions) if f1 \u003e best_f1: best_f1 = f1 best_threshold = threshold The Results Metric Value Overall Accuracy 92% NSFW Detection 94% precision Violence Detection 89% precision Neutral Images 96% precision Why This Works CLIP was trained on 400 million image-text pairs. It learned to understand the relationship between images and words.\nSo when I ask “is this image similar to ‘a nude person’?”, CLIP can answer based on its training—no fine-tuning needed!\nAdvantages 1. No Training Required # Add new class instantly new_class_prompts = [\"an image of a car\", \"vehicle photography\", \"automobile\"] classes['VEHICLE'] = new_class_prompts 2. Flexible Easy to add new categories with just text prompts\n3. Interpretable I can see which prompts matched best:\n# Debugging for prompt in nsfw_prompts: score = compute_similarity(image, prompt) print(f\"{prompt}: {score:.3f}\") Comparison: CLIP vs Traditional CNN Approach Training Data Training Time Accuracy Flexibility Traditional CNN 50K labeled images 2-3 days 94% Low (retrain for new class) CLIP 0 (zero-shot) 0 92% High (just add prompts) Use Cases Content moderation (what I built) Search by description (“find photos of dogs”) Image filtering (“show only professional photos”) Automated tagging (“tag images with labels”) Key Takeaway Sometimes the best ML solution is not to train a model. CLIP’s zero-shot learning made this 100x easier than building a custom classifier.\n92% accuracy with 0 hours of training? That’s the power of pre-trained multi-modal models.\nThis CLIP-based moderation pipeline achieves production-ready accuracy without requiring labeled training data.\n",
+  "wordCount" : "493",
+  "inLanguage": "en",
+  "datePublished": "2024-10-01T00:00:00Z",
+  "dateModified": "2024-10-01T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/projects/image-moderation-clip/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -102,17 +168,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/post/" title="Posts">
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/projects/" title="Projects">
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -322,18 +388,18 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/openai-clip/">OpenAI CLIP</a></li>
-      <li><a href="http://localhost:1313/tags/computer-vision/">Computer Vision</a></li>
-      <li><a href="http://localhost:1313/tags/multi-modal-ai/">Multi-Modal AI</a></li>
-      <li><a href="http://localhost:1313/tags/image-classification/">Image Classification</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/openai-clip/">OpenAI CLIP</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/computer-vision/">Computer Vision</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/multi-modal-ai/">Multi-Modal AI</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/image-classification/">Image Classification</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/projects/linkedin-scraper/">
+  <a class="prev" href="https://shubhamapat7.github.io/projects/linkedin-scraper/">
     <span class="title">« Prev</span>
     <br>
-    <span>LinkedIn Scraper - Bypassing Google reCAPTCHA and LinkedIn&#39;s Anti-Scraping</span>
+    <span>I bypassed Google reCAPTCHA and LinkedIn&#39;s Anti-Scraping</span>
   </a>
-  <a class="next" href="http://localhost:1313/post/nsfw-moderation-dataset/">
+  <a class="next" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
     <span class="title">Next »</span>
     <br>
     <span>I Collected 150,000&#43; Images to Train a Content Moderation Model</span>
@@ -345,7 +411,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
 
     <span>
         Powered by

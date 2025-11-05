@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Wildlife on Shubham Apat</title>
-    <link>http://localhost:1313/tags/wildlife/</link>
+    <link>http://localhost:63093/tags/wildlife/</link>
     <description>Recent content in Wildlife on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Apr 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/wildlife/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:63093/tags/wildlife/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>I Trained a Model to Identify 160&#43; Individual Crocodiles with 98.5% Accuracy</title>
-      <link>http://localhost:1313/post/crocodile-identification-yolov8/</link>
+      <link>http://localhost:63093/post/crocodile-identification-yolov8/</link>
       <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/crocodile-identification-yolov8/</guid>
+      <guid>http://localhost:63093/post/crocodile-identification-yolov8/</guid>
       <description>Building a YOLOv8 model for wildlife conservation - identifying individual mugger crocodiles by their back patterns</description>
     </item>
   </channel>

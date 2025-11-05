@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>I Collected 150,000&#43; Images to Train a Content Moderation Model | Shubham Apat</title>
 <meta name="keywords" content="dataset, data-collection, content-moderation, machine-learning">
 <meta name="description" content="How I built a 150K image dataset across 6 content categories for Dip&#39;s content moderation system">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/post/nsfw-moderation-dataset/">
+<link rel="canonical" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="http://localhost:1313/post/nsfw-moderation-dataset/">
+<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,13 +70,81 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
+</script><meta property="og:url" content="https://shubhamapat7.github.io/post/nsfw-moderation-dataset/">
+  <meta property="og:site_name" content="Shubham Apat">
+  <meta property="og:title" content="I Collected 150,000&#43; Images to Train a Content Moderation Model">
+  <meta property="og:description" content="How I built a 150K image dataset across 6 content categories for Dip&#39;s content moderation system">
+  <meta property="og:locale" content="en-us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-09-15T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-09-15T00:00:00+00:00">
+    <meta property="article:tag" content="Dataset">
+    <meta property="article:tag" content="Data-Collection">
+    <meta property="article:tag" content="Content-Moderation">
+    <meta property="article:tag" content="Machine Learning">
+    <meta property="og:image" content="https://shubhamapat7.github.io/images/image-dataset.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://shubhamapat7.github.io/images/image-dataset.jpg">
+<meta name="twitter:title" content="I Collected 150,000&#43; Images to Train a Content Moderation Model">
+<meta name="twitter:description" content="How I built a 150K image dataset across 6 content categories for Dip&#39;s content moderation system">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://shubhamapat7.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "I Collected 150,000+ Images to Train a Content Moderation Model",
+      "item": "https://shubhamapat7.github.io/post/nsfw-moderation-dataset/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "I Collected 150,000+ Images to Train a Content Moderation Model",
+  "name": "I Collected 150,000\u002b Images to Train a Content Moderation Model",
+  "description": "How I built a 150K image dataset across 6 content categories for Dip's content moderation system",
+  "keywords": [
+    "dataset", "data-collection", "content-moderation", "machine-learning"
+  ],
+  "articleBody": "The Challenge Building a content moderation system for a social media app requires training data. Lots of it.\nDip needed to automatically detect:\nNSFW content Violence Drugs Weapons Hateful content Neutral content The question: where do you get 150,000+ labeled images?\nThis was my task at ByteCitadel: collect, curate, and label a massive dataset for Dip’s image moderation pipeline.\nThe Plan Six categories, ~30,000 images each:\nViolence (30K) Drugs (30K) NSFW (30K) Neutral (30K) Hateful Memes (30K) Weapons (30K) Total: 180,000 images (we collected extra for quality control)\nData Sources 1. Kaggle Datasets Kaggle has tons of public datasets. I found:\nViolence datasets - From academic papers on conflict detection Drug-related imagery - For medical/research purposes Weapon detection datasets - Security/computer vision research # Download Kaggle datasets import kaggle kaggle.api.dataset_download_files( 'tapakah68/violence-detection-dataset', path='./datasets/violence/', unzip=True ) 2. Research Papers Academic papers often release datasets alongside publications:\n# Search for datasets mentioned in papers paper_datasets = [ \"Flames-Dataset\", # Violence detection \"Drug-Image-Dataset\", # Drug classification \"Meme-Classification-Dataset\" # Hateful memes ] for dataset in paper_datasets: download_dataset(dataset) 3. Roboflow Roboflow has high-quality, pre-labeled computer vision datasets:\n# Export from Roboflow import roboflow rf = roboflow.Roboflow(api_key=\"YOUR_API_KEY\") project = rf.workspace(\"workspace\").project(\"weapon-detection\") dataset = project.version(1).download(\"coco\") 4. Custom Collection For edge cases, I scraped and labeled manually:\n# Custom scraping for underrepresented categories def collect_images(query, num_images=1000): results = [] for image_url in image_search_api.search(query, num_images): download_image(image_url, f\"./datasets/{query}/\") results.append(image_url) return results The Curation Process Quality Filtering Not all downloaded images were usable:\ndef filter_image_quality(image_path): # Check file size if os.path.getsize(image_path) \u003c 10 * 1024: # Less than 10KB return False, \"Too small\" # Verify it's actually an image try: img = Image.open(image_path) img.verify() except: return False, \"Corrupted\" # Check resolution img = Image.open(image_path) if img.width \u003c 224 or img.height \u003c 224: return False, \"Low resolution\" # Check if it's actually an image (not blank/black) if is_blank_image(img): return False, \"Blank image\" return True, \"Valid\" Deduplication Images from different sources often overlapped:\nfrom imagehash import average_hash def remove_duplicates(image_paths): hashes = {} unique_images = [] for img_path in image_paths: # Calculate perceptual hash img = Image.open(img_path) hash_value = average_hash(img) if hash_value not in hashes: hashes[hash_value] = img_path unique_images.append(img_path) else: print(f\"Duplicate found: {img_path}\") return unique_images # Found and removed ~15,000 duplicates across the dataset Class Balancing Ensuring equal representation across categories:\n# Check class distribution class_counts = {} for category in categories: count = len(os.listdir(f'./datasets/{category}/')) class_counts[category] = count print(class_counts) # Expected: ~30K per class # If imbalance \u003e 10%, collect more data for minority classes Labeling Strategy Automated Labeling For well-known datasets, labels were already provided:\n# Process COCO-formatted labels import json with open('annotations.json', 'r') as f: coco_data = json.load(f) for annotation in coco_data['annotations']: image_id = annotation['image_id'] category_id = annotation['category_id'] image_path = f'images/{image_id}.jpg' category = id_to_category[category_id] move_to_category(image_path, category) Manual Labeling For custom-collected images, I had to label manually:\n# Labeling tool for edge cases def label_image(image_path): img = Image.open(image_path) img.show() label = input(f\"What category is this image? \") # Categories: violence, drugs, nsfw, neutral, weapons, hateful_memes # Save label save_label(image_path, label) “Labeling 10,000 images by hand teaches you to appreciate automated annotation tools.”\nQuality Validation Double-checking labels for accuracy:\ndef validate_labels(image_path, expected_label): img = Image.open(image_path) actual_label = manual_label(image_path) if expected_label != actual_label: print(f\"MISLABELED: {image_path}\") print(f\"Expected: {expected_label}, Got: {actual_label}\") correct_label(expected_label) Challenges 1. Copyright \u0026 Legal Issues Using internet images requires care:\nAcademic use only - Educational/research purposes No redistribution - Keep dataset internal Fair use - Transformative use for ML training 2. Cultural Sensitivity What counts as “inappropriate” varies by culture:\nWestern vs. Indian context Religious imagery Historical vs. contemporary content 3. Data Imbalance Some categories were harder to find:\nWeapons: Plenty of gun images, fewer knives Drugs: Need diverse substances, not just weed Violence: Real violence vs. fictional content 4. False Positives Training on misleading data:\nPhotoshoot violence vs. real violence Medical imagery (drugs for legitimate use) Art depicting weapons (not real weapons) The Final Dataset Statistics Category Images Duplicates Removed Final Count Violence 32,000 2,000 30,000 Drugs 35,000 5,000 30,000 NSFW 38,000 8,000 30,000 Neutral 31,000 1,000 30,000 Hateful Memes 29,000 0 29,000 Weapons 33,000 3,000 30,000 Total: 198,000 → 179,000 (after quality filtering)\nData Structure dataset/ ├── violence/ │ ├── img_00001.jpg │ ├── img_00002.jpg │ └── ... ├── drugs/ ├── nsfw/ ├── neutral/ ├── hateful_memes/ └── weapons/ Each image has a corresponding metadata file:\n{ \"image_id\": \"img_00001\", \"category\": \"violence\", \"source\": \"kaggle_violence_dataset\", \"resolution\": \"1920x1080\", \"file_size\": \"245KB\", \"date_collected\": \"2024-09-15\", \"verified\": true, \"quality_score\": 0.95 } Model Training Results With this dataset, Dip’s content moderation model achieved:\n92% accuracy across all categories 94% precision for violence detection 89% precision for NSFW detection \u003c3% false positive rate on neutral images # Train multi-class classifier from torchvision import models import torch model = models.resnet50(pretrained=True) model.fc = torch.nn.Linear(2048, 6) # 6 categories # Train with data augmentation train_loader = DataLoader(dataset, batch_size=32, shuffle=True) for epoch in range(10): for batch in train_loader: images, labels = batch outputs = model(images) loss = criterion(outputs, labels) loss.backward() optimizer.step() Lessons Learned 1. Quality Over Quantity 30K high-quality images \u003e 100K mediocre ones\n2. Source Diversity Matters Using multiple sources prevents model bias\n3. Documentation is Critical Track:\nData sources Preprocessing steps Quality checks Labeling methodology 4. Expect Legal Complexity Using internet images requires legal review\n5. Human Validation is Essential Automated filters catch obvious cases, but humans catch edge cases\nKey Takeaways Data collection is 80% of ML - Garbage in, garbage out Multiple sources reduce bias and improve generalization Quality filtering is as important as data collection Legal considerations matter for production systems Document everything for reproducibility This dataset became the foundation for Dip’s image moderation system, processing millions of images daily and keeping the platform safe for users.\nThe 179,000 images across 6 categories now power real-time content moderation for thousands of users. It’s a reminder that machine learning is only as good as your training data.\nThis dataset collection was part of building Dip’s content moderation pipeline. If you need help with dataset creation or content moderation, feel free to reach out.\n",
+  "wordCount" : "988",
+  "inLanguage": "en",
+  "image":"https://shubhamapat7.github.io/images/image-dataset.jpg","datePublished": "2024-09-15T00:00:00Z",
+  "dateModified": "2024-09-15T00:00:00Z",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://shubhamapat7.github.io/post/nsfw-moderation-dataset/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Shubham Apat",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://shubhamapat7.github.io/favicon.ico"
+    }
+  }
+}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -102,17 +170,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/post/" title="Posts">
+                <a href="https://shubhamapat7.github.io/post/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/projects/" title="Projects">
+                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -146,7 +214,7 @@
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="eager" src="http://localhost:1313/images/image-dataset.jpg" alt="Large-scale image dataset collection for content moderation">
+        <img loading="eager" src="https://shubhamapat7.github.io/images/image-dataset.jpg" alt="Large-scale image dataset collection for content moderation">
         
 </figure>
   <div class="post-content"><h2 id="the-challenge">The Challenge<a hidden class="anchor" aria-hidden="true" href="#the-challenge">#</a></h2>
@@ -478,18 +546,18 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="http://localhost:1313/tags/dataset/">Dataset</a></li>
-      <li><a href="http://localhost:1313/tags/data-collection/">Data-Collection</a></li>
-      <li><a href="http://localhost:1313/tags/content-moderation/">Content-Moderation</a></li>
-      <li><a href="http://localhost:1313/tags/machine-learning/">Machine Learning</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/dataset/">Dataset</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/data-collection/">Data-Collection</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/content-moderation/">Content-Moderation</a></li>
+      <li><a href="https://shubhamapat7.github.io/tags/machine-learning/">Machine Learning</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/projects/image-moderation-clip/">
+  <a class="prev" href="https://shubhamapat7.github.io/projects/image-moderation-clip/">
     <span class="title">« Prev</span>
     <br>
-    <span>Image Moderation using OpenAI CLIP</span>
+    <span>I Used OpenAI CLIP for Image Moderation - No Training Required</span>
   </a>
-  <a class="next" href="http://localhost:1313/post/nsmfw-moderation-optimization/">
+  <a class="next" href="https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/">
     <span class="title">Next »</span>
     <br>
     <span>I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark</span>
@@ -501,7 +569,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
+        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
 
     <span>
         Powered by

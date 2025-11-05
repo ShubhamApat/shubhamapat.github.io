@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Data-Collection on Shubham Apat</title>
-    <link>http://localhost:1313/tags/data-collection/</link>
+    <link>https://shubhamapat7.github.io/tags/data-collection/</link>
     <description>Recent content in Data-Collection on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 01 Nov 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/data-collection/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://shubhamapat7.github.io/tags/data-collection/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>I Collected 1,400 University Degrees to Build a Verification Dataset</title>
-      <link>http://localhost:1313/post/university-degrees-dataset/</link>
+      <link>https://shubhamapat7.github.io/post/university-degrees-dataset/</link>
       <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/university-degrees-dataset/</guid>
+      <guid>https://shubhamapat7.github.io/post/university-degrees-dataset/</guid>
       <description>How I scraped 1,400 unique university degrees from 8 countries to build a comprehensive academic verification dataset</description>
     </item>
     <item>
       <title>I Collected 150,000&#43; Images to Train a Content Moderation Model</title>
-      <link>http://localhost:1313/post/nsfw-moderation-dataset/</link>
+      <link>https://shubhamapat7.github.io/post/nsfw-moderation-dataset/</link>
       <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/nsfw-moderation-dataset/</guid>
+      <guid>https://shubhamapat7.github.io/post/nsfw-moderation-dataset/</guid>
       <description>How I built a 150K image dataset across 6 content categories for Dip&amp;#39;s content moderation system</description>
     </item>
     <item>
       <title>I Scraped 70K Property Listings to Help Students Find Housing</title>
-      <link>http://localhost:1313/post/property-scraper-analysis/</link>
+      <link>https://shubhamapat7.github.io/post/property-scraper-analysis/</link>
       <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/post/property-scraper-analysis/</guid>
+      <guid>https://shubhamapat7.github.io/post/property-scraper-analysis/</guid>
       <description>How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students</description>
     </item>
   </channel>
