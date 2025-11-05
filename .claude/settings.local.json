@@ -4,7 +4,10 @@
       "Bash(cat .gitmodules)",
       "Bash(curl -s http://localhost:1313/projects/)",
       "Bash(curl -s http://localhost:1313/)",
-      "Bash(curl -s http://localhost:1313/projects/bookmyshow-scraper/)"
+      "Bash(curl -s http://localhost:1313/projects/bookmyshow-scraper/)",
+      "Bash(hugo --quiet)",
+      "Bash(cat content/projects/_index.md)",
+      "Bash(curl -s http://localhost:1313/post/)"
     ],
     "deny": [],
     "ask": []

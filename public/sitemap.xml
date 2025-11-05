@@ -2,206 +2,206 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://shubhamapat7.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-10-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/</loc>
+    <loc>http://localhost:1313/post/</loc>
     <lastmod>2025-10-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/academic-data/</loc>
+    <loc>http://localhost:1313/tags/academic-data/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/university-degrees-dataset/</loc>
+    <loc>http://localhost:1313/tags/data-collection/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/data-collection/</loc>
+    <loc>http://localhost:1313/tags/dataset/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/dataset/</loc>
+    <loc>http://localhost:1313/post/university-degrees-dataset/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/university/</loc>
+    <loc>http://localhost:1313/tags/university/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/web-scraping/</loc>
+    <loc>http://localhost:1313/tags/web-scraping/</loc>
     <lastmod>2024-11-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/google-search/</loc>
+    <loc>http://localhost:1313/tags/google-search/</loc>
     <lastmod>2024-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/linkedin/</loc>
+    <loc>http://localhost:1313/tags/linkedin/</loc>
     <lastmod>2024-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/linkedin-scraper/</loc>
+    <loc>http://localhost:1313/projects/linkedin-scraper/</loc>
     <lastmod>2024-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/</loc>
+    <loc>http://localhost:1313/projects/</loc>
     <lastmod>2024-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/recaptcha-bypass/</loc>
+    <loc>http://localhost:1313/tags/recaptcha-bypass/</loc>
     <lastmod>2024-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/social-media/</loc>
+    <loc>http://localhost:1313/tags/social-media/</loc>
     <lastmod>2024-10-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/computer-vision/</loc>
+    <loc>http://localhost:1313/tags/computer-vision/</loc>
     <lastmod>2024-10-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/image-classification/</loc>
+    <loc>http://localhost:1313/tags/image-classification/</loc>
     <lastmod>2024-10-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/image-moderation-clip/</loc>
+    <loc>http://localhost:1313/projects/image-moderation-clip/</loc>
     <lastmod>2024-10-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/multi-modal-ai/</loc>
+    <loc>http://localhost:1313/tags/multi-modal-ai/</loc>
     <lastmod>2024-10-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/openai-clip/</loc>
+    <loc>http://localhost:1313/tags/openai-clip/</loc>
     <lastmod>2024-10-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/nsfw-moderation-dataset/</loc>
+    <loc>http://localhost:1313/tags/content-moderation/</loc>
     <lastmod>2024-09-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/content-moderation/</loc>
+    <loc>http://localhost:1313/post/nsfw-moderation-dataset/</loc>
     <lastmod>2024-09-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/machine-learning/</loc>
+    <loc>http://localhost:1313/tags/machine-learning/</loc>
     <lastmod>2024-09-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/deep-learning/</loc>
+    <loc>http://localhost:1313/tags/deep-learning/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/model-optimization/</loc>
+    <loc>http://localhost:1313/post/nsmfw-moderation-optimization/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/openvino/</loc>
+    <loc>http://localhost:1313/tags/model-optimization/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/</loc>
+    <loc>http://localhost:1313/tags/openvino/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/performance/</loc>
+    <loc>http://localhost:1313/tags/performance/</loc>
     <lastmod>2024-09-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/data-validation/</loc>
+    <loc>http://localhost:1313/tags/data-validation/</loc>
     <lastmod>2024-08-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/event-verifier-crawler/</loc>
+    <loc>http://localhost:1313/tags/fraud-detection/</loc>
     <lastmod>2024-08-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/fraud-detection/</loc>
+    <loc>http://localhost:1313/tags/fuzzy-matching/</loc>
     <lastmod>2024-08-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/fuzzy-matching/</loc>
+    <loc>http://localhost:1313/post/event-verifier-crawler/</loc>
     <lastmod>2024-08-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/nlp/</loc>
+    <loc>http://localhost:1313/tags/nlp/</loc>
     <lastmod>2024-08-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/property-tech/</loc>
+    <loc>http://localhost:1313/post/property-scraper-analysis/</loc>
     <lastmod>2024-07-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/real-estate/</loc>
+    <loc>http://localhost:1313/tags/property-tech/</loc>
     <lastmod>2024-07-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/property-scraper-analysis/</loc>
+    <loc>http://localhost:1313/tags/real-estate/</loc>
     <lastmod>2024-07-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/image-forgery-detection/</loc>
+    <loc>http://localhost:1313/tags/image-forgery-detection/</loc>
     <lastmod>2024-06-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/ocr/</loc>
+    <loc>http://localhost:1313/tags/ocr/</loc>
     <lastmod>2024-06-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/student-id-verification-pipeline/</loc>
+    <loc>http://localhost:1313/projects/student-id-verification-pipeline/</loc>
     <lastmod>2024-06-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/yolov8/</loc>
+    <loc>http://localhost:1313/tags/yolov8/</loc>
     <lastmod>2024-06-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/college-hotspots-dashboard/</loc>
+    <loc>http://localhost:1313/projects/college-hotspots-dashboard/</loc>
     <lastmod>2024-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/dash/</loc>
+    <loc>http://localhost:1313/tags/dash/</loc>
     <lastmod>2024-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/data-processing/</loc>
+    <loc>http://localhost:1313/tags/data-processing/</loc>
     <lastmod>2024-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/data-visualization/</loc>
+    <loc>http://localhost:1313/tags/data-visualization/</loc>
     <lastmod>2024-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/flask/</loc>
+    <loc>http://localhost:1313/tags/flask/</loc>
     <lastmod>2024-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/plotly/</loc>
+    <loc>http://localhost:1313/tags/plotly/</loc>
     <lastmod>2024-05-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/crocodile-identification-yolov8/</loc>
+    <loc>http://localhost:1313/post/crocodile-identification-yolov8/</loc>
     <lastmod>2024-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/individual-identification-of-mugger-crocodile/</loc>
+    <loc>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</loc>
     <lastmod>2024-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/research/</loc>
+    <loc>http://localhost:1313/tags/research/</loc>
     <lastmod>2024-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/wildlife/</loc>
+    <loc>http://localhost:1313/tags/wildlife/</loc>
     <lastmod>2024-04-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/beautifulsoup/</loc>
+    <loc>http://localhost:1313/tags/beautifulsoup/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/bookmyshow-scraper/</loc>
+    <loc>http://localhost:1313/projects/bookmyshow-scraper/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/multithreading/</loc>
+    <loc>http://localhost:1313/tags/multithreading/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/python/</loc>
+    <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/selenium/</loc>
+    <loc>http://localhost:1313/tags/selenium/</loc>
     <lastmod>2024-04-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/post/confessions-dataset-cleaning/</loc>
+    <loc>http://localhost:1313/tags/data-cleaning/</loc>
     <lastmod>2024-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/data-cleaning/</loc>
+    <loc>http://localhost:1313/post/confessions-dataset-cleaning/</loc>
     <lastmod>2024-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/text-processing/</loc>
+    <loc>http://localhost:1313/tags/text-processing/</loc>
     <lastmod>2024-03-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/google-earth-engine/</loc>
+    <loc>http://localhost:1313/tags/google-earth-engine/</loc>
     <lastmod>2024-02-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/random-forest/</loc>
+    <loc>http://localhost:1313/tags/random-forest/</loc>
     <lastmod>2024-02-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/remote-sensing/</loc>
+    <loc>http://localhost:1313/tags/remote-sensing/</loc>
     <lastmod>2024-02-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/remote-sensing-mangrove-classification/</loc>
+    <loc>http://localhost:1313/projects/remote-sensing-mangrove-classification/</loc>
     <lastmod>2024-02-20T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/iot/</loc>
+    <loc>http://localhost:1313/tags/iot/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/opencv/</loc>
+    <loc>http://localhost:1313/tags/opencv/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/tags/raspberry-pi/</loc>
+    <loc>http://localhost:1313/tags/raspberry-pi/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/projects/real-time-self-driving-car/</loc>
+    <loc>http://localhost:1313/projects/real-time-self-driving-car/</loc>
     <lastmod>2024-01-15T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://shubhamapat7.github.io/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>https://shubhamapat7.github.io/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
   </url>
 </urlset>

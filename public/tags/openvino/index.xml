@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Openvino on Shubham Apat</title>
-    <link>https://shubhamapat7.github.io/tags/openvino/</link>
+    <link>http://localhost:1313/tags/openvino/</link>
     <description>Recent content in Openvino on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Sep 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://shubhamapat7.github.io/tags/openvino/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/openvino/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Optimizing NSFW Content Moderation: From 250ms to 180ms</title>
-      <link>https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/</link>
+      <title>I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark</title>
+      <link>http://localhost:1313/post/nsmfw-moderation-optimization/</link>
       <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/post/nsmfw-moderation-optimization/</guid>
-      <description>How I optimized NSFW detection inference time by 28% using OpenVINO, beating Ultralytics&amp;#39; own benchmarks</description>
+      <guid>http://localhost:1313/post/nsmfw-moderation-optimization/</guid>
+      <description>How I optimized NSFW detection from 250ms to 180ms using OpenVINO, even beating Ultralytics&amp;#39; own benchmarks</description>
     </item>
   </channel>
 </rss>

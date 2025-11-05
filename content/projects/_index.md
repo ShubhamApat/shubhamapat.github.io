@@ -1,5 +1,5 @@
 ---
 title: "Projects"
-layout: "archives"
+layout: "list"
 summary: "My Data Science Projects"
 ---

@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Text-Processing on Shubham Apat</title>
-    <link>https://shubhamapat7.github.io/tags/text-processing/</link>
+    <link>http://localhost:1313/tags/text-processing/</link>
     <description>Recent content in Text-Processing on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 10 Mar 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://shubhamapat7.github.io/tags/text-processing/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/text-processing/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Cleaning 20,000&#43; Confessions: Building a Content Moderation Dataset</title>
-      <link>https://shubhamapat7.github.io/post/confessions-dataset-cleaning/</link>
+      <title>My First Task at ByteCitadel: Cleaning 20,000 Confessions</title>
+      <link>http://localhost:1313/post/confessions-dataset-cleaning/</link>
       <pubDate>Sun, 10 Mar 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/post/confessions-dataset-cleaning/</guid>
-      <description>My first task at ByteCitadel - cleaning and labeling 20K&#43; text confessions for dip: life beyond colleges app</description>
+      <guid>http://localhost:1313/post/confessions-dataset-cleaning/</guid>
+      <description>How I cleaned and labeled 20K&#43; text confessions for dip: life beyond colleges app</description>
     </item>
   </channel>
 </rss>
