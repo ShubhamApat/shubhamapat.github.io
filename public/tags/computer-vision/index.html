@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Computer Vision | Shubham Apat</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="canonical" href="https://shubhamapat7.github.io/tags/computer-vision/">
+<link rel="canonical" href="http://localhost:1313/tags/computer-vision/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://shubhamapat7.github.io/tags/computer-vision/index.xml" title="rss">
-<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/tags/computer-vision/">
+<link rel="alternate" type="application/rss+xml" href="http://localhost:1313/tags/computer-vision/index.xml" title="rss">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/tags/computer-vision/">
 <noscript>
     <style>
         #theme-toggle,
@@ -71,21 +71,13 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://shubhamapat7.github.io/tags/computer-vision/">
-  <meta property="og:site_name" content="Shubham Apat">
-  <meta property="og:title" content="Computer Vision">
-  <meta property="og:locale" content="en-us">
-  <meta property="og:type" content="website">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Computer Vision">
-<meta name="twitter:description" content="">
-
+</script>
 </head>
 <body class="list" id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -111,17 +103,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                <a href="http://localhost:1313/post/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                <a href="http://localhost:1313/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -148,35 +140,6 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">I Used OpenAI CLIP for Image Moderation - No Training Required
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>The Approach Traditional image classification requires:
-Thousands of labeled images Weeks of training GPU resources CLIP is different: it already “understands” images through natural language.
-The Method 1. Define Prompts Instead of training, I wrote text prompts for each class:
-# NSFW class prompts nsfw_prompts = [ &#34;a nude person&#34;, &#34;explicit sexual content&#34;, &#34;inappropriate intimate image&#34;, &#34;adult content not suitable for work&#34;, # ... 60 total prompts ] # NEUTRAL class prompts neutral_prompts = [ &#34;a normal everyday photo&#34;, &#34;safe for work content&#34;, &#34;appropriate business image&#34;, &#34;general photography&#34;, # ... 60 total prompts ] 2. Compute Similarity import clip import torch # Load CLIP model model, preprocess = clip.load(&#34;ViT-B/32&#34;) device = &#34;cuda&#34; if torch.cuda.is_available() else &#34;cpu&#34; model.to(device) def classify_image(image_path): # Load and preprocess image image = preprocess(Image.open(image_path)).unsqueeze(0).to(device) # Get image features with torch.no_grad(): image_features = model.encode_image(image) # Compare with all class prompts best_class = None best_score = -1 for class_name, prompts in classes.items(): class_scores = [] for prompt in prompts: # Tokenize text text = clip.tokenize(prompt).to(device) # Get text features with torch.no_grad(): text_features = model.encode_text(text) # Compute similarity (cosine similarity) similarity = torch.cosine_similarity(image_features, text_features) class_scores.append(similarity.item()) # Average score for this class avg_score = np.mean(class_scores) if avg_score &gt; best_score: best_score = avg_score best_class = class_name return best_class, best_score 3. Grid Search for Best Thresholds from sklearn.model_selection import GridSearchCV # Optimize decision threshold thresholds = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7] best_threshold = 0.5 best_f1 = 0 for threshold in thresholds: predictions = [1 if score &gt; threshold else 0 for score in similarity_scores] f1 = f1_score(true_labels, predictions) if f1 &gt; best_f1: best_f1 = f1 best_threshold = threshold The Results Metric Value Overall Accuracy 92% NSFW Detection 94% precision Violence Detection 89% precision Neutral Images 96% precision Why This Works CLIP was trained on 400 million image-text pairs. It learned to understand the relationship between images and words.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-10-01 00:00:00 +0000 UTC'>October 1, 2024</span>&nbsp;·&nbsp;<span>3 min</span></footer>
-  <a class="entry-link" aria-label="post link to I Used OpenAI CLIP for Image Moderation - No Training Required" href="https://shubhamapat7.github.io/projects/image-moderation-clip/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Student ID Verification Pipeline for dip
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Overview Built a multi-stage pipeline for verifying student ID cards using advanced deep learning models to detect various types of forgery and tampering.
-Pipeline Architecture Test Dataset 97 manually collected and cleaned ID card images Diverse ID card formats and designs Model Components 1. Face Detection (YOLOv8) High-accuracy face detection in ID cards Fast inference for real-time processing 2. Gender Validation DeepFace-based gender classification Accuracy: 80% (with potential for improvement via dedicated training) 3. Splicing Detection Model: Image Splicing Detector (image_splicer_quant.tflite) Architecture: DenseNet121 with ELA preprocessing Training Data: CASIA dataset Preprocessing: Error Level Analysis (ELA) Performance: Train accuracy: 97.35% Validation accuracy: 82.31% Output: Splicing score (threshold: 0.90) Average test score: 0.95 4. Copy-Move Detection Model: New UNet (new_unet.tflite) Training: COMOFOD dataset Training: 30 epochs Accuracy: 98.7% Output: Copy-move score (threshold: 0.22) Average test score: 0.19 OCR &amp; Text Validation File: speed_uppp2.py Features: OCR text extraction Text consistency check Keyword matching (case/special character validation) Keyword match percentage calculation ELA analysis Pipeline Flow Face Detection (FaceDetection_YOLO.py) Gender Validation (gender_validation.py) Splicing Detection (splicing_detector.py) Copy-Move Detection (copymove_detector.py) OCR &amp; Text Analysis (speed_uppp2.py) Validation Results Successfully processes diverse ID card formats Robust detection of multiple forgery types Multi-layer validation ensures high accuracy Real-time processing capability Technologies Used YOLOv8 TensorFlow Lite UNet DenseNet121 DeepFace OCR (Optical Character Recognition) Error Level Analysis (ELA) Python Computer Vision </p>
-  </div>
-  <footer class="entry-footer"><span title='2024-06-10 00:00:00 +0000 UTC'>June 10, 2024</span>&nbsp;·&nbsp;<span>2 min</span></footer>
-  <a class="entry-link" aria-label="post link to Student ID Verification Pipeline for dip" href="https://shubhamapat7.github.io/projects/student-id-verification-pipeline/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
     <h2 class="entry-hint-parent">Individual Identification of Mugger Crocodiles using YOLOv8
     </h2>
   </header>
@@ -186,7 +149,7 @@ Optimized training on Param Shavak supercomputer using custom CLI scripts for da
 </p>
   </div>
   <footer class="entry-footer"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
-  <a class="entry-link" aria-label="post link to Individual Identification of Mugger Crocodiles using YOLOv8" href="https://shubhamapat7.github.io/projects/individual-identification-of-mugger-crocodile/"></a>
+  <a class="entry-link" aria-label="post link to Individual Identification of Mugger Crocodiles using YOLOv8" href="http://localhost:1313/projects/individual-identification-of-mugger-crocodile/"></a>
 </article>
 
 <article class="post-entry tag-entry"> 
@@ -199,12 +162,12 @@ Optimized training on Param Shavak supercomputer using custom CLI scripts for da
 Technical Implementation Image Processing Pipeline Real-time image processing with OpenCV Perspective transformation for bird’s eye view Thresholding for lane detection Histogram-based lane tracking Hardware Integration Integrated multiple sensors: IR sensors for obstacle detection Ultrasonic sensors for distance measurement Photoresistors for ambient light detection Real-time control logic for: Steering adjustments Acceleration control Automatic braking Key Features Real-time lane detection and tracking Obstacle avoidance system Autonomous navigation Sensor fusion for decision making Technologies Used Raspberry Pi OpenCV Python Computer Vision IoT Sensors </p>
   </div>
   <footer class="entry-footer"><span title='2024-01-15 00:00:00 +0000 UTC'>January 15, 2024</span>&nbsp;·&nbsp;<span>1 min</span></footer>
-  <a class="entry-link" aria-label="post link to Real-Time Self-Driving Car with Lane Detection" href="https://shubhamapat7.github.io/projects/real-time-self-driving-car/"></a>
+  <a class="entry-link" aria-label="post link to Real-Time Self-Driving Car with Lane Detection" href="http://localhost:1313/projects/real-time-self-driving-car/"></a>
 </article>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
 
     <span>
         Powered by

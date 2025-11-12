@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto" data-theme="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>I Scraped 70K Property Listings to Help Students Find Housing | Shubham Apat</title>
 <meta name="keywords" content="web-scraping, real-estate, property-tech, data-collection">
 <meta name="description" content="How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students">
 <meta name="author" content="">
-<link rel="canonical" href="https://shubhamapat7.github.io/post/property-scraper-analysis/">
+<link rel="canonical" href="http://localhost:1313/post/property-scraper-analysis/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://shubhamapat7.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://shubhamapat7.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://shubhamapat7.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://shubhamapat7.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://shubhamapat7.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://shubhamapat7.github.io/post/property-scraper-analysis/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/post/property-scraper-analysis/">
 <noscript>
     <style>
         #theme-toggle,
@@ -70,81 +70,13 @@
         document.querySelector("html").dataset.theme = 'light';
     }
 
-</script><meta property="og:url" content="https://shubhamapat7.github.io/post/property-scraper-analysis/">
-  <meta property="og:site_name" content="Shubham Apat">
-  <meta property="og:title" content="I Scraped 70K Property Listings to Help Students Find Housing">
-  <meta property="og:description" content="How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students">
-  <meta property="og:locale" content="en-us">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2024-07-15T00:00:00+00:00">
-    <meta property="article:modified_time" content="2024-07-15T00:00:00+00:00">
-    <meta property="article:tag" content="Web Scraping">
-    <meta property="article:tag" content="Real-Estate">
-    <meta property="article:tag" content="Property-Tech">
-    <meta property="article:tag" content="Data-Collection">
-    <meta property="og:image" content="https://shubhamapat7.github.io/images/property-scraper.jpg">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://shubhamapat7.github.io/images/property-scraper.jpg">
-<meta name="twitter:title" content="I Scraped 70K Property Listings to Help Students Find Housing">
-<meta name="twitter:description" content="How I collected 70,000&#43; PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://shubhamapat7.github.io/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "I Scraped 70K Property Listings to Help Students Find Housing",
-      "item": "https://shubhamapat7.github.io/post/property-scraper-analysis/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "I Scraped 70K Property Listings to Help Students Find Housing",
-  "name": "I Scraped 70K Property Listings to Help Students Find Housing",
-  "description": "How I collected 70,000+ PG and Hostel listings from Magic Bricks, JustDial, and 99acres for college students",
-  "keywords": [
-    "web-scraping", "real-estate", "property-tech", "data-collection"
-  ],
-  "articleBody": "The Mission College students in India struggle to find affordable PGs and hostels. I scraped data from three major property sites to build a comprehensive database.\nThe Stack class PropertyScraper: def __init__(self): self.scrapers = { 'magicbricks': MagicBricksScraper(), 'justdial': JustDialScraper(), '99acres': NinetyNineAcresScraper() } Each platform needed custom scraping logic.\nThe Numbers Platform Properties Success Rate Magic Bricks 28,500 94% JustDial 25,000 89% 99acres 16,500 91% Total 70,000 91% Challenges Anti-bot measures: CAPTCHA, IP blocking, rate limiting Solution: Rotated user agents, added delays, proxy rotation\nDynamic content: JavaScript-rendered listings Solution: Selenium WebDriver with scroll handling\nData inconsistency: Different formats across platforms Solution: Normalization pipeline\nImpact 70,000 properties across 50 cities Student-focused filtering (budget, amenities, location) Platform integration for easy search Key Takeaway Web scraping at scale requires platform-specific solutions and robust anti-detection strategies.\nThis property data collection project was built to help students find affordable and suitable accommodation near their colleges.\n",
-  "wordCount" : "149",
-  "inLanguage": "en",
-  "image":"https://shubhamapat7.github.io/images/property-scraper.jpg","datePublished": "2024-07-15T00:00:00Z",
-  "dateModified": "2024-07-15T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://shubhamapat7.github.io/post/property-scraper-analysis/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Shubham Apat",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://shubhamapat7.github.io/favicon.ico"
-    }
-  }
-}
 </script>
 </head>
 <body id="top">
     <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://shubhamapat7.github.io/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -170,17 +102,17 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://shubhamapat7.github.io/post/" title="Posts">
+                <a href="http://localhost:1313/post/" title="Posts">
                     <span>Posts</span>
                 </a>
             </li>
             <li>
-                <a href="https://shubhamapat7.github.io/projects/" title="Projects">
+                <a href="http://localhost:1313/projects/" title="Projects">
                     <span>Projects</span>
                 </a>
             </li>
             <li>
-                <a href="https://shubhamapat7.github.io/search/" title="Search (Alt &#43; /)" accesskey=/>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
                     <span>Search</span>
                 </a>
             </li>
@@ -214,7 +146,7 @@
 </div>
   </header> 
 <figure class="entry-cover">
-        <img loading="eager" src="https://shubhamapat7.github.io/images/property-scraper.jpg" alt="Property listing data collection from multiple platforms">
+        <img loading="eager" src="http://localhost:1313/images/property-scraper.jpg" alt="Property listing data collection from multiple platforms">
         
 </figure>
   <div class="post-content"><h2 id="the-mission">The Mission<a hidden class="anchor" aria-hidden="true" href="#the-mission">#</a></h2>
@@ -283,21 +215,21 @@
 
   <footer class="post-footer">
     <ul class="post-tags">
-      <li><a href="https://shubhamapat7.github.io/tags/web-scraping/">Web Scraping</a></li>
-      <li><a href="https://shubhamapat7.github.io/tags/real-estate/">Real-Estate</a></li>
-      <li><a href="https://shubhamapat7.github.io/tags/property-tech/">Property-Tech</a></li>
-      <li><a href="https://shubhamapat7.github.io/tags/data-collection/">Data-Collection</a></li>
+      <li><a href="http://localhost:1313/tags/web-scraping/">Web Scraping</a></li>
+      <li><a href="http://localhost:1313/tags/real-estate/">Real-Estate</a></li>
+      <li><a href="http://localhost:1313/tags/property-tech/">Property-Tech</a></li>
+      <li><a href="http://localhost:1313/tags/data-collection/">Data-Collection</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="https://shubhamapat7.github.io/post/event-verifier-crawler/">
+  <a class="prev" href="http://localhost:1313/post/nsmfw-moderation-optimization/">
     <span class="title">« Prev</span>
     <br>
-    <span>I Built a Bot to Catch Fake Event Listings with Fuzzy Matching</span>
+    <span>I Made YOLOv8 Detection 3.7x Faster and Beat Ultralytics&#39; Own Benchmark</span>
   </a>
-  <a class="next" href="https://shubhamapat7.github.io/projects/student-id-verification-pipeline/">
+  <a class="next" href="http://localhost:1313/projects/college-hotspots-dashboard/">
     <span class="title">Next »</span>
     <br>
-    <span>Student ID Verification Pipeline for dip</span>
+    <span>College Hotspots Dashboard</span>
   </a>
 </nav>
 
@@ -306,7 +238,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2025 <a href="https://shubhamapat7.github.io/">Shubham Apat</a></span> · 
+        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
 
     <span>
         Powered by

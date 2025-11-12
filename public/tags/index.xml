@@ -2,318 +2,227 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Shubham Apat</title>
-    <link>https://shubhamapat7.github.io/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Nov 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://shubhamapat7.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Academic-Data</title>
-      <link>https://shubhamapat7.github.io/tags/academic-data/</link>
-      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/academic-data/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Data-Collection</title>
-      <link>https://shubhamapat7.github.io/tags/data-collection/</link>
-      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/data-collection/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Dataset</title>
-      <link>https://shubhamapat7.github.io/tags/dataset/</link>
-      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/dataset/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>University</title>
-      <link>https://shubhamapat7.github.io/tags/university/</link>
-      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/university/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Web Scraping</title>
-      <link>https://shubhamapat7.github.io/tags/web-scraping/</link>
-      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/web-scraping/</guid>
-      <description></description>
-    </item>
+    <lastBuildDate>Sun, 20 Oct 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Google Search</title>
-      <link>https://shubhamapat7.github.io/tags/google-search/</link>
+      <link>http://localhost:1313/tags/google-search/</link>
       <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/google-search/</guid>
+      <guid>http://localhost:1313/tags/google-search/</guid>
       <description></description>
     </item>
     <item>
       <title>LinkedIn</title>
-      <link>https://shubhamapat7.github.io/tags/linkedin/</link>
+      <link>http://localhost:1313/tags/linkedin/</link>
       <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/linkedin/</guid>
+      <guid>http://localhost:1313/tags/linkedin/</guid>
       <description></description>
     </item>
     <item>
       <title>Recaptcha Bypass</title>
-      <link>https://shubhamapat7.github.io/tags/recaptcha-bypass/</link>
+      <link>http://localhost:1313/tags/recaptcha-bypass/</link>
       <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/recaptcha-bypass/</guid>
+      <guid>http://localhost:1313/tags/recaptcha-bypass/</guid>
       <description></description>
     </item>
     <item>
       <title>Social Media</title>
-      <link>https://shubhamapat7.github.io/tags/social-media/</link>
+      <link>http://localhost:1313/tags/social-media/</link>
       <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/social-media/</guid>
+      <guid>http://localhost:1313/tags/social-media/</guid>
       <description></description>
     </item>
     <item>
-      <title>Computer Vision</title>
-      <link>https://shubhamapat7.github.io/tags/computer-vision/</link>
-      <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/computer-vision/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Image Classification</title>
-      <link>https://shubhamapat7.github.io/tags/image-classification/</link>
-      <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/image-classification/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Multi-Modal AI</title>
-      <link>https://shubhamapat7.github.io/tags/multi-modal-ai/</link>
-      <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/multi-modal-ai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>OpenAI CLIP</title>
-      <link>https://shubhamapat7.github.io/tags/openai-clip/</link>
-      <pubDate>Tue, 01 Oct 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/openai-clip/</guid>
+      <title>Web Scraping</title>
+      <link>http://localhost:1313/tags/web-scraping/</link>
+      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/web-scraping/</guid>
       <description></description>
     </item>
     <item>
       <title>Content-Moderation</title>
-      <link>https://shubhamapat7.github.io/tags/content-moderation/</link>
-      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/content-moderation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Machine Learning</title>
-      <link>https://shubhamapat7.github.io/tags/machine-learning/</link>
-      <pubDate>Sun, 15 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/machine-learning/</guid>
+      <link>http://localhost:1313/tags/content-moderation/</link>
+      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/content-moderation/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Learning</title>
-      <link>https://shubhamapat7.github.io/tags/deep-learning/</link>
+      <link>http://localhost:1313/tags/deep-learning/</link>
       <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/deep-learning/</guid>
+      <guid>http://localhost:1313/tags/deep-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Model-Optimization</title>
-      <link>https://shubhamapat7.github.io/tags/model-optimization/</link>
+      <link>http://localhost:1313/tags/model-optimization/</link>
       <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/model-optimization/</guid>
+      <guid>http://localhost:1313/tags/model-optimization/</guid>
       <description></description>
     </item>
     <item>
       <title>Openvino</title>
-      <link>https://shubhamapat7.github.io/tags/openvino/</link>
+      <link>http://localhost:1313/tags/openvino/</link>
       <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/openvino/</guid>
+      <guid>http://localhost:1313/tags/openvino/</guid>
       <description></description>
     </item>
     <item>
       <title>Performance</title>
-      <link>https://shubhamapat7.github.io/tags/performance/</link>
+      <link>http://localhost:1313/tags/performance/</link>
       <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/performance/</guid>
+      <guid>http://localhost:1313/tags/performance/</guid>
       <description></description>
     </item>
     <item>
-      <title>Data-Validation</title>
-      <link>https://shubhamapat7.github.io/tags/data-validation/</link>
-      <pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/data-validation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Fraud-Detection</title>
-      <link>https://shubhamapat7.github.io/tags/fraud-detection/</link>
-      <pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/fraud-detection/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Fuzzy-Matching</title>
-      <link>https://shubhamapat7.github.io/tags/fuzzy-matching/</link>
-      <pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/fuzzy-matching/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Nlp</title>
-      <link>https://shubhamapat7.github.io/tags/nlp/</link>
-      <pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/nlp/</guid>
+      <title>Data-Collection</title>
+      <link>http://localhost:1313/tags/data-collection/</link>
+      <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/data-collection/</guid>
       <description></description>
     </item>
     <item>
       <title>Property-Tech</title>
-      <link>https://shubhamapat7.github.io/tags/property-tech/</link>
+      <link>http://localhost:1313/tags/property-tech/</link>
       <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/property-tech/</guid>
+      <guid>http://localhost:1313/tags/property-tech/</guid>
       <description></description>
     </item>
     <item>
       <title>Real-Estate</title>
-      <link>https://shubhamapat7.github.io/tags/real-estate/</link>
+      <link>http://localhost:1313/tags/real-estate/</link>
       <pubDate>Mon, 15 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/real-estate/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Image Forgery Detection</title>
-      <link>https://shubhamapat7.github.io/tags/image-forgery-detection/</link>
-      <pubDate>Mon, 10 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/image-forgery-detection/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>OCR</title>
-      <link>https://shubhamapat7.github.io/tags/ocr/</link>
-      <pubDate>Mon, 10 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/ocr/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>YOLOv8</title>
-      <link>https://shubhamapat7.github.io/tags/yolov8/</link>
-      <pubDate>Mon, 10 Jun 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/yolov8/</guid>
+      <guid>http://localhost:1313/tags/real-estate/</guid>
       <description></description>
     </item>
     <item>
       <title>Dash</title>
-      <link>https://shubhamapat7.github.io/tags/dash/</link>
+      <link>http://localhost:1313/tags/dash/</link>
       <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/dash/</guid>
+      <guid>http://localhost:1313/tags/dash/</guid>
       <description></description>
     </item>
     <item>
       <title>Data Processing</title>
-      <link>https://shubhamapat7.github.io/tags/data-processing/</link>
+      <link>http://localhost:1313/tags/data-processing/</link>
       <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/data-processing/</guid>
+      <guid>http://localhost:1313/tags/data-processing/</guid>
       <description></description>
     </item>
     <item>
       <title>Data Visualization</title>
-      <link>https://shubhamapat7.github.io/tags/data-visualization/</link>
+      <link>http://localhost:1313/tags/data-visualization/</link>
       <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/data-visualization/</guid>
+      <guid>http://localhost:1313/tags/data-visualization/</guid>
       <description></description>
     </item>
     <item>
       <title>Flask</title>
-      <link>https://shubhamapat7.github.io/tags/flask/</link>
+      <link>http://localhost:1313/tags/flask/</link>
       <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/flask/</guid>
+      <guid>http://localhost:1313/tags/flask/</guid>
       <description></description>
     </item>
     <item>
       <title>Plotly</title>
-      <link>https://shubhamapat7.github.io/tags/plotly/</link>
+      <link>http://localhost:1313/tags/plotly/</link>
       <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/plotly/</guid>
+      <guid>http://localhost:1313/tags/plotly/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Computer Vision</title>
+      <link>http://localhost:1313/tags/computer-vision/</link>
+      <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/computer-vision/</guid>
       <description></description>
     </item>
     <item>
       <title>Research</title>
-      <link>https://shubhamapat7.github.io/tags/research/</link>
+      <link>http://localhost:1313/tags/research/</link>
       <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/research/</guid>
+      <guid>http://localhost:1313/tags/research/</guid>
       <description></description>
     </item>
     <item>
       <title>BeautifulSoup</title>
-      <link>https://shubhamapat7.github.io/tags/beautifulsoup/</link>
+      <link>http://localhost:1313/tags/beautifulsoup/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/beautifulsoup/</guid>
+      <guid>http://localhost:1313/tags/beautifulsoup/</guid>
       <description></description>
     </item>
     <item>
       <title>Multithreading</title>
-      <link>https://shubhamapat7.github.io/tags/multithreading/</link>
+      <link>http://localhost:1313/tags/multithreading/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/multithreading/</guid>
+      <guid>http://localhost:1313/tags/multithreading/</guid>
       <description></description>
     </item>
     <item>
       <title>Python</title>
-      <link>https://shubhamapat7.github.io/tags/python/</link>
+      <link>http://localhost:1313/tags/python/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/python/</guid>
+      <guid>http://localhost:1313/tags/python/</guid>
       <description></description>
     </item>
     <item>
       <title>Selenium</title>
-      <link>https://shubhamapat7.github.io/tags/selenium/</link>
+      <link>http://localhost:1313/tags/selenium/</link>
       <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/selenium/</guid>
+      <guid>http://localhost:1313/tags/selenium/</guid>
       <description></description>
     </item>
     <item>
       <title>Google Earth Engine</title>
-      <link>https://shubhamapat7.github.io/tags/google-earth-engine/</link>
+      <link>http://localhost:1313/tags/google-earth-engine/</link>
       <pubDate>Tue, 20 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/google-earth-engine/</guid>
+      <guid>http://localhost:1313/tags/google-earth-engine/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Machine Learning</title>
+      <link>http://localhost:1313/tags/machine-learning/</link>
+      <pubDate>Tue, 20 Feb 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/tags/machine-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Random Forest</title>
-      <link>https://shubhamapat7.github.io/tags/random-forest/</link>
+      <link>http://localhost:1313/tags/random-forest/</link>
       <pubDate>Tue, 20 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/random-forest/</guid>
+      <guid>http://localhost:1313/tags/random-forest/</guid>
       <description></description>
     </item>
     <item>
       <title>Remote Sensing</title>
-      <link>https://shubhamapat7.github.io/tags/remote-sensing/</link>
+      <link>http://localhost:1313/tags/remote-sensing/</link>
       <pubDate>Tue, 20 Feb 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/remote-sensing/</guid>
+      <guid>http://localhost:1313/tags/remote-sensing/</guid>
       <description></description>
     </item>
     <item>
       <title>IoT</title>
-      <link>https://shubhamapat7.github.io/tags/iot/</link>
+      <link>http://localhost:1313/tags/iot/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/iot/</guid>
+      <guid>http://localhost:1313/tags/iot/</guid>
       <description></description>
     </item>
     <item>
       <title>OpenCV</title>
-      <link>https://shubhamapat7.github.io/tags/opencv/</link>
+      <link>http://localhost:1313/tags/opencv/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/opencv/</guid>
+      <guid>http://localhost:1313/tags/opencv/</guid>
       <description></description>
     </item>
     <item>
       <title>Raspberry Pi</title>
-      <link>https://shubhamapat7.github.io/tags/raspberry-pi/</link>
+      <link>http://localhost:1313/tags/raspberry-pi/</link>
       <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
-      <guid>https://shubhamapat7.github.io/tags/raspberry-pi/</guid>
+      <guid>http://localhost:1313/tags/raspberry-pi/</guid>
       <description></description>
     </item>
   </channel>

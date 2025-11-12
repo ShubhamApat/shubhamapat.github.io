@@ -1,27 +1,36 @@
 +++
-title = "I Optimized a 3GB Dashboard from 90 Seconds to 1 Second (90x Speedup)"
+title = "College Hotspots Dashboard"
 date = 2024-05-01
 tags = ["Data Visualization", "Dash", "Plotly", "Data Processing", "Flask"]
 description = "How I built an interactive dashboard for student businesses and achieved 90x performance improvement"
+[cover]
+image = "/images/dashboard.png"
 +++
 
-## The Problem
+Students need to find, PGs and hostels, Restaurants and cafes, Study spaces, competitive exam classes and other student services near colleges
 
-Students need to find:
-- PGs and hostels near colleges
-- Restaurants and cafes
-- Study spaces
-- Other student services
+I scraped Google Maps and collected **3GB of business data** around colleges in 8 major Indian cities. It contained business of more than 100 categories, around all the colleges in the city. I used [dash by Plotly]("https://plotly.com/dash/) to start building the dashboard. To build an interactive dashboard we need to first decide what can we showcase from this data. In my dataset I had details that google maps show of any business like name, address, pincode, city, reviews, phone no., etc. 
 
-I scraped Google Maps for **3GB of business data** around colleges in 7 major Indian cities.
+Also whatever you conclude to showcase on your dashboard should be informative and visually consistent. I decided to go with a scattermap for my first graph which shows pincodes of one selected city as interactive bubbles. 
 
-Building the dashboard was easy. Making it fast? That's where it got interesting.
+<img src="/images/scattermap.png">
 
+Second was an interactive histogram of top 50 pincodes with highest business counts. 
+<justify-left>
+<img src="/images/histogram.png">
+</justify-left>
+We can select a pincode from histogram or from scattermap
+<img src="/images/city_selection.png">
+
+Upon selection you can access the visualisation a business table, which can be filtered by any category you want and it will show you the top business in that category in the selected pincode based on the google maps review!!
+<img src="/images/business_table.png">
+
+I added another feature where upon selecting a category and pincode you can download the csv file of with original filtered the exact way.
+<img src="/images/pincode_download.png">
 ## First Version: Painfully Slow
 
 ```python
-# This took 90+ seconds to load
-df = pd.read_csv('businesses.csv')  # 3GB CSV
+df = pd.read_csv('businesses.csv')  
 filtered_df = df[df['city'] == selected_city]
 map_plot = px.scatter_mapbox(filtered_df, ...)
 ```
@@ -31,24 +40,19 @@ map_plot = px.scatter_mapbox(filtered_df, ...)
 ## The Optimization Journey
 
 ### 1. **CSV → Parquet Conversion**
-
+Parquet can refer to a columnar data file format optimized for big data processing or a type of decorative wooden flooring with geometric patterns. The data file format, Apache Parquet, is widely used for its efficiency in storage and querying, with benefits like efficient compression and schema evolution. 
 ```python
-# Convert to Parquet (columnar storage)
 df.to_parquet('businesses.parquet', engine='pyarrow')
-
-# Load with efficient filtering
 df = pd.read_parquet('businesses.parquet', 
                     columns=['name', 'category', 'city', 'pincode', 'rating'])
-# Load time: 60 seconds (better, but still terrible)
 ```
 
 **Improvement**: 33% faster (90s → 60s)
 
 ### 2. **Data Type Optimization**
-
+Quantization generally refers to reducing the precision of data, typically to 8-bit, 4-bit, or even lower integer or floating-point formats, to save memory and speed up computation
 ```python
-# Optimize data types
-df['category'] = df['category'].astype('category')  # Uses less memory
+df['category'] = df['category'].astype('category')  
 df['city'] = df['city'].astype('category')
 df['pincode'] = pd.to_numeric(df['pincode'], downcast='integer')
 df['rating'] = pd.to_numeric(df['rating'], downcast='float')
@@ -69,13 +73,12 @@ app = Flask(__name__)
 
 @lru_cache(maxsize=128)
 def load_data(city):
-    # Cache city-specific data
     return pd.read_parquet(f'data/{city}.parquet')
 
 @app.route('/get_data')
 def get_data():
     city = request.args.get('city')
-    data = load_data(city)  # Cached after first call
+    data = load_data(city)
     return data.to_json()
 ```
 
@@ -84,47 +87,13 @@ def get_data():
 ### 4. **Pre-filtering at Read Time**
 
 ```python
-# Don't load everything, just what you need
 df = pd.read_parquet(
     'businesses.parquet',
-    filters=[('city', '==', selected_city)]  # Only load Mumbai data if Mumbai selected
+    filters=[('city', '==', selected_city)] 
 )
 ```
 
 **Result**: **1 second** load time!
-
-## The Final Architecture
-
-```python
-# Optimized pipeline
-@app.callback(
-    Output('map', 'figure'),
-    Input('city-dropdown', 'value')
-)
-def update_map(selected_city):
-    # 1. Load only filtered data (1 second)
-    df = pd.read_parquet(
-        'businesses.parquet',
-        filters=[('city', '==', selected_city)]
-    )
-    
-    # 2. Create map (0.5 seconds)
-    fig = px.scatter_mapbox(
-        df, lat='lat', lon='lng',
-        hover_name='name',
-        hover_data=['category', 'rating'],
-        color='category',
-        size='rating'
-    )
-    
-    # 3. Update layout (0.5 seconds)
-    fig.update_layout(
-        mapbox_style='open-street-map',
-        height=600
-    )
-    
-    return fig
-```
 
 ## The Results
 
@@ -133,23 +102,6 @@ def update_map(selected_city):
 | **Load time** | 90+ seconds | **1 second** | **90x faster** |
 | **Memory usage** | 3GB | 1.2GB | 60% reduction |
 | **User satisfaction** | 0% (too slow) | 95% | Much better! |
-
-## Dashboard Features
-
-### Interactive Visualizations
-1. **ScatterMapBox**: Geographic distribution with city filtering
-2. **Sunburst Chart**: Category breakdown by pincode
-3. **Histogram**: Top pincodes by business count
-4. **Data Table**: Sortable, filterable business listings
-5. **Tree Map**: Category distribution
-
-### User Flow
-```python
-# User selects Mumbai → Map updates (1 second)
-# User clicks Pincode 400001 → Sunburst chart updates
-# User selects "Restaurants" → Table filters to restaurants
-# User clicks "Download" → CSV exports (2 seconds)
-```
 
 ## Key Takeaways
 
