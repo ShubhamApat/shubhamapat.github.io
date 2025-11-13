@@ -7,8 +7,9 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Individual Identification of Mugger Crocodiles using YOLOv8 | Shubham Apat</title>
 <meta name="keywords" content="Deep Learning, Computer Vision, Research">
-<meta name="description" content="Built a YOLOv8-based model to identify 160&#43; individual free-ranging crocodiles from UAV imagery with 98.5% accuracy.
-Optimized training on Param Shavak supercomputer using custom CLI scripts for data processing.">
+<meta name="description" content="Abstract
+
+Individual identification contributes significantly towards investigating behavioral mechanisms of animals and understanding underlying ecological principles. Most studies employ invasive procedures for individually identifying organisms. In recent times, computer-vision techniques have served as an alternative to invasive methods. However, these studies primarily rely on user input data collected from captivity or from individuals under partially restrained conditions. Challenges in collecting data from free-ranging individuals are higher when compared to captive populations. However, the former is a far more important priority for real-world applications.">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/projects/individual-identification-of-mugger-crocodile/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
@@ -139,12 +140,36 @@ Optimized training on Param Shavak supercomputer using custom CLI scripts for da
     <h1 class="post-title entry-hint-parent">
       Individual Identification of Mugger Crocodiles using YOLOv8
     </h1>
-    <div class="post-meta"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>1 min</span>
+    <div class="post-meta"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>4 min</span>
 
 </div>
   </header> 
-  <div class="post-content"><p>Built a YOLOv8-based model to identify 160+ individual free-ranging crocodiles from UAV imagery with <strong>98.5% accuracy</strong>.<br>
-Optimized training on <strong>Param Shavak supercomputer</strong> using custom CLI scripts for data processing.</p>
+  <div class="post-content"><p><strong>Abstract</strong></p>
+<blockquote>
+<p>Individual identification contributes significantly towards investigating behavioral mechanisms of animals and understanding underlying ecological principles. Most studies employ invasive procedures for individually identifying organisms. In recent times, computer-vision techniques have served as an alternative to invasive methods. However, these studies primarily rely on user input data collected from captivity or from individuals under partially restrained conditions. Challenges in collecting data from free-ranging individuals are higher when compared to captive populations. However, the former is a far more important priority for real-world applications.</p>
+</blockquote>
+<p>Individual Identification of mugger crocodile, is where my computer vision journey started. I was part of a deep learning research project under <strong>Prof. Mehul Raval</strong>, where we were provided a dataset of free-ranging muggger crocodiles collected using Unmanned Aerial Vehicle (UAV). The dataset contained total 160,000 images focusing on mugger&rsquo;s dorsal body. The data was collected from 160 individuals across 19 different locations along the western part of India.</p>
+<img src="/images/mugger.png" width=300>
+<p>Using a CNN model, we aim to individually identify free ranging mugger crocodiles, Crocodylus palustris based on their dorsal scute patterns. Scutes are hard calcium bony plates called osteoderms (Fig. 1) that form a crocodile&rsquo;s dorsal body. It serves as a unique identifier based on its placement on the dorsal body. With this background, we hypothesize that the developed CNN-based IID for mugger crocodiles will provide a robust understanding of behavioral processes and physiological patterns at an individual level, which in turn will contribute towards species conservation.</p>
+<p>The dataset had 160,000 images and their annotations (bounding boxes of scute patterns), we decided to use YOLOv8 as it is the state of the art object detection model, known for its speed and accuracy. The size of dataset was ~450GB, for data preprocessing and model training we were assigned access to ParamShavak supercoputer which use NVIDIA A6000 GPU!</p>
+<blockquote>
+<p><strong>Only problem paramshavak did not have GUI, so we coded whole summer in pUTTY cli, doing image processing tasks on a machine where images couldn&rsquo;t open, very ironic right!</strong></p>
+</blockquote>
+<p><strong>Data Preprocessing</strong></p>
+<p>Standard data preprocessing steps before any object detection model training are image processing which includes, image resizing, normalization and data augmentation. Also annotation processing is very important step, Adjust bounding box coordinates to match the image transformations applied during preprocessing (e.g., resizing, cropping, flipping). Format Conversion, Convert annotations to the format expected by the chosen object detection framework (e.g., COCO, PASCAL VOC, YOLO format).</p>
+<p>As we were using YOLOv8, we resized every image to 640x640, applied normalization and converted annotations into YOLO txt format. Another step taken was out of 1000 images per class, we only used 250 images per class in training by taking every 4th frame, divided that train data into 90:10 ratio for train and validation. Other 750 images per class were taken as unseen testing data.</p>
+<p><strong>Model Training</strong></p>
+<p>Since we already had selected the model, next step was model configuration. Configured hyperparameters using  Adam optimizer, batch normalization and 100 training epochs.</p>
+<p>For yolov8 training you need to prepare a YAML mapping file where you need to give path to train data, val data and mapping of classes.</p>
+<pre tabindex="0"><code class="language-cli" data-lang="cli">yolo train model=yolov8m.pt data=mapping.yaml epochs=100 imgsz=640
+</code></pre><p>This was first training version which acheived 97.5% mAP50, after that did hyperparameter tuning with <a href="%22https://docs.ultralytics.com/modes/train/#train-settings%22">train-settings</a> and the images-per-class which varied from 50,100,150,200,500 and even taking all 1000. But the final best accuracy acheived was with optimizer Adam, aumentations settings like perspective, flipud, fliplr, scale and 250 images per class whcih acheived <strong>99.5% mAP50</strong>.</p>
+<p>For testing, we used new data collected six months after the training dataset. Because of the time gap, the weather conditions had changed significantly, creating a noticeable difference between the training and test images.</p>
+<p>We used two parameters, True Positive Rate (TPR) and True Negative Rate (TNR), to validate the efficiency of the trained models. Using YOLO-v5l, TPR (re-identification of trained muggers) and TNR (differentiating untrained muggers as ‘unknown’) values at the 0.84 decision threshold were 88.8% and 89.6%, respectively. The trained model showed 100% TNR for the non-mugger species, the Gharial, Gavialis gangeticus, and the Saltwater crocodile, Crocodylus porosus.</p>
+<div>
+  <img src="/images/mugger2.png" width="300" style="display:inline-block;">
+  <img src="/images/mugger3.png" width="360" style="display:inline-block;">
+</div>
+<p>The performance of the CNN model was reliable and accurate while using only 250 images per individual for training purposes. Showing that a bounding box approach (YOLO-v5l model) with background elimination is a promising method to individually identify free-ranging mugger crocodiles. Our manuscript demonstrates that UAV imagery appears to be a promising tool for non-invasive collection of data from free-ranging populations. It can be used to train open-source algorithms for individual identification. Further, the identification method is entirely based upon dorsal scute patterns, which can be applied to different crocodilian species, as well.</p>
 
 
   </div>

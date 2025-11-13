@@ -37,8 +37,9 @@
       <link>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</link>
       <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</guid>
-      <description>&lt;p&gt;Built a YOLOv8-based model to identify 160+ individual free-ranging crocodiles from UAV imagery with &lt;strong&gt;98.5% accuracy&lt;/strong&gt;.&lt;br&gt;
-Optimized training on &lt;strong&gt;Param Shavak supercomputer&lt;/strong&gt; using custom CLI scripts for data processing.&lt;/p&gt;</description>
+      <description>&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Individual identification contributes significantly towards investigating behavioral mechanisms of animals and understanding underlying ecological principles. Most studies employ invasive procedures for individually identifying organisms. In recent times, computer-vision techniques have served as an alternative to invasive methods. However, these studies primarily rely on user input data collected from captivity or from individuals under partially restrained conditions. Challenges in collecting data from free-ranging individuals are higher when compared to captive populations. However, the former is a far more important priority for real-world applications.&lt;/p&gt;</description>
     </item>
     <item>
       <title>BookMyShow Scraper - I Got 60x Speedup by Running 4 Windows Instead of Threads</title>
