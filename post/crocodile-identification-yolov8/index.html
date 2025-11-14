@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=63093&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>I Trained a Model to Identify 160&#43; Individual Crocodiles with 98.5% Accuracy | Shubham Apat</title>
+<meta name="keywords" content="deep-learning, computer-vision, wildlife, yolov8, research">
+<meta name="description" content="Building a YOLOv8 model for wildlife conservation - identifying individual mugger crocodiles by their back patterns">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:63093/post/crocodile-identification-yolov8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:63093/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:63093/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:63093/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:63093/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:63093/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:63093/post/crocodile-identification-yolov8/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:63093/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:63093/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:63093/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:63093/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      I Trained a Model to Identify 160&#43; Individual Crocodiles with 98.5% Accuracy
+    </h1>
+    <div class="post-description">
+      Building a YOLOv8 model for wildlife conservation - identifying individual mugger crocodiles by their back patterns
+    </div>
+    <div class="post-meta"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>5 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:63093/images/crocodile-research.jpg" alt="Mugger crocodile identification using UAV imagery">
+        
+</figure>
+  <div class="post-content"><h2 id="the-question">The Question<a hidden class="anchor" aria-hidden="true" href="#the-question">#</a></h2>
+<p>Can you tell crocodiles apart? Probably not—unless you&rsquo;re a wildlife biologist with decades of experience.</p>
+<p>But what if I told you that <strong>every mugger crocodile has a unique back scute pattern</strong> (like human fingerprints)? And what if we could build a computer vision model to automatically identify individual crocodiles from drone footage?</p>
+<p>That&rsquo;s exactly what I spent 6 months doing as a research intern at <strong>Ahmedabad University</strong> under Prof. Mehul Raval.</p>
+<h2 id="the-challenge">The Challenge<a hidden class="anchor" aria-hidden="true" href="#the-challenge">#</a></h2>
+<p>Wildlife conservation is <strong>data-starved</strong>. Tracking individual animals requires:</p>
+<ul>
+<li>Expensive GPS collars</li>
+<li>Manual photo identification</li>
+<li>Lots of time and expertise</li>
+<li>Frequent human error</li>
+</ul>
+<blockquote>
+<p><strong>&ldquo;160+ individual crocodiles, 1000 images each = 500GB of data&rdquo;</strong></p>
+</blockquote>
+<p>We had UAV (drone) imagery from Gujarat&rsquo;s western and southern regions. The footage was stunning—but analyzing it manually would take <strong>years</strong>.</p>
+<h2 id="the-dataset">The Dataset<a hidden class="anchor" aria-hidden="true" href="#the-dataset">#</a></h2>
+<p>This wasn&rsquo;t your typical image classification dataset:</p>
+<ul>
+<li><strong>160 individual crocodiles</strong> (each with unique ID)</li>
+<li><strong>1,000 images per crocodile</strong></li>
+<li><strong>500GB total</strong> of high-resolution drone footage</li>
+<li><strong>Gujarat, India</strong> - Western and Southern coastal regions</li>
+</ul>
+<p>Each crocodile&rsquo;s back scute pattern was annotated by wildlife experts. Think of it like facial recognition, but for crocodile backs.</p>
+<h3 id="the-infrastructure-problem">The Infrastructure Problem<a hidden class="anchor" aria-hidden="true" href="#the-infrastructure-problem">#</a></h3>
+<p>Training on 500GB of data requires serious compute:</p>
+<ul>
+<li><strong>Param Shavak Supercomputer</strong> - A Linux-based HPC system</li>
+<li><strong>No GUI</strong> - Command-line only</li>
+<li><strong>NVIDIA P5000 GPUs</strong> - Multiple multi-day training runs</li>
+<li><strong>Custom CLI scripts</strong> - For data processing</li>
+</ul>
+<p>Since it was a research project with limited resources, I had to optimize everything. No room for inefficient code.</p>
+<h2 id="the-model-architecture">The Model Architecture<a hidden class="anchor" aria-hidden="true" href="#the-model-architecture">#</a></h2>
+<h3 id="why-yolov8">Why YOLOv8?<a hidden class="anchor" aria-hidden="true" href="#why-yolov8">#</a></h3>
+<p>YOLOv8 (You Only Look Once version 8) is great for this use case:</p>
+<ul>
+<li><strong>Real-time detection</strong> - Process video streams</li>
+<li><strong>High accuracy</strong> - State-of-the-art performance</li>
+<li><strong>Multiple sizes</strong> - We used YOLOv8-XL for best results</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Load YOLOv8-XL model</span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> YOLO(<span style="color:#e6db74">&#39;yolov8x.pt&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Train on crocodile dataset</span>
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>train(
+</span></span><span style="display:flex;"><span>    data<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;crocodile.yaml&#39;</span>,
+</span></span><span style="display:flex;"><span>    epochs<span style="color:#f92672">=</span><span style="color:#ae81ff">100</span>,
+</span></span><span style="display:flex;"><span>    imgsz<span style="color:#f92672">=</span><span style="color:#ae81ff">640</span>,
+</span></span><span style="display:flex;"><span>    batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">16</span>,
+</span></span><span style="display:flex;"><span>    device<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;0,1,2,3&#39;</span>  <span style="color:#75715e"># 4 GPUs</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="the-training-process">The Training Process<a hidden class="anchor" aria-hidden="true" href="#the-training-process">#</a></h3>
+<p>Training took <strong>72 hours</strong> per run on 4 P5000 GPUs:</p>
+<ol>
+<li><strong>Data preprocessing</strong> - Custom scripts for massive dataset</li>
+<li><strong>Hyperparameter tuning</strong> - Grid search across multiple runs</li>
+<li><strong>Threshold optimization</strong> - 0.82 was the sweet spot</li>
+<li><strong>Multi-day training</strong> - With checkpointing</li>
+</ol>
+<p>The model learned to:</p>
+<ul>
+<li>Detect crocodiles in images</li>
+<li>Classify them into individual IDs (160 classes)</li>
+<li>Handle varying lighting/weather conditions</li>
+</ul>
+<h2 id="the-results">The Results<a hidden class="anchor" aria-hidden="true" href="#the-results">#</a></h2>
+<h3 id="performance-metrics">Performance Metrics<a hidden class="anchor" aria-hidden="true" href="#performance-metrics">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Metric</th>
+          <th>Value</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>mAP (Mean Average Precision)</strong></td>
+          <td><strong>98.50%</strong></td>
+      </tr>
+      <tr>
+          <td><strong>Threshold</strong></td>
+          <td>0.82</td>
+      </tr>
+      <tr>
+          <td><strong>Training Time</strong></td>
+          <td>72 hours (4 GPUs)</td>
+      </tr>
+      <tr>
+          <td><strong>Inference Speed</strong></td>
+          <td>~50ms per image</td>
+      </tr>
+  </tbody>
+</table>
+<h3 id="visual-examples">Visual Examples<a hidden class="anchor" aria-hidden="true" href="#visual-examples">#</a></h3>
+<p>The model correctly identified:</p>
+<ul>
+<li>Crocodiles in various poses</li>
+<li>Different lighting conditions</li>
+<li>Partial occlusions</li>
+<li>Water reflections</li>
+</ul>
+<blockquote>
+<p><strong>&ldquo;98.5% accuracy on 160 individual crocodiles = better than human experts&rdquo;</strong></p>
+</blockquote>
+<h2 id="technical-challenges">Technical Challenges<a hidden class="anchor" aria-hidden="true" href="#technical-challenges">#</a></h2>
+<h3 id="1-massive-dataset-management">1. <strong>Massive Dataset Management</strong><a hidden class="anchor" aria-hidden="true" href="#1-massive-dataset-management">#</a></h3>
+<p>500GB of images doesn&rsquo;t fit in RAM. I built a streaming data loader:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">CrocodileDataset</span>(Dataset):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self, image_paths, labels):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>image_paths <span style="color:#f92672">=</span> image_paths
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>labels <span style="color:#f92672">=</span> labels
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__getitem__</span>(self, idx):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Stream from disk (no loading all into memory)</span>
+</span></span><span style="display:flex;"><span>        image <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>load_image(idx)
+</span></span><span style="display:flex;"><span>        label <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>labels[idx]
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> image, label
+</span></span></code></pre></div><h3 id="2-linux-only-environment">2. <strong>Linux-Only Environment</strong><a hidden class="anchor" aria-hidden="true" href="#2-linux-only-environment">#</a></h3>
+<p>The Param Shavak supercomputer had <strong>no GUI</strong>. Everything had to be command-line:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Submit training job</span>
+</span></span><span style="display:flex;"><span>qsub -l gpu<span style="color:#f92672">=</span><span style="color:#ae81ff">4</span> -N crocodile_training train_model.sh
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Monitor progress</span>
+</span></span><span style="display:flex;"><span>tail -f training.log
+</span></span></code></pre></div><p>I couldn&rsquo;t use Jupyter notebooks or PyCharm. Just Vim and command-line tools.</p>
+<h3 id="3-hyperparameter-tuning">3. <strong>Hyperparameter Tuning</strong><a hidden class="anchor" aria-hidden="true" href="#3-hyperparameter-tuning">#</a></h3>
+<p>With 160 classes and limited compute time, I had to be smart:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Parameter grid (tested iteratively)</span>
+</span></span><span style="display:flex;"><span>param_grid <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;learning_rate&#39;</span>: [<span style="color:#ae81ff">0.001</span>, <span style="color:#ae81ff">0.01</span>, <span style="color:#ae81ff">0.1</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;batch_size&#39;</span>: [<span style="color:#ae81ff">8</span>, <span style="color:#ae81ff">16</span>, <span style="color:#ae81ff">32</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;optimizer&#39;</span>: [<span style="color:#e6db74">&#39;SGD&#39;</span>, <span style="color:#e6db74">&#39;Adam&#39;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;weight_decay&#39;</span>: [<span style="color:#ae81ff">0.0001</span>, <span style="color:#ae81ff">0.001</span>, <span style="color:#ae81ff">0.01</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="4-threshold-optimization">4. <strong>Threshold Optimization</strong><a hidden class="anchor" aria-hidden="true" href="#4-threshold-optimization">#</a></h3>
+<p>Finding the right confidence threshold is crucial:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># True Positive/Negative rates at different thresholds</span>
+</span></span><span style="display:flex;"><span>thresholds <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0.5</span>, <span style="color:#ae81ff">0.95</span>, <span style="color:#ae81ff">0.05</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> t <span style="color:#f92672">in</span> thresholds:
+</span></span><span style="display:flex;"><span>    tp, tn, fp, fn <span style="color:#f92672">=</span> calculate_confusion_matrix(predictions, t)
+</span></span><span style="display:flex;"><span>    tpr <span style="color:#f92672">=</span> tp <span style="color:#f92672">/</span> (tp <span style="color:#f92672">+</span> fn)  <span style="color:#75715e"># True Positive Rate</span>
+</span></span><span style="display:flex;"><span>    tnr <span style="color:#f92672">=</span> tn <span style="color:#f92672">/</span> (tn <span style="color:#f92672">+</span> fp)  <span style="color:#75715e"># True Negative Rate</span>
+</span></span></code></pre></div><p>The <strong>0.82 threshold</strong> maximized TPR/TNR balance for wildlife monitoring.</p>
+<h2 id="real-world-applications">Real-World Applications<a hidden class="anchor" aria-hidden="true" href="#real-world-applications">#</a></h2>
+<p>This model isn&rsquo;t just academic—it has concrete uses:</p>
+<h3 id="1-behavioral-studies">1. <strong>Behavioral Studies</strong><a hidden class="anchor" aria-hidden="true" href="#1-behavioral-studies">#</a></h3>
+<ul>
+<li>Track individual crocodile movements</li>
+<li>Understand migration patterns</li>
+<li>Study social behaviors</li>
+</ul>
+<h3 id="2-population-monitoring">2. <strong>Population Monitoring</strong><a hidden class="anchor" aria-hidden="true" href="#2-population-monitoring">#</a></h3>
+<ul>
+<li>Count populations without capture</li>
+<li>Estimate survival rates</li>
+<li>Track breeding success</li>
+</ul>
+<h3 id="3-conservation-impact">3. <strong>Conservation Impact</strong><a hidden class="anchor" aria-hidden="true" href="#3-conservation-impact">#</a></h3>
+<ul>
+<li>Monitor endangered species</li>
+<li>Assess habitat health</li>
+<li>Guide protection efforts</li>
+</ul>
+<h3 id="4-research-applications">4. <strong>Research Applications</strong><a hidden class="anchor" aria-hidden="true" href="#4-research-applications">#</a></h3>
+<ul>
+<li>Non-invasive monitoring</li>
+<li>Automated tracking systems</li>
+<li>Long-term studies</li>
+</ul>
+<h2 id="lessons-learned">Lessons Learned<a hidden class="anchor" aria-hidden="true" href="#lessons-learned">#</a></h2>
+<h3 id="1-domain-expertise-matters">1. <strong>Domain Expertise Matters</strong><a hidden class="anchor" aria-hidden="true" href="#1-domain-expertise-matters">#</a></h3>
+<p>The wildlife biologists&rsquo; annotation was invaluable. They knew:</p>
+<ul>
+<li>Which back scutes are unique identifiers</li>
+<li>How to handle ambiguous cases</li>
+<li>The behavioral context behind patterns</li>
+</ul>
+<blockquote>
+<p><strong>&ldquo;Computer vision is only as good as your training data&rdquo;</strong></p>
+</blockquote>
+<h3 id="2-infrastructure-limitations">2. <strong>Infrastructure Limitations</strong><a hidden class="anchor" aria-hidden="true" href="#2-infrastructure-limitations">#</a></h3>
+<p>Linux-only environments force you to:</p>
+<ul>
+<li>Master command-line tools</li>
+<li>Write robust, reproducible code</li>
+<li>Think carefully about resources</li>
+</ul>
+<h3 id="3-multi-day-training-requires-patience">3. <strong>Multi-Day Training Requires Patience</strong><a hidden class="anchor" aria-hidden="true" href="#3-multi-day-training-requires-patience">#</a></h3>
+<p>72-hour training runs mean:</p>
+<ul>
+<li>Bugs are expensive</li>
+<li>Checkpointing is critical</li>
+<li>You can&rsquo;t iterate quickly</li>
+</ul>
+<h3 id="4-conservation-needs-practical-solutions">4. <strong>Conservation Needs Practical Solutions</strong><a hidden class="anchor" aria-hidden="true" href="#4-conservation-needs-practical-solutions">#</a></h3>
+<p>Academic models need to be:</p>
+<ul>
+<li>Deployable in field conditions</li>
+<li>Robust to real-world variations</li>
+<li>Useful for actual conservation</li>
+</ul>
+<h2 id="the-bigger-picture">The Bigger Picture<a hidden class="anchor" aria-hidden="true" href="#the-bigger-picture">#</a></h2>
+<p>This project showed me that <strong>computer vision can make a real difference</strong> in conservation. We&rsquo;re not just building models for fun—we&rsquo;re building tools that help protect endangered species.</p>
+<p>The 98.5% accuracy means wildlife researchers can:</p>
+<ul>
+<li>Replace manual identification (which takes hours)</li>
+<li>Process massive datasets automatically</li>
+<li>Track populations at scale</li>
+</ul>
+<h2 id="key-takeaways">Key Takeaways<a hidden class="anchor" aria-hidden="true" href="#key-takeaways">#</a></h2>
+<ol>
+<li><strong>Deep learning + conservation = powerful combination</strong></li>
+<li><strong>Infrastructure constraints push you to be creative</strong></li>
+<li><strong>Domain expertise is irreplaceable</strong></li>
+<li><strong>Real-world deployment needs practical engineering</strong></li>
+<li><strong>Conservation impact makes technical challenges worthwhile</strong></li>
+</ol>
+<p>This project taught me that <strong>computer vision isn&rsquo;t just for tech companies</strong>. It&rsquo;s a tool that can help solve some of the world&rsquo;s most pressing environmental challenges.</p>
+<p>The 98.5% accuracy on 160 individual crocodiles proves that with enough data and the right approach, we can build models that rival expert human performance—while being faster, more consistent, and more scalable.</p>
+<hr>
+<p><em>This research was conducted at Ahmedabad University under Prof. Mehul Raval. If you&rsquo;re interested in conservation technology or need help with computer vision projects, feel free to reach out.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:63093/tags/deep-learning/">Deep Learning</a></li>
+      <li><a href="http://localhost:63093/tags/computer-vision/">Computer Vision</a></li>
+      <li><a href="http://localhost:63093/tags/wildlife/">Wildlife</a></li>
+      <li><a href="http://localhost:63093/tags/yolov8/">YOLOv8</a></li>
+      <li><a href="http://localhost:63093/tags/research/">Research</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:63093/projects/college-hotspots-dashboard/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>I Optimized a 3GB Dashboard from 90 Seconds to 1 Second (90x Speedup)</span>
+  </a>
+  <a class="next" href="http://localhost:63093/projects/individual-identification-of-mugger-crocodile/">
+    <span class="title">Next »</span>
+    <br>
+    <span>Individual Identification of Mugger Crocodiles using YOLOv8</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:63093/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

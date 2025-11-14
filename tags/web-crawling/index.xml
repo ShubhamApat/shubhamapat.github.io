@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Web Crawling on Shubham Apat</title>
+    <link>http://localhost:1313/tags/web-crawling/</link>
+    <description>Recent content in Web Crawling on Shubham Apat</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 01 Aug 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/web-crawling/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Event Verifier - Generalized Event Credibility Crawler</title>
+      <link>http://localhost:1313/projects/event-verifier/</link>
+      <pubDate>Thu, 01 Aug 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/event-verifier/</guid>
+      <description>Developed a generalized crawler to verify the credibility of event listings across platforms like BookMyShow, District, etc. using fuzzy keyword matching.</description>
+    </item>
+  </channel>
+</rss>

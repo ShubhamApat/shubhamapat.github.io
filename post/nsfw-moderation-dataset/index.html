@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>I Collected 150,000&#43; Images to Train a Content Moderation Model | Shubham Apat</title>
+<meta name="keywords" content="dataset, data-collection, content-moderation, machine-learning">
+<meta name="description" content="How I built a 150K image dataset across 6 content categories for Dip&#39;s content moderation system">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/post/nsfw-moderation-dataset/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/post/nsfw-moderation-dataset/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/shubhamapat7" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      I Collected 150,000&#43; Images to Train a Content Moderation Model
+    </h1>
+    <div class="post-description">
+      How I built a 150K image dataset across 6 content categories for Dip&#39;s content moderation system
+    </div>
+    <div class="post-meta"><span title='2024-09-15 00:00:00 +0000 UTC'>September 15, 2024</span>&nbsp;·&nbsp;<span>5 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:1313/images/image-dataset.jpg" alt="Large-scale image dataset collection for content moderation">
+        
+</figure>
+  <div class="post-content"><h2 id="the-challenge">The Challenge<a hidden class="anchor" aria-hidden="true" href="#the-challenge">#</a></h2>
+<p>Building a content moderation system for a social media app requires <strong>training data</strong>. Lots of it.</p>
+<p>Dip needed to automatically detect:</p>
+<ul>
+<li>NSFW content</li>
+<li>Violence</li>
+<li>Drugs</li>
+<li>Weapons</li>
+<li>Hateful content</li>
+<li>Neutral content</li>
+</ul>
+<p>The question: <strong>where do you get 150,000+ labeled images?</strong></p>
+<p>This was my task at ByteCitadel: collect, curate, and label a massive dataset for Dip&rsquo;s image moderation pipeline.</p>
+<h2 id="the-plan">The Plan<a hidden class="anchor" aria-hidden="true" href="#the-plan">#</a></h2>
+<p>Six categories, ~30,000 images each:</p>
+<ul>
+<li><strong>Violence</strong> (30K)</li>
+<li><strong>Drugs</strong> (30K)</li>
+<li><strong>NSFW</strong> (30K)</li>
+<li><strong>Neutral</strong> (30K)</li>
+<li><strong>Hateful Memes</strong> (30K)</li>
+<li><strong>Weapons</strong> (30K)</li>
+</ul>
+<p>Total: <strong>180,000 images</strong> (we collected extra for quality control)</p>
+<h2 id="data-sources">Data Sources<a hidden class="anchor" aria-hidden="true" href="#data-sources">#</a></h2>
+<h3 id="1-kaggle-datasets">1. Kaggle Datasets<a hidden class="anchor" aria-hidden="true" href="#1-kaggle-datasets">#</a></h3>
+<p>Kaggle has tons of public datasets. I found:</p>
+<ul>
+<li><strong>Violence datasets</strong> - From academic papers on conflict detection</li>
+<li><strong>Drug-related imagery</strong> - For medical/research purposes</li>
+<li><strong>Weapon detection datasets</strong> - Security/computer vision research</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Download Kaggle datasets</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> kaggle
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>kaggle<span style="color:#f92672">.</span>api<span style="color:#f92672">.</span>dataset_download_files(
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#39;tapakah68/violence-detection-dataset&#39;</span>,
+</span></span><span style="display:flex;"><span>    path<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;./datasets/violence/&#39;</span>,
+</span></span><span style="display:flex;"><span>    unzip<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre></div><h3 id="2-research-papers">2. Research Papers<a hidden class="anchor" aria-hidden="true" href="#2-research-papers">#</a></h3>
+<p>Academic papers often release datasets alongside publications:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Search for datasets mentioned in papers</span>
+</span></span><span style="display:flex;"><span>paper_datasets <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Flames-Dataset&#34;</span>,  <span style="color:#75715e"># Violence detection</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Drug-Image-Dataset&#34;</span>,  <span style="color:#75715e"># Drug classification</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;Meme-Classification-Dataset&#34;</span>  <span style="color:#75715e"># Hateful memes</span>
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> dataset <span style="color:#f92672">in</span> paper_datasets:
+</span></span><span style="display:flex;"><span>    download_dataset(dataset)
+</span></span></code></pre></div><h3 id="3-roboflow">3. Roboflow<a hidden class="anchor" aria-hidden="true" href="#3-roboflow">#</a></h3>
+<p>Roboflow has high-quality, pre-labeled computer vision datasets:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Export from Roboflow</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> roboflow
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>rf <span style="color:#f92672">=</span> roboflow<span style="color:#f92672">.</span>Roboflow(api_key<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;YOUR_API_KEY&#34;</span>)
+</span></span><span style="display:flex;"><span>project <span style="color:#f92672">=</span> rf<span style="color:#f92672">.</span>workspace(<span style="color:#e6db74">&#34;workspace&#34;</span>)<span style="color:#f92672">.</span>project(<span style="color:#e6db74">&#34;weapon-detection&#34;</span>)
+</span></span><span style="display:flex;"><span>dataset <span style="color:#f92672">=</span> project<span style="color:#f92672">.</span>version(<span style="color:#ae81ff">1</span>)<span style="color:#f92672">.</span>download(<span style="color:#e6db74">&#34;coco&#34;</span>)
+</span></span></code></pre></div><h3 id="4-custom-collection">4. Custom Collection<a hidden class="anchor" aria-hidden="true" href="#4-custom-collection">#</a></h3>
+<p>For edge cases, I scraped and labeled manually:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Custom scraping for underrepresented categories</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">collect_images</span>(query, num_images<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>):
+</span></span><span style="display:flex;"><span>    results <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> image_url <span style="color:#f92672">in</span> image_search_api<span style="color:#f92672">.</span>search(query, num_images):
+</span></span><span style="display:flex;"><span>        download_image(image_url, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;./datasets/</span><span style="color:#e6db74">{</span>query<span style="color:#e6db74">}</span><span style="color:#e6db74">/&#34;</span>)
+</span></span><span style="display:flex;"><span>        results<span style="color:#f92672">.</span>append(image_url)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> results
+</span></span></code></pre></div><h2 id="the-curation-process">The Curation Process<a hidden class="anchor" aria-hidden="true" href="#the-curation-process">#</a></h2>
+<h3 id="quality-filtering">Quality Filtering<a hidden class="anchor" aria-hidden="true" href="#quality-filtering">#</a></h3>
+<p>Not all downloaded images were usable:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">filter_image_quality</span>(image_path):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check file size</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>getsize(image_path) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">10</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span>:  <span style="color:#75715e"># Less than 10KB</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#34;Too small&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Verify it&#39;s actually an image</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(image_path)
+</span></span><span style="display:flex;"><span>        img<span style="color:#f92672">.</span>verify()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#34;Corrupted&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check resolution</span>
+</span></span><span style="display:flex;"><span>    img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(image_path)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> img<span style="color:#f92672">.</span>width <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">224</span> <span style="color:#f92672">or</span> img<span style="color:#f92672">.</span>height <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">224</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#34;Low resolution&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Check if it&#39;s actually an image (not blank/black)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> is_blank_image(img):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>, <span style="color:#e6db74">&#34;Blank image&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>, <span style="color:#e6db74">&#34;Valid&#34;</span>
+</span></span></code></pre></div><h3 id="deduplication">Deduplication<a hidden class="anchor" aria-hidden="true" href="#deduplication">#</a></h3>
+<p>Images from different sources often overlapped:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> imagehash <span style="color:#f92672">import</span> average_hash
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">remove_duplicates</span>(image_paths):
+</span></span><span style="display:flex;"><span>    hashes <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span>    unique_images <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> img_path <span style="color:#f92672">in</span> image_paths:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Calculate perceptual hash</span>
+</span></span><span style="display:flex;"><span>        img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(img_path)
+</span></span><span style="display:flex;"><span>        hash_value <span style="color:#f92672">=</span> average_hash(img)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> hash_value <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> hashes:
+</span></span><span style="display:flex;"><span>            hashes[hash_value] <span style="color:#f92672">=</span> img_path
+</span></span><span style="display:flex;"><span>            unique_images<span style="color:#f92672">.</span>append(img_path)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Duplicate found: </span><span style="color:#e6db74">{</span>img_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> unique_images
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Found and removed ~15,000 duplicates across the dataset</span>
+</span></span></code></pre></div><h3 id="class-balancing">Class Balancing<a hidden class="anchor" aria-hidden="true" href="#class-balancing">#</a></h3>
+<p>Ensuring equal representation across categories:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Check class distribution</span>
+</span></span><span style="display:flex;"><span>class_counts <span style="color:#f92672">=</span> {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> category <span style="color:#f92672">in</span> categories:
+</span></span><span style="display:flex;"><span>    count <span style="color:#f92672">=</span> len(os<span style="color:#f92672">.</span>listdir(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;./datasets/</span><span style="color:#e6db74">{</span>category<span style="color:#e6db74">}</span><span style="color:#e6db74">/&#39;</span>))
+</span></span><span style="display:flex;"><span>    class_counts[category] <span style="color:#f92672">=</span> count
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(class_counts)
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Expected: ~30K per class</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># If imbalance &gt; 10%, collect more data for minority classes</span>
+</span></span></code></pre></div><h2 id="labeling-strategy">Labeling Strategy<a hidden class="anchor" aria-hidden="true" href="#labeling-strategy">#</a></h2>
+<h3 id="automated-labeling">Automated Labeling<a hidden class="anchor" aria-hidden="true" href="#automated-labeling">#</a></h3>
+<p>For well-known datasets, labels were already provided:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Process COCO-formatted labels</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">with</span> open(<span style="color:#e6db74">&#39;annotations.json&#39;</span>, <span style="color:#e6db74">&#39;r&#39;</span>) <span style="color:#66d9ef">as</span> f:
+</span></span><span style="display:flex;"><span>    coco_data <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>load(f)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> annotation <span style="color:#f92672">in</span> coco_data[<span style="color:#e6db74">&#39;annotations&#39;</span>]:
+</span></span><span style="display:flex;"><span>    image_id <span style="color:#f92672">=</span> annotation[<span style="color:#e6db74">&#39;image_id&#39;</span>]
+</span></span><span style="display:flex;"><span>    category_id <span style="color:#f92672">=</span> annotation[<span style="color:#e6db74">&#39;category_id&#39;</span>]
+</span></span><span style="display:flex;"><span>    image_path <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;images/</span><span style="color:#e6db74">{</span>image_id<span style="color:#e6db74">}</span><span style="color:#e6db74">.jpg&#39;</span>
+</span></span><span style="display:flex;"><span>    category <span style="color:#f92672">=</span> id_to_category[category_id]
+</span></span><span style="display:flex;"><span>    move_to_category(image_path, category)
+</span></span></code></pre></div><h3 id="manual-labeling">Manual Labeling<a hidden class="anchor" aria-hidden="true" href="#manual-labeling">#</a></h3>
+<p>For custom-collected images, I had to label manually:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Labeling tool for edge cases</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">label_image</span>(image_path):
+</span></span><span style="display:flex;"><span>    img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(image_path)
+</span></span><span style="display:flex;"><span>    img<span style="color:#f92672">.</span>show()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    label <span style="color:#f92672">=</span> input(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;What category is this image? &#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Categories: violence, drugs, nsfw, neutral, weapons, hateful_memes</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Save label</span>
+</span></span><span style="display:flex;"><span>    save_label(image_path, label)
+</span></span></code></pre></div><blockquote>
+<p><strong>&ldquo;Labeling 10,000 images by hand teaches you to appreciate automated annotation tools.&rdquo;</strong></p>
+</blockquote>
+<h3 id="quality-validation">Quality Validation<a hidden class="anchor" aria-hidden="true" href="#quality-validation">#</a></h3>
+<p>Double-checking labels for accuracy:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">validate_labels</span>(image_path, expected_label):
+</span></span><span style="display:flex;"><span>    img <span style="color:#f92672">=</span> Image<span style="color:#f92672">.</span>open(image_path)
+</span></span><span style="display:flex;"><span>    actual_label <span style="color:#f92672">=</span> manual_label(image_path)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> expected_label <span style="color:#f92672">!=</span> actual_label:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;MISLABELED: </span><span style="color:#e6db74">{</span>image_path<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Expected: </span><span style="color:#e6db74">{</span>expected_label<span style="color:#e6db74">}</span><span style="color:#e6db74">, Got: </span><span style="color:#e6db74">{</span>actual_label<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>        correct_label(expected_label)
+</span></span></code></pre></div><h2 id="challenges">Challenges<a hidden class="anchor" aria-hidden="true" href="#challenges">#</a></h2>
+<h3 id="1-copyright--legal-issues">1. <strong>Copyright &amp; Legal Issues</strong><a hidden class="anchor" aria-hidden="true" href="#1-copyright--legal-issues">#</a></h3>
+<p>Using internet images requires care:</p>
+<ul>
+<li><strong>Academic use only</strong> - Educational/research purposes</li>
+<li><strong>No redistribution</strong> - Keep dataset internal</li>
+<li><strong>Fair use</strong> - Transformative use for ML training</li>
+</ul>
+<h3 id="2-cultural-sensitivity">2. <strong>Cultural Sensitivity</strong><a hidden class="anchor" aria-hidden="true" href="#2-cultural-sensitivity">#</a></h3>
+<p>What counts as &ldquo;inappropriate&rdquo; varies by culture:</p>
+<ul>
+<li>Western vs. Indian context</li>
+<li>Religious imagery</li>
+<li>Historical vs. contemporary content</li>
+</ul>
+<h3 id="3-data-imbalance">3. <strong>Data Imbalance</strong><a hidden class="anchor" aria-hidden="true" href="#3-data-imbalance">#</a></h3>
+<p>Some categories were harder to find:</p>
+<ul>
+<li><strong>Weapons</strong>: Plenty of gun images, fewer knives</li>
+<li><strong>Drugs</strong>: Need diverse substances, not just weed</li>
+<li><strong>Violence</strong>: Real violence vs. fictional content</li>
+</ul>
+<h3 id="4-false-positives">4. <strong>False Positives</strong><a hidden class="anchor" aria-hidden="true" href="#4-false-positives">#</a></h3>
+<p>Training on misleading data:</p>
+<ul>
+<li>Photoshoot violence vs. real violence</li>
+<li>Medical imagery (drugs for legitimate use)</li>
+<li>Art depicting weapons (not real weapons)</li>
+</ul>
+<h2 id="the-final-dataset">The Final Dataset<a hidden class="anchor" aria-hidden="true" href="#the-final-dataset">#</a></h2>
+<h3 id="statistics">Statistics<a hidden class="anchor" aria-hidden="true" href="#statistics">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>Category</th>
+          <th>Images</th>
+          <th>Duplicates Removed</th>
+          <th>Final Count</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>Violence</strong></td>
+          <td>32,000</td>
+          <td>2,000</td>
+          <td>30,000</td>
+      </tr>
+      <tr>
+          <td><strong>Drugs</strong></td>
+          <td>35,000</td>
+          <td>5,000</td>
+          <td>30,000</td>
+      </tr>
+      <tr>
+          <td><strong>NSFW</strong></td>
+          <td>38,000</td>
+          <td>8,000</td>
+          <td>30,000</td>
+      </tr>
+      <tr>
+          <td><strong>Neutral</strong></td>
+          <td>31,000</td>
+          <td>1,000</td>
+          <td>30,000</td>
+      </tr>
+      <tr>
+          <td><strong>Hateful Memes</strong></td>
+          <td>29,000</td>
+          <td>0</td>
+          <td>29,000</td>
+      </tr>
+      <tr>
+          <td><strong>Weapons</strong></td>
+          <td>33,000</td>
+          <td>3,000</td>
+          <td>30,000</td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Total</strong>: 198,000 → <strong>179,000</strong> (after quality filtering)</p>
+<h3 id="data-structure">Data Structure<a hidden class="anchor" aria-hidden="true" href="#data-structure">#</a></h3>
+<pre tabindex="0"><code>dataset/
+├── violence/
+│   ├── img_00001.jpg
+│   ├── img_00002.jpg
+│   └── ...
+├── drugs/
+├── nsfw/
+├── neutral/
+├── hateful_memes/
+└── weapons/
+</code></pre><p>Each image has a corresponding metadata file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;image_id&#34;</span>: <span style="color:#e6db74">&#34;img_00001&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;category&#34;</span>: <span style="color:#e6db74">&#34;violence&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;source&#34;</span>: <span style="color:#e6db74">&#34;kaggle_violence_dataset&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;resolution&#34;</span>: <span style="color:#e6db74">&#34;1920x1080&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;file_size&#34;</span>: <span style="color:#e6db74">&#34;245KB&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;date_collected&#34;</span>: <span style="color:#e6db74">&#34;2024-09-15&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;verified&#34;</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;quality_score&#34;</span>: <span style="color:#ae81ff">0.95</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="model-training-results">Model Training Results<a hidden class="anchor" aria-hidden="true" href="#model-training-results">#</a></h2>
+<p>With this dataset, Dip&rsquo;s content moderation model achieved:</p>
+<ul>
+<li><strong>92% accuracy</strong> across all categories</li>
+<li><strong>94% precision</strong> for violence detection</li>
+<li><strong>89% precision</strong> for NSFW detection</li>
+<li><strong>&lt;3% false positive rate</strong> on neutral images</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Train multi-class classifier</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> torchvision <span style="color:#f92672">import</span> models
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> torch
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> models<span style="color:#f92672">.</span>resnet50(pretrained<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>model<span style="color:#f92672">.</span>fc <span style="color:#f92672">=</span> torch<span style="color:#f92672">.</span>nn<span style="color:#f92672">.</span>Linear(<span style="color:#ae81ff">2048</span>, <span style="color:#ae81ff">6</span>)  <span style="color:#75715e"># 6 categories</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Train with data augmentation</span>
+</span></span><span style="display:flex;"><span>train_loader <span style="color:#f92672">=</span> DataLoader(dataset, batch_size<span style="color:#f92672">=</span><span style="color:#ae81ff">32</span>, shuffle<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> epoch <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">10</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> batch <span style="color:#f92672">in</span> train_loader:
+</span></span><span style="display:flex;"><span>        images, labels <span style="color:#f92672">=</span> batch
+</span></span><span style="display:flex;"><span>        outputs <span style="color:#f92672">=</span> model(images)
+</span></span><span style="display:flex;"><span>        loss <span style="color:#f92672">=</span> criterion(outputs, labels)
+</span></span><span style="display:flex;"><span>        loss<span style="color:#f92672">.</span>backward()
+</span></span><span style="display:flex;"><span>        optimizer<span style="color:#f92672">.</span>step()
+</span></span></code></pre></div><h2 id="lessons-learned">Lessons Learned<a hidden class="anchor" aria-hidden="true" href="#lessons-learned">#</a></h2>
+<h3 id="1-quality-over-quantity">1. <strong>Quality Over Quantity</strong><a hidden class="anchor" aria-hidden="true" href="#1-quality-over-quantity">#</a></h3>
+<p>30K high-quality images &gt; 100K mediocre ones</p>
+<h3 id="2-source-diversity-matters">2. <strong>Source Diversity Matters</strong><a hidden class="anchor" aria-hidden="true" href="#2-source-diversity-matters">#</a></h3>
+<p>Using multiple sources prevents model bias</p>
+<h3 id="3-documentation-is-critical">3. <strong>Documentation is Critical</strong><a hidden class="anchor" aria-hidden="true" href="#3-documentation-is-critical">#</a></h3>
+<p>Track:</p>
+<ul>
+<li>Data sources</li>
+<li>Preprocessing steps</li>
+<li>Quality checks</li>
+<li>Labeling methodology</li>
+</ul>
+<h3 id="4-expect-legal-complexity">4. <strong>Expect Legal Complexity</strong><a hidden class="anchor" aria-hidden="true" href="#4-expect-legal-complexity">#</a></h3>
+<p>Using internet images requires legal review</p>
+<h3 id="5-human-validation-is-essential">5. <strong>Human Validation is Essential</strong><a hidden class="anchor" aria-hidden="true" href="#5-human-validation-is-essential">#</a></h3>
+<p>Automated filters catch obvious cases, but humans catch edge cases</p>
+<h2 id="key-takeaways">Key Takeaways<a hidden class="anchor" aria-hidden="true" href="#key-takeaways">#</a></h2>
+<ol>
+<li><strong>Data collection is 80% of ML</strong> - Garbage in, garbage out</li>
+<li><strong>Multiple sources</strong> reduce bias and improve generalization</li>
+<li><strong>Quality filtering</strong> is as important as data collection</li>
+<li><strong>Legal considerations</strong> matter for production systems</li>
+<li><strong>Document everything</strong> for reproducibility</li>
+</ol>
+<p>This dataset became the foundation for Dip&rsquo;s image moderation system, processing millions of images daily and keeping the platform safe for users.</p>
+<p>The 179,000 images across 6 categories now power real-time content moderation for thousands of users. It&rsquo;s a reminder that <strong>machine learning is only as good as your training data</strong>.</p>
+<hr>
+<p><em>This dataset collection was part of building Dip&rsquo;s content moderation pipeline. If you need help with dataset creation or content moderation, feel free to reach out.</em></p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/dataset/">Dataset</a></li>
+      <li><a href="http://localhost:1313/tags/data-collection/">Data-Collection</a></li>
+      <li><a href="http://localhost:1313/tags/content-moderation/">Content-Moderation</a></li>
+      <li><a href="http://localhost:1313/tags/machine-learning/">Machine Learning</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="http://localhost:1313/projects/image-moderation-clip/">
+    <span class="title">« Prev</span>
+    <br>
+    <span>I Used OpenAI CLIP for Image Moderation - No Training Required</span>
+  </a>
+  <a class="next" href="http://localhost:1313/post/nsmfw-moderation-optimization/">
+    <span class="title">Next »</span>
+    <br>
+    <span>I Made NSFW Detection 28% Faster and Beat Ultralytics&#39; Own Benchmark</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

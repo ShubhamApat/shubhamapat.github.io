@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Social Media Mining on Shubham Apat</title>
+    <link>http://localhost:1313/tags/social-media-mining/</link>
+    <description>Recent content in Social Media Mining on Shubham Apat</description>
+    <generator>Hugo -- 0.152.2</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 01 Nov 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/social-media-mining/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>University Degrees Dataset - 1,400 Unique Degrees Collection</title>
+      <link>http://localhost:1313/projects/university-degrees-dataset/</link>
+      <pubDate>Fri, 01 Nov 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/university-degrees-dataset/</guid>
+      <description>Comprehensive dataset of 1,400 unique university degrees scraped from LinkedIn, covering renowned institutions across USA, UK, Europe, India, South Korea, Japan, Australia, and Singapore.</description>
+    </item>
+  </channel>
+</rss>
