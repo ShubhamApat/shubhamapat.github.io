@@ -36,19 +36,19 @@ theme = "PaperMod"
   [[menu.main]]
     identifier = "posts"
     name = "Posts"
-    url = "/post/"
+    url = "post/"
     weight = 10
 
   [[menu.main]]
     identifier = "projects"
     name = "Projects"
-    url = "/projects/"
+    url = "projects/"
     weight = 20
 
   [[menu.main]]
     identifier = "search"
     name = "Search"
-    url = "/search/"
+    url = "search/"
     weight = 30
 
   [[menu.main]]

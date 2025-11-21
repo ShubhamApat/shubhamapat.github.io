@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto" data-theme="auto">
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="noindex, nofollow">
+<title>VisDrone Challenge | Shubham Apat</title>
+<meta name="keywords" content="Deep Learning, Object Detection, Object Tracking">
+<meta name="description" content="A deep dive into YOLO-based UAV vision: object detection, single-object tracking, multi-object tracking, and real-world traffic analytics">
+<meta name="author" content="">
+<link rel="canonical" href="http://localhost:1313/projects/visdrone-challenge-2019/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.698c882e3b65198c2057ffb8f6094fcca0275b8c7af9a70b9ce9c3c36328c7ff.css" integrity="sha256-aYyILjtlGYwgV/&#43;49glPzKAnW4x6&#43;acLnOnDw2Mox/8=" rel="preload stylesheet" as="style">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/projects/visdrone-challenge-2019/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+                color-scheme: dark;
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .toc {
+                background: var(--entry);
+            }
+        }
+
+        @media (prefers-color-scheme: light) {
+            .list::-webkit-scrollbar-thumb {
+                border-color: var(--code-bg);
+            }
+        }
+
+    </style>
+</noscript>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+</head>
+<body id="top">
+    <header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="http://localhost:1313/" accesskey="h" title="Shubham Apat (Alt + H)">Shubham Apat</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="http://localhost:1313/post/" title="Posts">
+                    <span>Posts</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/projects/" title="Projects">
+                    <span>Projects</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/search/" title="Search (Alt &#43; /)" accesskey=/>
+                    <span>Search</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/ShubhamApat" title="GitHub">
+                    <span>GitHub</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      VisDrone Challenge
+    </h1>
+    <div class="post-description">
+      A deep dive into YOLO-based UAV vision: object detection, single-object tracking, multi-object tracking, and real-world traffic analytics
+    </div>
+    <div class="post-meta"><span title='2025-11-20 00:00:00 +0000 UTC'>November 20, 2025</span>&nbsp;·&nbsp;<span>6 min</span>
+
+</div>
+  </header> 
+<figure class="entry-cover">
+        <img loading="eager" src="http://localhost:1313/videos/traffic_analysis.gif" alt="">
+        
+</figure>
+  <div class="post-content"><p>When you work with drone footage, nothing is easy. You’ve got shaky cameras, tiny objects, crowded scenes, occlusion everywhere, and the constant joy of dealing with aerial perspectives where cars look the size of matchboxes. When I started exploring the VisDrone 2019 dataset, I didn’t realize I was stepping into one of the most challenging computer vision benchmarks out there.</p>
+<p>But that challenge became fun pretty quickly.</p>
+<p>I wanted to build something end-to-end — not just object detection, not just tracking, but a complete UAV vision system: detect objects in images, detect in videos, track one vehicle persistently, track everything simultaneously, and finally use all of that to analyze traffic like a real-world AI surveillance system.</p>
+<p>So I split the project into four modules: object detection, single-object tracking, multi-object tracking, and traffic analysis. Even though they build on each other, each one required solving a different kind of problem, and each one taught me something new about computer vision.</p>
+<p><strong>Object Detection on VisDrone Images and Videos</strong></p>
+<p>The starting point of everything was object detection. You can’t track anything if you can’t detect it first. The <a href="https://github.com/VisDrone/VisDrone-Dataset">VisDrone2019 dataset</a> is collected by the AISKYEYE team at Lab of Machine Learning and Data Mining , Tianjin University, China. The benchmark dataset consists of 288 video clips formed by 261,908 frames and 10,209 static images, captured by various drone-mounted cameras, covering a wide range of aspects including location (taken from 14 different cities separated by thousands of kilometers in China), environment (urban and country), objects (pedestrian, vehicles, bicycles, etc.), and density (sparse and crowded scenes). Note that, the dataset was collected using various drone platforms (i.e., drones with different models), in different scenarios, and under various weather and lighting conditions. These frames are manually annotated with more than 2.6 million bounding boxes of targets of frequent interests, such as pedestrians, cars, bicycles, and tricycles. Some important attributes including scene visibility, object class and occlusion, are also provided for better data utilization.</p>
+<p>I finetuned YOLOv8 because its State-of-the-Art and simply perfect for fast prototyping. After the fine tuning entire detection step barely requires 10 lines of code, which still feels illegal to me:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> ultralytics <span style="color:#f92672">import</span> YOLO
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>model <span style="color:#f92672">=</span> YOLO(<span style="color:#e6db74">&#34;yolov8m.pt&#34;</span>)
+</span></span><span style="display:flex;"><span>results <span style="color:#f92672">=</span> model(<span style="color:#e6db74">&#34;image.jpg&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> result <span style="color:#f92672">in</span> results:
+</span></span><span style="display:flex;"><span>    boxes <span style="color:#f92672">=</span> result<span style="color:#f92672">.</span>boxes
+</span></span><span style="display:flex;"><span>    print(boxes)
+</span></span></code></pre></div><p>YOLOv8 handles everything behind the scenes preprocessing, non-maximum suppression, post-processing which is why the model is so great for UAV pipelines. The model was surprisingly robust even with VisDrone’s tiny pedestrians and distant vehicles. When running detection on full drone videos, YOLO’s streaming API made the process extremely smooth:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> frame <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>predict(source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;video.mp4&#34;</span>, stream<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>):
+</span></span><span style="display:flex;"><span>    detections <span style="color:#f92672">=</span> frame<span style="color:#f92672">.</span>boxes<span style="color:#f92672">.</span>xyxy
+</span></span></code></pre></div><img src="/images/visdrone2.jpg">
+<p>By this point, I had a working detection system. But detection alone doesn’t feel smart. It’s just finding objects, not understanding them. To make the system behave “intelligently,” I needed tracking.</p>
+<p><strong>Single Object Tracking With Click-to-Select Re-Identification</strong></p>
+<p>Single-object tracking sounds trivial until you actually try it. The challenge is not following an object frame to frame! The challenge is keeping the same ID even when the detector switches IDs, the object gets occluded, or it shrinks to 6 pixels because the drone flew higher.</p>
+<p>I wrote a custom tracking script where you can click on any bounding box in the first frame, and the system will track that object across the entire video. Here&rsquo;s the exact code for the click-to-select logic from my script:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">select_vehicle</span>(event, x, y, flags, param):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> event <span style="color:#f92672">==</span> cv2<span style="color:#f92672">.</span>EVENT_LBUTTONDOWN:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> box <span style="color:#f92672">in</span> param[<span style="color:#e6db74">&#39;boxes&#39;</span>]:
+</span></span><span style="display:flex;"><span>            x1, y1, x2, y2 <span style="color:#f92672">=</span> map(int, box[:<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> x1 <span style="color:#f92672">&lt;=</span> x <span style="color:#f92672">&lt;=</span> x2 <span style="color:#f92672">and</span> y1 <span style="color:#f92672">&lt;=</span> y <span style="color:#f92672">&lt;=</span> y2:
+</span></span><span style="display:flex;"><span>                selected_vehicle_id <span style="color:#f92672">=</span> box[<span style="color:#ae81ff">4</span>]
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;Selected vehicle:&#34;</span>, selected_vehicle_id)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">break</span>
+</span></span></code></pre></div><p>This part alone makes the pipeline feel interactive. I can visually inspect the video, click a car I’m interested in, and the rest of the system revolves around that one click.</p>
+<p>But UAV tracking is dirty. IDs switch. Objects disappear. So I added a re-identification mechanism. It remembers the last known position of the target, and if YOLO loses the ID, it automatically reselects the closest detected box to the previous location:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">reselect_vehicle</span>(current_boxes):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">global</span> selected_vehicle_id, last_position
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> selected_vehicle_id <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> [int(b<span style="color:#f92672">.</span>id) <span style="color:#66d9ef">for</span> b <span style="color:#f92672">in</span> current_boxes]:
+</span></span><span style="display:flex;"><span>        best, best_id <span style="color:#f92672">=</span> float(<span style="color:#e6db74">&#39;inf&#39;</span>), <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> box <span style="color:#f92672">in</span> current_boxes:
+</span></span><span style="display:flex;"><span>            center <span style="color:#f92672">=</span> (int(box<span style="color:#f92672">.</span>xywh[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]), int(box<span style="color:#f92672">.</span>xywh[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>]))
+</span></span><span style="display:flex;"><span>            distance <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>norm(np<span style="color:#f92672">.</span>array(center) <span style="color:#f92672">-</span> np<span style="color:#f92672">.</span>array(last_position))
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> distance <span style="color:#f92672">&lt;</span> best:
+</span></span><span style="display:flex;"><span>                best, best_id <span style="color:#f92672">=</span> distance, box<span style="color:#f92672">.</span>id
+</span></span><span style="display:flex;"><span>        selected_vehicle_id <span style="color:#f92672">=</span> best_id
+</span></span></code></pre></div><p>It’s a simple heuristic but in drone footage, simple heuristics can outperform complex algorithms.</p>
+<p>By the end of this part, I had a smooth, stable single-object tracking system that can lock onto a specific vehicle even when YOLO momentarily fails.</p>
+<p><strong>Multi-Object Tracking With YOLO + ByteTrack/SORT-Style Logic</strong>
+While single-object tracking feels satisfying, multi-object tracking is where things start looking like an actual surveillance system. The idea is to detect every object in every frame and maintain consistent identities through time.</p>
+<p>VisDrone videos can contain 20–100 moving objects, and YOLOv8’s built-in tracker is already aligned with the concepts from algorithms like SORT and ByteTrack. YOLO gives you consistent box.id values through its built-in tracking:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> frame <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>track(source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;video.mp4&#34;</span>, stream<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> box <span style="color:#f92672">in</span> frame<span style="color:#f92672">.</span>boxes:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;ID:&#34;</span>, box<span style="color:#f92672">.</span>id, <span style="color:#e6db74">&#34;Coordinates:&#34;</span>, box<span style="color:#f92672">.</span>xyxy)
+</span></span></code></pre></div><video controls width="100%" style="margin: 20px 0;">
+    <source src="/MOT.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+Behind the scenes, YOLO’s tracker does three main things:
+<blockquote>
+<p>Associates detections across frames
+Keeps track of disappeared objects
+Handles ID reassignment</p>
+</blockquote>
+<p>It uses the same ideas as SORT: IoU matching + Kalman filtering. ByteTrack improves this by also linking low-confidence detections, which matters a lot in drone footage because distant vehicles often get low scores.</p>
+<p>Once MOT is working, you suddenly see dozens of tiny colored labels dancing around a UAV video — every person, bike, and car with its own persistent ID. This part became crucial for my next step: traffic analysis.</p>
+<p><strong>Traffic Analysis: Turning UAV Tracking Into Real-World Insights</strong></p>
+<p>Tracking alone is cool, but I wanted to turn raw detections into something meaningful — something that looks like real analytics. With consistent IDs from the MOT module, traffic analysis becomes almost trivial. You can count vehicles, measure how long they stay in the frame, estimate congestion, and get per-class statistics.</p>
+<p>For example, counting the number of unique vehicles in a video becomes a dictionary operation:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>vehicle_count <span style="color:#f92672">=</span> set()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> result <span style="color:#f92672">in</span> model<span style="color:#f92672">.</span>track(source<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;video.mp4&#34;</span>, stream<span style="color:#f92672">=</span><span style="color:#66d9ef">True</span>):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> box <span style="color:#f92672">in</span> result<span style="color:#f92672">.</span>boxes:
+</span></span><span style="display:flex;"><span>        vehicle_count<span style="color:#f92672">.</span>add(int(box<span style="color:#f92672">.</span>id))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#e6db74">&#34;Vehicles detected:&#34;</span>, len(vehicle_count))
+</span></span></code></pre></div><p>If you define lane regions or zones, you can compute how many cars pass through each zone. If you track bounding box displacement across frames, you can approximate velocity.</p>
+<p>A typical displacement-based speed rough estimate looks like this:</p>
+<pre tabindex="0"><code>speed = np.linalg.norm(np.array(curr_center) - np.array(prev_center)) / time_elapsed
+</code></pre><p>Of course, you need scale calibration for real-world units, but for relative motion analysis, even pixel-based speed works well.</p>
+<video controls width="100%" style="margin: 20px 0;">
+    <source src="/traffic_analysis.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<p>This part of the project made the system feel like an actual drone-powered traffic monitor not just a computer vision demo.</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="http://localhost:1313/tags/deep-learning/">Deep Learning</a></li>
+      <li><a href="http://localhost:1313/tags/object-detection/">Object Detection</a></li>
+      <li><a href="http://localhost:1313/tags/object-tracking/">Object Tracking</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="next" href="http://localhost:1313/projects/linkedin-scraper/">
+    <span class="title">Next »</span>
+    <br>
+    <span>I bypassed Google reCAPTCHA and LinkedIn&#39;s Anti-Scraping</span>
+  </a>
+</nav>
+
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="http://localhost:1313/">Shubham Apat</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu');
+    if (menu) {
+        
+        const scrollPosition = localStorage.getItem("menu-scroll-position");
+        if (scrollPosition) {
+            menu.scrollLeft = parseInt(scrollPosition, 10);
+        }
+        
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        const html = document.querySelector("html");
+        if (html.dataset.theme === "dark") {
+            html.dataset.theme = 'light';
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            html.dataset.theme = 'dark';
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = 'copy';
+
+        function copyingDone() {
+            copybutton.innerHTML = 'copied!';
+            setTimeout(() => {
+                copybutton.innerHTML = 'copy';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

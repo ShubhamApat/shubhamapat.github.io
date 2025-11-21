@@ -1,16 +1,16 @@
 +++
 title = "Remote Sensing-Based Mangrove Classification"
-date = 2024-02-20
+date = 2025-04-20
 tags = ["Remote Sensing", "Machine Learning", "Google Earth Engine", "Random Forest"]
 description = "Developed a mangrove classification model for India using Sentinel-2A multispectral imagery and Random Forest classifier with 99.03% accuracy."
 [cover]
-image="/images/mangrove_outcome.png"
+image="images/mangrove_outcome.png"
 +++
 
 ## Overview
 
 
-<img src="/images/mangrove_plantation.jpg">
+<img src="images/mangrove_plantation.jpg" | absURL>
 
 Final semester project focused on developing a high-accuracy land cover classification system for mangrove ecosystems using satellite imagery and cloud-based geospatial platforms. The motivation behind this project was a research about mangroves that I was part of, where I learned to fly a drone over mangrove plantations for their monitoring and plantation.
 

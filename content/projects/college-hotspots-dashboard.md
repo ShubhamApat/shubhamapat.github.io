@@ -1,6 +1,6 @@
 +++
 title = "College Hotspots Dashboard"
-date = 2024-05-01
+date = 2025-10-15
 tags = ["Data Visualization", "Dash", "Plotly", "Data Processing", "Flask"]
 description = "How I built an interactive dashboard for student businesses and achieved 90x performance improvement"
 [cover]
@@ -13,20 +13,20 @@ I scraped Google Maps and collected **3GB of business data** around colleges in 
 
 Also whatever you conclude to showcase on your dashboard should be informative and visually consistent. I decided to go with a scattermap for my first graph which shows pincodes of one selected city as interactive bubbles. 
 
-<img src="/images/scattermap.png">
+<img src="images/scattermap.png" | absURL>
 
 Second was an interactive histogram of top 50 pincodes with highest business counts. 
 <justify-left>
-<img src="/images/histogram.png">
+<img src="images/histogram.png" | absURL>
 </justify-left>
 We can select a pincode from histogram or from scattermap
-<img src="/images/city_selection.png">
+<img src="images/city_selection.png" | absURL>
 
 Upon selection you can access the visualisation a business table, which can be filtered by any category you want and it will show you the top business in that category in the selected pincode based on the google maps review!!
-<img src="/images/business_table.png">
+<img src="images/business_table.png" | absURL>
 
 I added another feature where upon selecting a category and pincode you can download the csv file of with original filtered the exact way.
-<img src="/images/pincode_download.png">
+<img src="images/pincode_download.png" | absURL>
 ## First Version: Painfully Slow
 
 ```python

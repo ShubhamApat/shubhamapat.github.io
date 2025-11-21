@@ -1,10 +1,9 @@
 +++
 title = "I bypassed Google reCAPTCHA and LinkedIn's Anti-Scraping"
-date = 2024-10-20
+date = 2025-09-20
 tags = ["Web Scraping", "Social Media", "LinkedIn", "Google Search", "Recaptcha Bypass"]
-
 [cover]
-image = "/images/ReCaptcha-blog-article-screen-2.png"
+image = "images/ReCaptcha-blog-article-screen-2.png"
 alt = "Description of the image"
 +++
 

@@ -6,12 +6,12 @@
     <description>Recent content in OpenCV on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 15 Nov 2023 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/opencv/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Real-Time Self-Driving Car with Lane Detection</title>
       <link>http://localhost:1313/projects/real-time-self-driving-car/</link>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Nov 2023 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/real-time-self-driving-car/</guid>
       <description>Built a Raspberry Pi-based self-driving car capable of lane detection, obstacle avoidance, and path navigation using real-time image processing.</description>
     </item>

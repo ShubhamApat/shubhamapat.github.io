@@ -1,6 +1,6 @@
 ---
 title: "I Made YOLOv8 Detection 3.7x Faster and Beat Ultralytics' Own Benchmark"
-date: 2024-09-01
+date: 2025-09-14
 draft: false
 description: "How I optimized YOLOv8's detection from 650ms to 180ms using OpenVINO, even beating Ultralytics' own benchmarks"
 tags: ["deep-learning", "model-optimization", "openvino", "performance", "content-moderation"]

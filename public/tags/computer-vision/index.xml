@@ -6,12 +6,12 @@
     <description>Recent content in Computer Vision on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Apr 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jul 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Individual Identification of Mugger Crocodiles using YOLOv8</title>
       <link>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</link>
-      <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 20 Jul 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -20,7 +20,7 @@
     <item>
       <title>Real-Time Self-Driving Car with Lane Detection</title>
       <link>http://localhost:1313/projects/real-time-self-driving-car/</link>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Nov 2023 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/real-time-self-driving-car/</guid>
       <description>Built a Raspberry Pi-based self-driving car capable of lane detection, obstacle avoidance, and path navigation using real-time image processing.</description>
     </item>

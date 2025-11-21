@@ -10,7 +10,7 @@
 <meta name="description" content="How I scraped BookMyShow&#39;s highly secured platform and achieved 6x performance improvement using a clever Windows GUI trick">
 <meta name="author" content="">
 <link rel="canonical" href="http://localhost:1313/projects/bookmyshow-scraper/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.b4c2d92c2be113ac5a84dc380901003f2b5cda3766f3a1e3e17c03aa160da3b5.css" integrity="sha256-tMLZLCvhE6xahNw4CQEAPytc2jdm86Hj4XwDqhYNo7U=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.698c882e3b65198c2057ffb8f6094fcca0275b8c7af9a70b9ce9c3c36328c7ff.css" integrity="sha256-aYyILjtlGYwgV/&#43;49glPzKAnW4x6&#43;acLnOnDw2Mox/8=" rel="preload stylesheet" as="style">
 <link rel="icon" href="http://localhost:1313/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
@@ -117,7 +117,7 @@
                 </a>
             </li>
             <li>
-                <a href="https://github.com/shubhamapat7" title="GitHub">
+                <a href="https://github.com/ShubhamApat" title="GitHub">
                     <span>GitHub</span>&nbsp;
                     <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
@@ -141,7 +141,7 @@
     <div class="post-description">
       How I scraped BookMyShow&#39;s highly secured platform and achieved 6x performance improvement using a clever Windows GUI trick
     </div>
-    <div class="post-meta"><span title='2024-04-05 00:00:00 +0000 UTC'>April 5, 2024</span>&nbsp;·&nbsp;<span>4 min</span>
+    <div class="post-meta"><span title='2025-04-05 00:00:00 +0000 UTC'>April 5, 2025</span>&nbsp;·&nbsp;<span>4 min</span>
 
 </div>
   </header> 
@@ -154,9 +154,9 @@
 <li>CAPTCHA challenges</li>
 </ul>
 <p>So as a newbie I started research on how to build a scraper from scratch, went on reddit, stack.com, medium and documentations of beautifulsoup, playwright and selenium. So I built a simple two step scraper, first step which can scrape just events urls from their cards using the selenium chromedriver and find the div class of card using beautifulsoup.</p>
-<img src="/images/bms.png">
+<p>&lt;img src=&ldquo;images/bms.png&rdquo; | absURL&gt;</p>
 <p>The second step takes this scraped urls of cards, opens them one by one and scrape information like date, time, venue, language, age-limit, price and even about the event into a csv file. All of this using <strong>BeautifulSoup4</strong>.</p>
-<img src="/images/bms-url.png">
+<p>&lt;img src=&ldquo;images/bms-url.png&rdquo; | absURL&gt;</p>
 <p>Only problem with the first attempt was that the first step was not able to scroll much further because BMS uses <a href="https://www.cloudflare.com/learning/performance/what-is-lazy-loading/">lazy loading</a>. Then again I started research about how to scrape sites that uses lazy loading for scrolling down the page to trigger the loading of dynamic content. Addition to lazy-loading, bookmyshow has an advance bot detection, if you keep scrolling to the bottom of the page for all the event cards at same pace it assumes you&rsquo;re bot and stops loading events!!</p>
 <p>To tackle this I came up with my own human-like scroll method for bot after a lot of trial and errors. This human scroll makes the bot scroll the page to bottom till footer and as pages load more event cards it again scroll up to get the urls from those cards and then again repeat the whole loop till no more new cards are loaded, and the pace of scrolling is random everytime so that avoids bot detection.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">human_scroll</span>(driver):
@@ -195,15 +195,15 @@
       <li><a href="http://localhost:1313/tags/multithreading/">Multithreading</a></li>
     </ul>
 <nav class="paginav">
-  <a class="prev" href="http://localhost:1313/projects/individual-identification-of-mugger-crocodile/">
+  <a class="prev" href="http://localhost:1313/projects/remote-sensing-mangrove-classification/">
     <span class="title">« Prev</span>
     <br>
-    <span>Individual Identification of Mugger Crocodiles using YOLOv8</span>
+    <span>Remote Sensing-Based Mangrove Classification</span>
   </a>
-  <a class="next" href="http://localhost:1313/projects/remote-sensing-mangrove-classification/">
+  <a class="next" href="http://localhost:1313/projects/individual-identification-of-mugger-crocodile/">
     <span class="title">Next »</span>
     <br>
-    <span>Remote Sensing-Based Mangrove Classification</span>
+    <span>Individual Identification of Mugger Crocodiles using YOLOv8</span>
   </a>
 </nav>
 

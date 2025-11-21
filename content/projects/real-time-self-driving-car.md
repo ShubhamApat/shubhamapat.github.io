@@ -1,10 +1,10 @@
 +++
 title = "Real-Time Self-Driving Car with Lane Detection"
-date = 2024-01-15
+date = 2023-11-15
 tags = ["Computer Vision", "Raspberry Pi", "OpenCV", "IoT"]
 description = "Built a Raspberry Pi-based self-driving car capable of lane detection, obstacle avoidance, and path navigation using real-time image processing."
 [cover]
-image="/images/autonomous_car.png"
+image="images/autonomous_car.png"
 
 +++
 
@@ -36,7 +36,7 @@ Complementing the camera, infrared (IR) sensors enhance the car's perceptual cap
 
 The image processing model, running on a dedicated processing unit, synthesizes data from these sensors to generate a dynamic understanding of the environment. A sophisticated control system integrates this information, translating it into precise steering, acceleration, and braking commands. This amalgamation of image processing and sensor data enables the autonomous car to navigate predefined paths, respond to traffic signs, and adapt to its surroundings, marking a significant advancement in the realization of intelligent and safe autonomous transportation.
 
-<img src="/images/autonomous_car.png">
+<img src="images/autonomous_car.png" | absURL>
 
 How the Image Processing was implemented for lane detection:
 

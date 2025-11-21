@@ -1,9 +1,9 @@
 +++
 title = "Individual Identification of Mugger Crocodiles using YOLOv8"
-date = 2024-04-20
+date = 2025-10-10
 tags = ["Deep Learning", "Computer Vision", "Research"]
 [cover]
-image= "/images/mugger_cover.jpg"
+image= "images/mugger_cover.jpg"
 +++
 
 **Abstract**
@@ -14,7 +14,7 @@ image= "/images/mugger_cover.jpg"
 Individual Identification of mugger crocodile, is where my computer vision journey started. I was part of a deep learning research project under **Prof. Mehul Raval**, where we were provided a dataset of free-ranging muggger crocodiles collected using Unmanned Aerial Vehicle (UAV). The dataset contained total 160,000 images focusing on mugger's dorsal body. The data was collected from 160 individuals across 19 different locations along the western part of India.
 This was an extension to an already done [research](https://india.mongabay.com/2022/11/identifying-individual-mugger-crocodiles-using-drone-technology-to-minimise-conflicts/).
 
-<img src="/images/mugger.png" width=300>
+<img src="images/mugger.png" width=300>
 
 Using a CNN model, we aim to individually identify free ranging mugger crocodiles, Crocodylus palustris based on their dorsal scute patterns. Scutes are hard calcium bony plates called osteoderms (Fig. 1) that form a crocodile's dorsal body. It serves as a unique identifier based on its placement on the dorsal body. With this background, we hypothesize that the developed CNN-based IID for mugger crocodiles will provide a robust understanding of behavioral processes and physiological patterns at an individual level, which in turn will contribute towards species conservation. 
 
@@ -45,18 +45,18 @@ For testing, we used new data collected six months after the training dataset. B
 We used two parameters, True Positive Rate (TPR) and True Negative Rate (TNR), to validate the efficiency of the trained models. Using YOLO-v5l, TPR (re-identification of trained muggers) and TNR (differentiating untrained muggers as ‘unknown’) values at the 0.84 decision threshold were 88.8% and 89.6%, respectively. The trained model showed 100% TNR for the non-mugger species, the Gharial, Gavialis gangeticus, and the Saltwater crocodile, Crocodylus porosus. 
 
 
-<img src="/images/yolov8_output1.png" width=600>
-<img src="/images/yolov8_output2.png" width=600>
+<img src="images/yolov8_output1.png" width=600 | absURL>
+<img src="images/yolov8_output2.png" width=600 | absURL>
 
 
 **Metrics**
 
-<img src="/images/confusion_matrix.png" width =600>
+<img src="images/confusion_matrix.png" width =600 | absURL>
 
 This confusion matrix displays the predicted values on the y-axis and the true values on the x-axis. The diagonal line represents perfect predictions, where the predicted value matches the true value. 
 
 
-<img src="/images/other_metrics.png">
+<img src="images/other_metrics.png" | absURL>
 
 precision(B): This metric shows some fluctuations but generally increases over time, indicating improving precision performance. recall(B): Similar to precision, the recall metric also improves as training progresses. mAP50(B): This metric, likely mean Average Precision with an IoU threshold of 0.5, starts low but steadily increases, suggesting better object detection/localization performance. mAP50-95(B): This metric, probably mean Average Precision averaged over multiple IoU thresholds (0.5 to 0.95), also improves consistently during training.
 

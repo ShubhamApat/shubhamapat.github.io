@@ -1,6 +1,6 @@
 +++
 title = "BookMyShow Scraper"
-date = 2024-04-05
+date = 2025-04-05
 tags = ["Web Scraping", "Selenium", "BeautifulSoup", "Python", "Multithreading"]
 description = "How I scraped BookMyShow's highly secured platform and achieved 6x performance improvement using a clever Windows GUI trick"
 +++
@@ -15,11 +15,11 @@ BookMyShow is **notoriously difficult** to scrape. They have:
 
 So as a newbie I started research on how to build a scraper from scratch, went on reddit, stack.com, medium and documentations of beautifulsoup, playwright and selenium. So I built a simple two step scraper, first step which can scrape just events urls from their cards using the selenium chromedriver and find the div class of card using beautifulsoup.
 
-<img src="/images/bms.png">
+<img src="images/bms.png" | absURL>
 
 The second step takes this scraped urls of cards, opens them one by one and scrape information like date, time, venue, language, age-limit, price and even about the event into a csv file. All of this using **BeautifulSoup4**.
 
-<img src="/images/bms-url.png">
+<img src="images/bms-url.png" | absURL>
 
 Only problem with the first attempt was that the first step was not able to scroll much further because BMS uses [lazy loading](https://www.cloudflare.com/learning/performance/what-is-lazy-loading/). Then again I started research about how to scrape sites that uses lazy loading for scrolling down the page to trigger the loading of dynamic content. Addition to lazy-loading, bookmyshow has an advance bot detection, if you keep scrolling to the bottom of the page for all the event cards at same pace it assumes you're bot and stops loading events!!
 

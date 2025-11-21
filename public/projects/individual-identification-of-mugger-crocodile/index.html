@@ -119,7 +119,7 @@ Individual identification contributes significantly towards investigating behavi
                 </a>
             </li>
             <li>
-                <a href="https://github.com/shubhamapat7" title="GitHub">
+                <a href="https://github.com/ShubhamApat" title="GitHub">
                     <span>GitHub</span>&nbsp;
                     <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
                         stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
@@ -140,7 +140,7 @@ Individual identification contributes significantly towards investigating behavi
     <h1 class="post-title entry-hint-parent">
       Individual Identification of Mugger Crocodiles using YOLOv8
     </h1>
-    <div class="post-meta"><span title='2024-04-20 00:00:00 +0000 UTC'>April 20, 2024</span>&nbsp;·&nbsp;<span>5 min</span>
+    <div class="post-meta"><span title='2025-10-10 00:00:00 +0000 UTC'>October 10, 2025</span>&nbsp;·&nbsp;<span>5 min</span>
 
 </div>
   </header> 
@@ -154,7 +154,7 @@ Individual identification contributes significantly towards investigating behavi
 </blockquote>
 <p>Individual Identification of mugger crocodile, is where my computer vision journey started. I was part of a deep learning research project under <strong>Prof. Mehul Raval</strong>, where we were provided a dataset of free-ranging muggger crocodiles collected using Unmanned Aerial Vehicle (UAV). The dataset contained total 160,000 images focusing on mugger&rsquo;s dorsal body. The data was collected from 160 individuals across 19 different locations along the western part of India.
 This was an extension to an already done <a href="https://india.mongabay.com/2022/11/identifying-individual-mugger-crocodiles-using-drone-technology-to-minimise-conflicts/">research</a>.</p>
-<img src="/images/mugger.png" width=300>
+<img src="images/mugger.png" width=300>
 <p>Using a CNN model, we aim to individually identify free ranging mugger crocodiles, Crocodylus palustris based on their dorsal scute patterns. Scutes are hard calcium bony plates called osteoderms (Fig. 1) that form a crocodile&rsquo;s dorsal body. It serves as a unique identifier based on its placement on the dorsal body. With this background, we hypothesize that the developed CNN-based IID for mugger crocodiles will provide a robust understanding of behavioral processes and physiological patterns at an individual level, which in turn will contribute towards species conservation.</p>
 <p>The dataset had 160,000 images and their annotations (bounding boxes of scute patterns), we decided to use YOLOv8 as it is the state of the art object detection model, known for its speed and accuracy. The size of dataset was ~450GB, for data preprocessing and model training we were assigned access to ParamShavak supercoputer which use NVIDIA A6000 GPU!</p>
 <blockquote>
@@ -170,12 +170,12 @@ This was an extension to an already done <a href="https://india.mongabay.com/202
 </code></pre><p>This was first training version which acheived 97.5% mAP50, after that did hyperparameter tuning with <a href="%22https://docs.ultralytics.com/modes/train/#train-settings%22">train-settings</a> and the images-per-class which varied from 50,100,150,200,500 and even taking all 1000. But the final best accuracy acheived was with optimizer Adam, aumentations settings like perspective, flipud, fliplr, scale and 250 images per class whcih acheived <strong>99.5% mAP50</strong>.</p>
 <p>For testing, we used new data collected six months after the training dataset. Because of the time gap, the weather conditions had changed significantly, creating a noticeable difference between the training and test images.</p>
 <p>We used two parameters, True Positive Rate (TPR) and True Negative Rate (TNR), to validate the efficiency of the trained models. Using YOLO-v5l, TPR (re-identification of trained muggers) and TNR (differentiating untrained muggers as ‘unknown’) values at the 0.84 decision threshold were 88.8% and 89.6%, respectively. The trained model showed 100% TNR for the non-mugger species, the Gharial, Gavialis gangeticus, and the Saltwater crocodile, Crocodylus porosus.</p>
-<img src="/images/yolov8_output1.png" width=600>
-<img src="/images/yolov8_output2.png" width=600>
+<p>&lt;img src=&ldquo;images/yolov8_output1.png&rdquo; width=600 | absURL&gt;
+&lt;img src=&ldquo;images/yolov8_output2.png&rdquo; width=600 | absURL&gt;</p>
 <p><strong>Metrics</strong></p>
-<img src="/images/confusion_matrix.png" width =600>
+<p>&lt;img src=&ldquo;images/confusion_matrix.png&rdquo; width =600 | absURL&gt;</p>
 <p>This confusion matrix displays the predicted values on the y-axis and the true values on the x-axis. The diagonal line represents perfect predictions, where the predicted value matches the true value.</p>
-<img src="/images/other_metrics.png">
+<p>&lt;img src=&ldquo;images/other_metrics.png&rdquo; | absURL&gt;</p>
 <p>precision(B): This metric shows some fluctuations but generally increases over time, indicating improving precision performance. recall(B): Similar to precision, the recall metric also improves as training progresses. mAP50(B): This metric, likely mean Average Precision with an IoU threshold of 0.5, starts low but steadily increases, suggesting better object detection/localization performance. mAP50-95(B): This metric, probably mean Average Precision averaged over multiple IoU thresholds (0.5 to 0.95), also improves consistently during training.</p>
 <p>The performance of the CNN model was reliable and accurate while using only 250 images per individual for training purposes. Showing that a bounding box approach (YOLO-v5l model) with background elimination is a promising method to individually identify free-ranging mugger crocodiles. Our manuscript demonstrates that UAV imagery appears to be a promising tool for non-invasive collection of data from free-ranging populations. It can be used to train open-source algorithms for individual identification. Further, the identification method is entirely based upon dorsal scute patterns, which can be applied to different crocodilian species, as well.</p>
 
@@ -194,10 +194,10 @@ This was an extension to an already done <a href="https://india.mongabay.com/202
     <br>
     <span>College Hotspots Dashboard</span>
   </a>
-  <a class="next" href="http://localhost:1313/projects/bookmyshow-scraper/">
+  <a class="next" href="http://localhost:1313/projects/linkedin-scraper/">
     <span class="title">Next »</span>
     <br>
-    <span>BookMyShow Scraper</span>
+    <span>I bypassed Google reCAPTCHA and LinkedIn&#39;s Anti-Scraping</span>
   </a>
 </nav>
 

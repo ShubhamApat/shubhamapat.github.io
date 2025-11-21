@@ -6,12 +6,35 @@
     <description>Recent content in Home on Shubham Apat</description>
     <generator>Hugo -- 0.152.2</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Oct 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Nov 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>VisDrone Challenge</title>
+      <link>http://localhost:1313/projects/visdrone-challenge-2019/</link>
+      <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/visdrone-challenge-2019/</guid>
+      <description>A deep dive into YOLO-based UAV vision: object detection, single-object tracking, multi-object tracking, and real-world traffic analytics</description>
+    </item>
+    <item>
+      <title>College Hotspots Dashboard</title>
+      <link>http://localhost:1313/projects/college-hotspots-dashboard/</link>
+      <pubDate>Wed, 15 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/college-hotspots-dashboard/</guid>
+      <description>How I built an interactive dashboard for student businesses and achieved 90x performance improvement</description>
+    </item>
+    <item>
+      <title>Individual Identification of Mugger Crocodiles using YOLOv8</title>
+      <link>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</link>
+      <pubDate>Fri, 10 Oct 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Individual identification contributes significantly towards investigating behavioral mechanisms of animals and understanding underlying ecological principles. Most studies employ invasive procedures for individually identifying organisms. In recent times, computer-vision techniques have served as an alternative to invasive methods. However, these studies primarily rely on user input data collected from captivity or from individuals under partially restrained conditions. Challenges in collecting data from free-ranging individuals are higher when compared to captive populations. However, the former is a far more important priority for real-world applications.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>I bypassed Google reCAPTCHA and LinkedIn&#39;s Anti-Scraping</title>
       <link>http://localhost:1313/projects/linkedin-scraper/</link>
-      <pubDate>Sun, 20 Oct 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 20 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/linkedin-scraper/</guid>
       <description>&lt;p&gt;LinkedIn doesn&amp;rsquo;t want you scraping their data. But I needed to, not just because I was asked to but I like the challenge! What I wanted to scrape? Posts about specific topics e.g., &amp;ldquo;LLMs&amp;rdquo;,&amp;ldquo;transformers&amp;rdquo;,&amp;hellip;., anything people posts about on linkedin.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;The catch&lt;/strong&gt;: No login required, and it has to bypass anti-bot measures.&lt;/p&gt;
@@ -21,44 +44,28 @@
     <item>
       <title>I Made YOLOv8 Detection 3.7x Faster and Beat Ultralytics&#39; Own Benchmark</title>
       <link>http://localhost:1313/post/nsmfw-moderation-optimization/</link>
-      <pubDate>Sun, 01 Sep 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 14 Sep 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/post/nsmfw-moderation-optimization/</guid>
       <description>How I optimized YOLOv8&amp;#39;s detection from 650ms to 180ms using OpenVINO, even beating Ultralytics&amp;#39; own benchmarks</description>
     </item>
     <item>
-      <title>College Hotspots Dashboard</title>
-      <link>http://localhost:1313/projects/college-hotspots-dashboard/</link>
-      <pubDate>Wed, 01 May 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/college-hotspots-dashboard/</guid>
-      <description>How I built an interactive dashboard for student businesses and achieved 90x performance improvement</description>
-    </item>
-    <item>
-      <title>Individual Identification of Mugger Crocodiles using YOLOv8</title>
-      <link>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</link>
-      <pubDate>Sat, 20 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/individual-identification-of-mugger-crocodile/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Abstract&lt;/strong&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;Individual identification contributes significantly towards investigating behavioral mechanisms of animals and understanding underlying ecological principles. Most studies employ invasive procedures for individually identifying organisms. In recent times, computer-vision techniques have served as an alternative to invasive methods. However, these studies primarily rely on user input data collected from captivity or from individuals under partially restrained conditions. Challenges in collecting data from free-ranging individuals are higher when compared to captive populations. However, the former is a far more important priority for real-world applications.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>BookMyShow Scraper</title>
-      <link>http://localhost:1313/projects/bookmyshow-scraper/</link>
-      <pubDate>Fri, 05 Apr 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/projects/bookmyshow-scraper/</guid>
-      <description>How I scraped BookMyShow&amp;#39;s highly secured platform and achieved 6x performance improvement using a clever Windows GUI trick</description>
-    </item>
-    <item>
       <title>Remote Sensing-Based Mangrove Classification</title>
       <link>http://localhost:1313/projects/remote-sensing-mangrove-classification/</link>
-      <pubDate>Tue, 20 Feb 2024 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 20 Apr 2025 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/remote-sensing-mangrove-classification/</guid>
       <description>Developed a mangrove classification model for India using Sentinel-2A multispectral imagery and Random Forest classifier with 99.03% accuracy.</description>
     </item>
     <item>
+      <title>BookMyShow Scraper</title>
+      <link>http://localhost:1313/projects/bookmyshow-scraper/</link>
+      <pubDate>Sat, 05 Apr 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/projects/bookmyshow-scraper/</guid>
+      <description>How I scraped BookMyShow&amp;#39;s highly secured platform and achieved 6x performance improvement using a clever Windows GUI trick</description>
+    </item>
+    <item>
       <title>Real-Time Self-Driving Car with Lane Detection</title>
       <link>http://localhost:1313/projects/real-time-self-driving-car/</link>
-      <pubDate>Mon, 15 Jan 2024 00:00:00 +0000</pubDate>
+      <pubDate>Wed, 15 Nov 2023 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/projects/real-time-self-driving-car/</guid>
       <description>Built a Raspberry Pi-based self-driving car capable of lane detection, obstacle avoidance, and path navigation using real-time image processing.</description>
     </item>
